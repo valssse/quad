@@ -1,0 +1,601 @@
+/* ==========================================================
+   Quad · Componentes (página "Componentes · Onboarding" de Figma)
+   ========================================================== */
+
+/* ---------- 1. Botones ---------- */
+.btn {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding: 15px var(--spacing-8);
+  border-radius: var(--radius-16);
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  line-height: 1.35;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+}
+
+.btn--primary {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.btn--primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn--outline {
+  background: var(--bg-surface);
+  color: var(--brand-primary);
+  border: 1.5px solid var(--brand-primary);
+}
+
+.btn--neutral {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+
+/* ---------- 2. Botón atrás ---------- */
+.back-btn {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+/* ---------- 3. Campos de texto ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.field__label {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.field__control {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: 0 var(--spacing-7);
+  background: var(--bg-screen);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-14);
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.field__control:focus-within {
+  border-color: var(--brand-primary);
+}
+
+.field__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.field__input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: var(--font-size-h5);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.field__input::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+.field__toggle {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  opacity: 1;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.field__toggle[aria-pressed='true'] {
+  opacity: 0.45;
+}
+
+.field__hint {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--brand-primary);
+}
+
+/* ---------- 4. Divisor "o" ---------- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-5);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--neutral-300);
+}
+
+/* ---------- 5. Nota informativa ---------- */
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  padding: var(--spacing-5) var(--spacing-6);
+  background: var(--brand-primary-soft);
+  border-radius: var(--radius-14);
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: var(--text-body);
+}
+
+.note img {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ---------- 6. Paginación ---------- */
+.pagination {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.pagination__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--border-default);
+  transition:
+    width var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.pagination__dot--active {
+  width: 22px;
+  background: var(--brand-primary);
+}
+
+/* ---------- 7. Checkbox ---------- */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  cursor: pointer;
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.checkbox__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkbox__box {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-6);
+  border: 1.5px solid var(--border-default);
+  background: var(--bg-surface);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.checkbox__box img {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.checkbox__input:checked + .checkbox__box {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.checkbox__input:checked + .checkbox__box img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.checkbox__input:focus-visible + .checkbox__box {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- 8. Opción · Selección ---------- */
+.option {
+  width: 100%;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-7);
+  text-align: left;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-16);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.option--selected {
+  background: var(--brand-primary-soft);
+  border-color: var(--brand-primary);
+  /* +0.5px para llegar al borde de 1.5px de Figma sin mover el contenido */
+  box-shadow: 0 0 0 0.5px var(--brand-primary);
+}
+
+.option__icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.option__icon img {
+  position: absolute;
+  inset: 0;
+}
+
+.option__texts {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.option__title {
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.option__desc {
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.radio {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-default);
+  background: var(--bg-surface);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.radio--checked {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+/* ---------- 9. Fila de permiso + Switch ---------- */
+.perm-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-7);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-16);
+}
+
+.perm-row > img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.switch {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--border-default);
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+
+.switch[aria-checked='true'] {
+  background: var(--brand-primary);
+}
+
+.switch__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
+}
+
+/* ---------- 10. Código de verificación ---------- */
+.otp {
+  display: flex;
+  justify-content: space-between;
+}
+
+.otp__digit {
+  width: 48px;
+  height: 58px;
+  text-align: center;
+  background: var(--bg-screen);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-14);
+  outline: 0;
+  font-size: var(--font-size-h2);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-primary);
+  caret-color: var(--brand-primary);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.otp__digit:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 0.5px var(--brand-primary);
+}
+
+.otp--error .otp__digit {
+  border-color: #e5484d;
+}
+
+.resend {
+  display: flex;
+  gap: var(--spacing-1);
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.resend__timer {
+  font-weight: 500;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 11. Ícono genérico ---------- */
+.icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+.note__icon {
+  color: var(--brand-primary);
+}
+
+/* Íconos dentro de las tarjetas de selección */
+.option__icon--svg {
+  color: var(--text-secondary);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.option__icon--svg > span {
+  position: absolute;
+  inset: 0;
+}
+
+.option--selected .option__icon--svg {
+  color: var(--brand-primary);
+}
+
+/* ---------- 12. Chips ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: 10px var(--spacing-6);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-p);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-primary);
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.chip__icon {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  color: var(--text-secondary);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.chip__icon > span {
+  position: absolute;
+  inset: 0;
+}
+
+/* Selección corta (≤ 3): azul */
+.chip--blue {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.chip--blue .chip__icon {
+  color: var(--text-on-brand);
+}
+
+/* Selección múltiple: gris */
+.chip--gray {
+  background: var(--neutral-400);
+  border-color: var(--neutral-400);
+}
+
+.chip--gray .chip__icon {
+  color: var(--text-primary);
+}
+
+/* ---------- 13. Barra de progreso ---------- */
+.progress {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  overflow: hidden;
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+}
+
+.progress__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--brand-primary);
+  border-radius: var(--radius-full);
+}
+
+.progress__count {
+  position: relative;
+  width: 44px;
+  flex-shrink: 0;
+  text-align: right;
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress__count > span {
+  display: block;
+}
+
+/* ---------- 14. Etiqueta de sección y área de texto ---------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.section-label {
+  font-size: var(--font-size-p);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.textarea {
+  width: 100%;
+  height: 88px;
+  padding: var(--spacing-7);
+  resize: none;
+  background: var(--bg-screen);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-14);
+  outline: 0;
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-primary);
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.textarea:focus {
+  border-color: var(--brand-primary);
+}
+
+.counter {
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  text-align: right;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 15. Tag · Perfil (solo lectura) ---------- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-6) var(--spacing-3) var(--spacing-5);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.tag .icon {
+  color: var(--text-secondary);
+}
+

@@ -1,0 +1,274 @@
+/* ==========================================================
+   Quad · Base, layout del dispositivo y estructura de pantalla
+   ========================================================== */
+
+/* ---------- 1. Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* Lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- 2. Escenario y marco de dispositivo ----------
+   Móvil: la app ocupa toda la pantalla.
+   Escritorio: se muestra dentro de un marco de 390 × 844 (iPhone del Figma). */
+.stage {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.device {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--bg-surface);
+  isolation: isolate;
+}
+
+@media (min-width: 600px) {
+  body {
+    background: var(--bg-screen);
+  }
+
+  .stage {
+    align-items: center;
+    padding: 24px;
+  }
+
+  .device {
+    width: 390px;
+    height: min(844px, calc(100dvh - 48px));
+    min-height: 640px;
+    border-radius: 44px;
+    box-shadow:
+      0 0 0 1px rgba(15, 23, 42, 0.06),
+      0 24px 60px -12px rgba(15, 23, 42, 0.18);
+  }
+}
+
+/* ---------- 3. Barra de estado ---------- */
+.statusbar {
+  display: none;
+  height: 62px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.statusbar svg {
+  display: block;
+}
+
+.statusbar--dark {
+  color: #000;
+}
+
+.statusbar--light {
+  color: #fff;
+}
+
+/* En celular real el sistema ya dibuja su barra: usamos el área segura. */
+.safe-top {
+  height: max(12px, env(safe-area-inset-top));
+  flex-shrink: 0;
+}
+
+@media (min-width: 600px) {
+  .statusbar {
+    display: block;
+  }
+
+  .safe-top {
+    display: none;
+  }
+}
+
+/* ---------- 4. Estructura de pantalla ---------- */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+}
+
+/* Barra superior (44px, 16px a los lados) */
+.topbar {
+  height: 44px;
+  margin: 0 var(--spacing-7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+/* Contenido desplazable (inicia 20px debajo de la barra superior) */
+.screen__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.screen__body::-webkit-scrollbar {
+  display: none;
+}
+
+.screen__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-9);
+  padding: var(--spacing-8) var(--spacing-9) var(--spacing-9);
+}
+
+/* Barra de acciones inferior */
+.actionbar {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-7);
+  padding: var(--spacing-7) var(--spacing-9) 34px;
+  background: var(--bg-surface);
+  box-shadow: var(--elevation-barra-inferior);
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 599px) {
+  .actionbar {
+    padding-bottom: max(24px, calc(env(safe-area-inset-bottom) + 12px));
+  }
+}
+
+/* ---------- 5. Tipografía (estilos de texto de Figma) ---------- */
+.text-h1 {
+  font-size: var(--font-size-h1);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.text-h2 {
+  font-size: var(--font-size-h2);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.text-p {
+  font-size: var(--font-size-p);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.text-small {
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.heading--welcome {
+  gap: var(--spacing-4);
+}
+
+/* Enlace de texto (Omitir, Cambiar correo, Ahora no…) */
+.link {
+  font-size: var(--font-size-p);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--brand-primary);
+  border-radius: 6px;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.link--small {
+  font-size: var(--font-size-h6);
+  line-height: 1.4;
+}
+
+.link:disabled {
+  color: var(--text-tertiary);
+  cursor: default;
+  opacity: 1;
+}
+
+/* Preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Capa de cada pantalla durante la transición */
+.screen-layer {
+  position: absolute;
+  inset: 0;
+}

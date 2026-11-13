@@ -1,0 +1,94 @@
+/* ==========================================================
+   01a · Inicio (splash)
+   ========================================================== */
+
+/* Fondo transparente: el degradado entra con su propio barrido */
+.splash {
+  justify-content: space-between;
+  background: transparent;
+}
+
+.splash > :not(.splash__bg) {
+  position: relative;
+  z-index: 1;
+}
+
+.splash__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    #1e56f0 0%,
+    #2667ff 35%,
+    #8fb0ff 51.089%,
+    #eef3ff 65.973%,
+    #ffffff 100%
+  );
+  /* Máscara de 2.25 veces el alto de la pantalla con un borde difuminado
+     de 25%: al moverla de abajo (100%) a arriba (0%) el degradado "baja"
+     suave y empieza a verse desde el primer cuadro. */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 44.44%, transparent 55.56%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 44.44%, transparent 55.56%, transparent 100%);
+  -webkit-mask-size: 100% 225%;
+  mask-size: 100% 225%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 0% 0%;
+  mask-position: 0% 0%;
+}
+
+/* Bloque de marca: alto fijo de 472px en Figma */
+.splash__brand {
+  height: 472px;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.splash__wordmark {
+  font-size: 38px;
+  font-weight: 800; /* Excepción: el logotipo "Quad." usa ExtraBold */
+  line-height: 1.4;
+  letter-spacing: 1.14px;
+  color: var(--text-on-brand);
+}
+
+.splash__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-5);
+  padding: 0 var(--spacing-9) 40px;
+}
+
+.splash__tagline {
+  font-size: var(--font-size-p);
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--text-body);
+}
+
+.splash__spacer {
+  height: 6px;
+}
+
+.splash__btn {
+  width: 100%;
+}
+
+@media (max-width: 599px) {
+  .splash__brand {
+    height: auto;
+    min-height: 0;
+    padding-top: 42px;
+    flex: 1;
+  }
+
+  .splash__actions {
+    padding-bottom: max(40px, calc(env(safe-area-inset-bottom) + 24px));
+  }
+}

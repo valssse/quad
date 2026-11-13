@@ -1,0 +1,503 @@
+/* ==========================================================
+   Estudiante · Onboarding y primeras pantallas (E01–E13)
+   ========================================================== */
+
+/* ---------- 1. Contenedor del flujo ---------- */
+.est__topbar {
+  gap: var(--spacing-6);
+  justify-content: flex-start;
+}
+
+.est__stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Cada paso ocupa todo el escenario: contenido desplazable + barra de acciones */
+.step {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+}
+
+.step--long .screen__content {
+  padding-bottom: 40px;
+}
+
+/* ---------- 2. E01 · Logo de universidad ---------- */
+.uni-logo {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+}
+
+.uni-logo img {
+  object-fit: contain;
+}
+
+.empty {
+  padding: var(--spacing-7);
+  text-align: center;
+  font-size: var(--font-size-p);
+  color: var(--text-tertiary);
+}
+
+/* ---------- 3. E04 · Verificado ---------- */
+.verified {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.verified__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  padding: 0 var(--spacing-9);
+  text-align: center;
+}
+
+.verified__bubble {
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  color: var(--brand-primary);
+}
+
+.verified__ring {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-full);
+  background: var(--brand-primary-soft);
+}
+
+/* ---------- 4. Avatar (E05a/b/c) ---------- */
+.avatar-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  position: relative;
+  width: 176px;
+  height: 176px;
+}
+
+.avatar__circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 168px;
+  height: 168px;
+}
+
+.avatar__photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 168px;
+  height: 168px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.avatar__icon {
+  position: absolute;
+  color: var(--brand-primary);
+}
+
+.avatar__badge {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  background: var(--brand-primary);
+  border: 3px solid var(--bg-surface);
+  border-radius: var(--radius-full);
+  color: var(--text-on-brand);
+}
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+.tips li {
+  display: flex;
+  gap: var(--spacing-4);
+  list-style: none;
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-body);
+}
+
+.tips .icon {
+  margin-top: 1px;
+  color: var(--brand-primary);
+}
+
+.tips ul,
+ul.tips {
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- 5. Hoja inferior · Agregar foto (E05b) ---------- */
+.sheet-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+}
+
+.sheet-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 41, 0.45);
+}
+
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-7);
+  padding: var(--spacing-5) var(--spacing-9) 34px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-16) var(--radius-16) 0 0;
+  touch-action: none;
+}
+
+.sheet__handle {
+  align-self: center;
+  width: 40px;
+  height: 4px;
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+}
+
+.sheet__title {
+  font-size: var(--font-size-h3);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.sheet-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-6) var(--spacing-7);
+  text-align: left;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-16);
+  cursor: pointer;
+}
+
+.sheet-option > .icon:first-child {
+  color: var(--brand-primary);
+}
+
+.sheet-option > .icon:last-child {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 599px) {
+  .sheet {
+    padding-bottom: max(24px, calc(env(safe-area-inset-bottom) + 12px));
+  }
+}
+
+/* ---------- 6. E05e / E12b · Perfil mini ---------- */
+.mini {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-7);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-16);
+}
+
+.mini__avatar {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--brand-primary-soft-strong);
+  border-radius: var(--radius-full);
+  color: var(--brand-primary);
+}
+
+.mini__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mini__texts {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mini__name {
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.mini__meta,
+.mini__city {
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.mini__city {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pending {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-7);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-16);
+}
+
+.pending__title {
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
+
+.pending__text {
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: var(--text-tertiary);
+}
+
+/* ---------- 7. E07 · Rango de presupuesto ---------- */
+.range-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: var(--spacing-7);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-16);
+}
+
+.range-card__value {
+  font-size: var(--font-size-h1);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.range {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  touch-action: none;
+  cursor: pointer;
+}
+
+.range__track,
+.range__fill {
+  position: absolute;
+  top: 9px;
+  height: 6px;
+  border-radius: var(--radius-full);
+}
+
+.range__track {
+  left: 0;
+  right: 0;
+  background: var(--border-default);
+}
+
+.range__fill {
+  background: var(--brand-primary);
+}
+
+.range__thumb {
+  position: absolute;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  background: var(--bg-surface);
+  border: 2px solid var(--brand-primary);
+  border-radius: var(--radius-full);
+  cursor: grab;
+}
+
+.range__thumb:active {
+  cursor: grabbing;
+}
+
+.range__limits {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: var(--text-tertiary);
+}
+
+/* ---------- 8. E12b · Secciones del perfil ---------- */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+.profile-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-section__title {
+  font-size: var(--font-size-h4);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.profile-section__text {
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-body);
+}
+
+.profile-section__empty {
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-tertiary);
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-7);
+  padding: var(--spacing-7);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-16);
+}
+
+.fact {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.fact > .icon {
+  color: var(--brand-primary);
+}
+
+.fact__label {
+  display: block;
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.fact__value {
+  display: block;
+  font-size: var(--font-size-p);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+/* ---------- 9. E13 · Todo listo ---------- */
+.done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding-top: 10px;
+  text-align: center;
+}
+
+.summary {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  padding: var(--spacing-7);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-16);
+  text-align: left;
+}
+
+.summary__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-7);
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+}
+
+.summary__row dt {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.summary__row dd {
+  margin: 0;
+  font-weight: 500;
+  text-align: right;
+  color: var(--text-primary);
+}
+
+/* ---------- 10. Ajustes de espaciado por pantalla ---------- */
+.field__icon--svg {
+  color: var(--text-secondary);
+}
+
+.step--gap28 .screen__content {
+  gap: var(--spacing-10);
+}
+
+/* E05c: el contenido baja 20px y separa más los bloques */
+.step--photo .screen__content {
+  padding-top: 40px;
+  gap: 36px;
+}
+
+.summary {
+  margin: 0;
+}
+
+/* E01: el campo de búsqueda no muestra la "x" nativa */
+.field__input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}

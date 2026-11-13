@@ -1,0 +1,21 @@
+/* ==========================================================
+   Splash animado de apertura
+   ========================================================== */
+
+.intro {
+  background: var(--brand-primary);
+}
+
+.intro__stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  /* compensa la barra de estado para que el logo quede al centro óptico */
+  padding-bottom: 62px;
+}
+
+.intro__logo {
+  display: block;
+  width: 88px;
+  height: 88px;
+}

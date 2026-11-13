@@ -1,0 +1,57 @@
+/* ==========================================================
+   01d–01f · Bienvenida
+   ========================================================== */
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-9);
+}
+
+.welcome__slide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-9);
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.welcome__slide:active {
+  cursor: grabbing;
+}
+
+/* Ilustración: tarjeta 320px · elipse 260px · burbuja 128px · ícono 64px */
+.illustration {
+  position: relative;
+  height: 320px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--brand-primary-soft);
+  border-radius: var(--radius-16);
+}
+
+.illustration > * {
+  grid-area: 1 / 1;
+}
+
+.illustration__ellipse {
+  width: 260px;
+  height: 260px;
+  pointer-events: none;
+}
+
+.illustration__bubble {
+  position: relative;
+  z-index: 1; /* siempre sobre la elipse animada */
+  width: 128px;
+  height: 128px;
+  display: grid;
+  place-items: center;
+  background: var(--brand-primary);
+  border-radius: var(--radius-full);
+}
+
+.illustration__bubble img {
+  pointer-events: none;
+}
