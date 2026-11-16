@@ -42,6 +42,7 @@ export default function useHashRoute(order, fallback) {
     }
   }, [])
 
-  const [route, param] = path.split('/')
-  return { route, param, direction, navigate }
+  // #/ruta/param/sub → sub permite un tercer nivel (p. ej. app/resultados/antiguo-cuscatlan)
+  const [route, param, ...rest] = path.split('/')
+  return { route, param, sub: rest.join('/') || undefined, direction, navigate }
 }

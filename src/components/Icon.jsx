@@ -1,4 +1,7 @@
-import icons from '../assets/icons/icons.js'
+import base from '../assets/icons/icons.js'
+import extra from '../assets/icons/extra.js'
+
+const icons = { ...base, ...extra }
 
 /**
  * Ícono de la librería de Quad (Iconoir, Heroicons y los de relleno del archivo de Figma).
@@ -19,7 +22,7 @@ export default function Icon({ name, size = 24, className = '', style }) {
       className={`icon ${className}`}
       width={size}
       height={size}
-      viewBox="0 0 24 24"
+      viewBox={`0 0 ${icon.vb || 24} ${icon.vb || 24}`}
       aria-hidden="true"
       style={style}
       {...attrs[icon.type]}

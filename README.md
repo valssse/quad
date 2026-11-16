@@ -11,6 +11,7 @@ Este repositorio contiene el MVP de **Quad**, programado en **React + JavaScript
 | Onboarding · Compartido | 01a–01i | ✅ Hecho |
 | Estudiante · Onboarding y primeras pantallas | E01–E13 | ✅ Hecho |
 | Onboarding · Anfitrión | A01–A22 | ✅ Hecho |
+| Home (estudiante) | 02, 07–11 | ✅ Hecho |
 
 ### Onboarding compartido
 
@@ -30,6 +31,17 @@ La barra de progreso (n/14) vive fuera de las pantallas, así que avanza animada
 
 Al empezar la parte 2 la barra se reinicia y vuelve a crecer hacia 1/9. Si en A12 eliges "Hacerlo después", el flujo termina en el panel.
 
+### Home (estudiante)
+
+Al terminar el onboarding de estudiante se entra a `#/app/explorar`. La barra de navegación tipo vidrio es fija y la pastilla azul se desliza al tab activo.
+
+- **Inicio (02):** saludo según la hora, buscador, filtros rápidos (filtran los carruseles) y tres carruseles de cards.
+- **Guardados (07):** el corazón guarda o quita en toda la app; el contador se actualiza.
+- **Mensajes (08):** búsqueda por nombre o quad y filtros; al abrir una conversación se marca como leída.
+- **Perfil (09):** usa el nombre, la foto y la carrera del onboarding; "¿Tienes un cuarto libre?" abre el onboarding de anfitrión.
+- **Búsqueda (10):** sugerencias de zonas con la parte escrita en azul → resultados de la zona.
+- **Mapa (11):** pines de precio; al tocar uno se mueve la vista previa y el carrusel inferior.
+
 ## Cómo correrlo
 
 ```bash
@@ -44,12 +56,15 @@ npm run build    # genera /dist para GitHub Pages
 src/
 ├── assets/icons/     # SVG de Figma + icons.js (Iconoir, Heroicons e íconos propios)
 ├── assets/universidades/ # Logos de universidades
+├── assets/quads/     # Fotos de los quads (exportadas de Figma)
+├── assets/mapa/      # Mapa de la zona de la UCA
 ├── components/       # Componentes reutilizables (Botón, Campo, Opción, Switch…)
 ├── data/             # Contenido de las pantallas de bienvenida
 ├── hooks/            # useHashRoute: navegación por #/ruta
 ├── screens/          # Una pantalla por archivo (+ su CSS)
 │   ├── estudiante/   # Onboarding de estudiante (E01–E13)
-│   └── anfitrion/    # Onboarding de anfitrión (A01–A22)
+│   ├── anfitrion/    # Onboarding de anfitrión (A01–A22)
+│   └── home/         # Home del estudiante (Explorar, Guardados, Mensajes, Perfil, Búsqueda, Mapa)
 └── styles/           # tokens.css (variables de Figma), base.css, components.css
 ```
 

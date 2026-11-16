@@ -22,6 +22,7 @@ import EstudianteFlow from './screens/estudiante/EstudianteFlow.jsx'
 import { ESTUDIANTE_INICIAL } from './data/estudiante.js'
 import AnfitrionFlow from './screens/anfitrion/AnfitrionFlow.jsx'
 import { ANFITRION_INICIAL } from './data/anfitrion.js'
+import HomeShell from './screens/home/HomeShell.jsx'
 
 /**
  * Onboarding compartido de Quad (sección "Onboarding · Compartido" en Figma).
@@ -38,6 +39,7 @@ const FLOW = [
   'permisos',
   'estudiante',
   'anfitrion',
+  'app',
   'listo',
 ]
 
@@ -45,7 +47,7 @@ const FLOW = [
 const INTRO_MS = 1800
 
 export default function App() {
-  const { route, param, direction, navigate } = useHashRoute(FLOW, 'bienvenida/1')
+  const { route, param, sub, direction, navigate } = useHashRoute(FLOW, 'bienvenida/1')
 
   // Splash animado: se muestra siempre al abrir la app
   const [introDone, setIntroDone] = useState(false)
@@ -122,7 +124,7 @@ export default function App() {
         setDatos={setEstudiante}
         cuenta={account}
         navigate={navigate}
-        onFinish={() => navigate('listo/estudiante')}
+        onFinish={() => navigate('app/explorar')}
       />
     ),
     anfitrion: (
@@ -132,6 +134,20 @@ export default function App() {
         setDatos={setAnfitrion}
         navigate={navigate}
         onFinish={() => navigate('listo/anfitrion')}
+      />
+    ),
+    app: (
+      <HomeShell
+        pantalla={param}
+        sub={sub}
+        cuenta={account}
+        estudiante={estudiante}
+        navigate={navigate}
+        onAnfitrion={() => {
+          setRole('anfitrion')
+          navigate('anfitrion/tipo')
+        }}
+        onCerrarSesion={() => navigate('inicio')}
       />
     ),
     listo: <Listo role={role} etapa={param} onRestart={() => navigate('bienvenida/1')} />,
