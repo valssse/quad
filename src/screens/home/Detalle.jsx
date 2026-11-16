@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import StatusBar from '../../components/StatusBar.jsx'
 import Icon from '../../components/Icon.jsx'
@@ -6,7 +6,7 @@ import { fadeUp, stagger } from '../../components/motion.js'
 import { Corazon } from './ui.jsx'
 import { quad as buscarQuad } from '../../data/quads.js'
 import { detalle } from '../../data/detalle.js'
-import mapaQuad from '../../assets/detalle/mapa-quad.jpg'
+import { UCA, distanciaKm, osmEmbed, osmRuta, textoDistancia } from '../../data/geo.js'
 
 const compartir = (q) => navigator.share?.({ title: q.titulo, text: `${q.titulo} · $${q.precio}/mes en Quad` }).catch(() => {})
 
@@ -74,7 +74,7 @@ export function Resena({ r, texto, children }) {
 }
 
 /** Galería deslizable con contador "1 / 8". */
-function Galeria({ fotos }) {
+function Galeria({ fotos, onAbrir }) {
   const [i, setI] = useState(0)
   const pista = useRef(null)
   return (
@@ -88,7 +88,7 @@ function Galeria({ fotos }) {
         }}
       >
         {fotos.map((f, k) => (
-          <img key={k} src={f} alt="" draggable="false" loading={k < 2 ? 'eager' : 'lazy'} />
+          <img key={k} src={f} alt="" draggable="false" loading={k < 2 ? 'eager' : 'lazy'} onClick={() => onAbrir(k)} />
         ))}
       </div>
       <span className="dt-gallery__shade" />
@@ -99,27 +99,97 @@ function Galeria({ fotos }) {
   )
 }
 
-/** Mapa del quad (base exportada del Figma) con pin, halo y zoom. */
-function MapaQuad({ d }) {
-  const [zoom, setZoom] = useState(1)
+/** Mapa real (iframe de OpenStreetMap): encuadra el quad y la UCA, con el marcador en el quad. */
+function MapaQuad({ q, d }) {
+  const [cargado, setCargado] = useState(false)
+  const km = distanciaKm(q.pos, UCA.pos)
   return (
     <div className="dt-map">
-      <motion.div className="dt-map__base" animate={{ scale: zoom }} transition={{ type: 'spring', stiffness: 260, damping: 30 }} style={{ transformOrigin: '66.3% 55.2%' }}>
-        <img src={mapaQuad} alt={`Mapa de ${d.colonia}`} draggable="false" />
-        <span className="dt-map__halo" />
-        <span className="dt-map__pin">
-          <Icon name="home-solid" size={20} />
+      <iframe
+        title={`Mapa de ${d.colonia} y la UCA`}
+        src={osmEmbed(q.pos)}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        onLoad={() => setCargado(true)}
+        className={cargado ? 'dt-map__frame dt-map__frame--on' : 'dt-map__frame'}
+      />
+      <div className="dt-map__legend">
+        <span>
+          <i className="dt-map__dot dt-map__dot--quad" />
+          Quad
         </span>
-      </motion.div>
-      <div className="dt-map__zoom">
-        <button type="button" aria-label="Acercar" onClick={() => setZoom((z) => Math.min(z + 0.3, 1.9))}>
-          +
-        </button>
-        <button type="button" aria-label="Alejar" onClick={() => setZoom((z) => Math.max(z - 0.3, 1))}>
-          –
-        </button>
+        <span>
+          <i className="dt-map__dot dt-map__dot--uca" />
+          UCA a {textoDistancia(km)}
+        </span>
       </div>
     </div>
+  )
+}
+
+/** Fotos en pantalla completa: se deslizan con el dedo; botón atrás arriba a la izquierda. */
+function VisorFotos({ fotos, inicio, onCerrar }) {
+  const [i, setI] = useState(inicio)
+  const pista = useRef(null)
+  useLayoutEffect(() => {
+    const el = pista.current
+    if (el) el.scrollLeft = inicio * el.clientWidth
+  }, [inicio])
+  useEffect(() => {
+    const tecla = (e) => {
+      if (e.key === 'Escape') onCerrar()
+      const el = pista.current
+      if (!el) return
+      if (e.key === 'ArrowRight') el.scrollBy({ left: el.clientWidth, behavior: 'smooth' })
+      if (e.key === 'ArrowLeft') el.scrollBy({ left: -el.clientWidth, behavior: 'smooth' })
+    }
+    window.addEventListener('keydown', tecla)
+    return () => window.removeEventListener('keydown', tecla)
+  }, [onCerrar])
+  return (
+    <motion.div
+      className="viewer"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Fotos del quad"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22 }}
+    >
+      <motion.div
+        ref={pista}
+        className="viewer__track"
+        initial={{ scale: 0.94 }}
+        animate={{ scale: 1 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        onScroll={(e) => setI(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}
+      >
+        {fotos.map((f, k) => (
+          <div key={k} className="viewer__slide">
+            <img src={f} alt={`Foto ${k + 1} de ${fotos.length}`} draggable="false" />
+          </div>
+        ))}
+      </motion.div>
+      <div className="viewer__top">
+        <StatusBar tone="light" />
+        <div className="safe-top" />
+        <div className="viewer__bar">
+          <motion.button type="button" className="viewer__back" whileTap={{ scale: 0.9 }} aria-label="Volver" onClick={onCerrar}>
+            <Icon name="nav-arrow-left" size={20} />
+          </motion.button>
+          <span className="viewer__count">
+            {i + 1} / {fotos.length}
+          </span>
+          <span className="viewer__spacer" />
+        </div>
+      </div>
+      <div className="viewer__dots" aria-hidden="true">
+        {fotos.map((_, k) => (
+          <span key={k} className={k === i ? 'on' : ''} />
+        ))}
+      </div>
+    </motion.div>
   )
 }
 
@@ -138,12 +208,13 @@ export function Detalle({ id, guardados, alternarGuardado, ir }) {
     return () => clearTimeout(t)
   }, [aviso])
   const modo = q.trayecto.modo
-  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d.colonia}, ${d.municipio}, El Salvador`)}`
+  const ruta = osmRuta(q.pos, modo)
+  const [visor, setVisor] = useState(null)
 
   return (
     <div className="home-screen dt">
       <div className="home-scroll dt-scroll" onScroll={(e) => setSolido(e.currentTarget.scrollTop > 230)}>
-        <Galeria fotos={d.galeria} />
+        <Galeria fotos={d.galeria} onAbrir={setVisor} />
 
         <motion.div className="dt-body" variants={stagger} initial="hidden" animate="show">
           <div className="dt-head">
@@ -220,7 +291,7 @@ export function Detalle({ id, guardados, alternarGuardado, ir }) {
 
           <motion.section className="dt-section dt-section--map" variants={fadeUp}>
             <Titulo>Dónde está el Quad</Titulo>
-            <MapaQuad d={d} />
+            <MapaQuad q={q} d={d} />
             <div className="dt-address">
               <Icon name="map-pin-fill" size={16} />
               <span>
@@ -229,7 +300,7 @@ export function Detalle({ id, guardados, alternarGuardado, ir }) {
                   {d.municipio}, {d.departamento}
                 </span>
               </span>
-              <a className="dt-outline dt-outline--small" href={maps} target="_blank" rel="noreferrer">
+              <a className="dt-outline dt-outline--small" href={ruta} target="_blank" rel="noreferrer">
                 Abrir en Maps
               </a>
             </div>
@@ -304,6 +375,8 @@ export function Detalle({ id, guardados, alternarGuardado, ir }) {
           </motion.button>
         </div>
       </div>
+
+      <AnimatePresence>{visor !== null && <VisorFotos fotos={d.galeria} inicio={visor} onCerrar={() => setVisor(null)} />}</AnimatePresence>
 
       <AnimatePresence>
         {aviso && (

@@ -1,4 +1,7 @@
-import { useId, useRef } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import { UCA, osmEmbed } from '../../data/geo.js'
 import { AnimatePresence, motion, useDragControls } from 'motion/react'
 import Icon from '../../components/Icon.jsx'
 import Switch from '../../components/Switch.jsx'
@@ -229,75 +232,54 @@ export function VistaRegla({ icon, titulo, texto }) {
   )
 }
 
+/* Ubicación del quad del anfitrión (se recuerda mientras la app esté abierta). */
+let posCasa = [13.6768, -89.2385] // Jardines de Guadalupe, Antiguo Cuscatlán
+
 /**
- * Mapa ilustrado de Figma ("Mapa · iframe Google Maps (reemplazar en desarrollo)").
- * La ruta punteada se dibuja, el pin cae y el halo respira.
+ * Mapa real de OpenStreetMap ("Dónde está el Quad").
+ * - Normal: iframe de OpenStreetMap con el quad y la UCA.
+ * - Ajustable: mapa interactivo (Leaflet) con el pin arrastrable.
  */
 export function Mapa({ ajustable = false }) {
   const caja = useRef(null)
+  const [pos, setPos] = useState(posCasa)
+
+  useEffect(() => {
+    if (!ajustable || !caja.current) return
+    const m = L.map(caja.current, { center: pos, zoom: 17, zoomControl: false, attributionControl: true })
+    m.attributionControl.setPrefix(false)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(m)
+    L.marker(UCA.pos, { icon: L.divIcon({ className: 'qpin', html: '<span class="uca-pin"><span class="uca-pin__dot"></span>UCA</span>', iconSize: [0, 0] }), interactive: false }).addTo(m)
+    const pin = L.marker(pos, {
+      draggable: true,
+      autoPan: true,
+      icon: L.divIcon({ className: 'qpin', html: '<span class="map__pin map__pin--real"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.06l-8.69-8.69a2.25 2.25 0 0 0-3.18 0l-8.69 8.69a.75.75 0 0 0 1.06 1.06l8.69-8.69Z"/><path d="m12 5.43 8.16 8.16c.03.03.06.06.09.08v6.2c0 1.04-.84 1.88-1.88 1.88H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.63a1.88 1.88 0 0 1-1.88-1.88v-6.2l.09-.08L12 5.43Z"/></svg></span>', iconSize: [0, 0] }),
+    }).addTo(m)
+    pin.on('dragend', () => {
+      const ll = pin.getLatLng()
+      posCasa = [ll.lat, ll.lng]
+      setPos(posCasa)
+    })
+    m.on('click', (e) => {
+      pin.setLatLng(e.latlng)
+      posCasa = [e.latlng.lat, e.latlng.lng]
+      setPos(posCasa)
+    })
+    const t = setTimeout(() => m.invalidateSize(), 300)
+    return () => {
+      clearTimeout(t)
+      m.remove()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ajustable])
+
   return (
-    <div className={`map ${ajustable ? 'map--edit' : ''}`} ref={caja}>
-      <svg className="map__base" viewBox="0 0 350 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <rect width="350" height="210" fill="#F1EEE8" />
-        <rect x="-10" y="-10" width="170" height="86" rx="10" fill="#DCEBD6" />
-        <rect x="196" y="140" width="76" height="52" rx="10" fill="#D3E8D6" />
-        <rect x="296" y="96" width="60" height="44" rx="10" fill="#D3E8D6" />
-        <rect x="20" y="150" width="80" height="44" rx="8" fill="#E8E3DA" />
-        {[
-          ['M-10 150C70 128 150 118 360 76', 14, 11],
-          ['M64 -10C84 60 96 130 72 220', 11, 8],
-          ['M-10 100L360 112', 9, 6],
-          ['M176 -10L196 220', 9, 6],
-          ['M262 -10L274 220', 9, 6],
-          ['M-10 194L360 184', 9, 6],
-          ['M120 -10L110 100', 8, 5],
-        ].map(([d, a, b]) => (
-          <g key={d} strokeLinecap="round" fill="none">
-            <path d={d} stroke="#D9D5CB" strokeWidth={a} />
-            <path d={d} stroke="#fff" strokeWidth={b} />
-          </g>
-        ))}
-        <path d="M232 116V84H176V48H96" stroke="#fff" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        <motion.path
-          d="M232 116V84H176V48H96"
-          stroke="#2667FF"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="0.1 7"
-          fill="none"
-          initial={{ clipPath: 'inset(0 0 0 100%)' }}
-          animate={{ clipPath: 'inset(0 0 0 0%)' }}
-          transition={{ duration: 0.9, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </svg>
-      <motion.div
-        className="map__marker"
-        drag={ajustable}
-        dragConstraints={caja}
-        dragMomentum={false}
-        dragElastic={0.1}
-        animate={ajustable ? { scale: 1.08 } : { scale: 1 }}
-      >
-        <motion.span
-          className="map__halo"
-          initial={{ scale: 0.4, opacity: 0 }}
-          animate={{ scale: [1, 1.12, 1], opacity: 1 }}
-          transition={{ scale: { duration: 2.6, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }, opacity: { duration: 0.3, delay: 0.3 } }}
-        />
-        <motion.span
-          className="map__pin"
-          initial={{ y: -18, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 420, damping: 16, delay: 0.25 }}
-        >
-          <Icon name="home-solid" size={20} />
-        </motion.span>
-      </motion.div>
-      <div className="map__zoom" aria-hidden="true">
-        <span>+</span>
-        <span>–</span>
-      </div>
+    <div className={`map map--real ${ajustable ? 'map--edit' : ''}`}>
+      {ajustable ? (
+        <div className="map__leaflet" ref={caja} />
+      ) : (
+        <iframe className="map__frame" title="Ubicación del quad en OpenStreetMap" src={osmEmbed(pos)} loading="lazy" />
+      )}
     </div>
   )
 }

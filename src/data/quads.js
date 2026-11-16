@@ -17,15 +17,15 @@ import { DETALLES } from './detalle.js'
 /* ---------- Quads ---------- */
 // trayecto.modo: walking | bus | car  →  ícono walking-fill / bus-fill / car-fill
 export const QUADS = [
-  { id: 'familia', titulo: 'Cuarto en casa de familia', zona: 'Jardines de Guadalupe', zonaId: 'antiguo-cuscatlan', trayecto: { modo: 'walking', texto: '4 min caminando a la Peatonal', min: 4 }, precio: 115, rating: 4.8, foto: cuartoFamilia, disponible: true, cocina: true, soloMujeres: false },
-  { id: 'amplia', titulo: 'Habitación amplia y luminosa', zona: 'Antiguo Cuscatlán', zonaId: 'antiguo-cuscatlan', trayecto: { modo: 'walking', texto: '9 min caminando a la Peatonal', min: 9 }, precio: 125, rating: 4.9, foto: habitacionAmplia, disponible: true, cocina: true, soloMujeres: false },
-  { id: 'bano-propio', titulo: 'Cuarto con baño propio', zona: 'Urb. Madreselva', zonaId: 'antiguo-cuscatlan', trayecto: { modo: 'walking', texto: '6 min caminando a la Peatonal', min: 6 }, precio: 140, rating: 4.6, foto: banoPropio, disponible: true, cocina: false, soloMujeres: false },
-  { id: 'hogar', titulo: 'Hogar espacioso', zona: 'Col. La Sultana', zonaId: 'la-sultana', trayecto: { modo: 'walking', texto: '7 min caminando a La Sultana', min: 7 }, precio: 120, rating: 4.9, foto: hogarEspacioso, disponible: true, cocina: true, soloMujeres: true },
-  { id: 'balcon', titulo: 'Cuarto con balcón', zona: 'Santa Elena', zonaId: 'santa-elena', trayecto: { modo: 'bus', texto: '12 min en bus a Los Próceres', min: 12 }, precio: 135, rating: 4.5, foto: cuartoBalcon, disponible: false, cocina: false, soloMujeres: true },
-  { id: 'tranquila', titulo: 'Habitación en casa tranquila', zona: 'Jardines de Guadalupe', zonaId: 'jardines-de-guadalupe', trayecto: { modo: 'walking', texto: '5 min caminando a la Peatonal', min: 5 }, precio: 105, rating: 4.7, foto: casaTranquila, disponible: true, cocina: true, soloMujeres: true },
-  { id: 'madreselva', titulo: 'Cuarto en casa de familia', zona: 'Urb. Madreselva', zonaId: 'antiguo-cuscatlan', trayecto: { modo: 'walking', texto: '8 min caminando a La Sultana', min: 8 }, precio: 110, rating: 4.6, foto: cuartoMadreselva, disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
-  { id: 'merliot', titulo: 'Cuarto cerca de Plaza Merliot', zona: 'Ciudad Merliot', zonaId: 'ciudad-merliot', trayecto: { modo: 'bus', texto: '18 min en bus a La Sultana', min: 18 }, precio: 100, rating: 4.4, foto: cuartoMerliot, disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
-  { id: 'closet', titulo: 'Habitación con clóset grande', zona: 'Col. Escalón', zonaId: 'escalon', trayecto: { modo: 'car', texto: '22 min en carro a Los Próceres', min: 22 }, precio: 130, rating: 4.8, foto: closetGrande, disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
+  { id: 'familia', pos: [13.6768, -89.2385], titulo: 'Cuarto en casa de familia', zona: 'Jardines de Guadalupe', zonaId: 'antiguo-cuscatlan', trayecto: { modo: 'walking', texto: '4 min caminando a la Peatonal', min: 4 }, precio: 115, rating: 4.8, foto: cuartoFamilia, disponible: true, cocina: true, soloMujeres: false },
+  { id: 'amplia', pos: [13.6747, -89.2399], titulo: 'Habitación amplia y luminosa', zona: 'Antiguo Cuscatlán', zonaId: 'antiguo-cuscatlan', trayecto: { modo: 'walking', texto: '9 min caminando a la Peatonal', min: 9 }, precio: 125, rating: 4.9, foto: habitacionAmplia, disponible: true, cocina: true, soloMujeres: false },
+  { id: 'bano-propio', pos: [13.6783, -89.2419], titulo: 'Cuarto con baño propio', zona: 'Col. La Sultana', zonaId: 'la-sultana', trayecto: { modo: 'walking', texto: '6 min caminando a la Peatonal', min: 6 }, precio: 140, rating: 4.6, foto: banoPropio, disponible: true, cocina: false, soloMujeres: false },
+  { id: 'hogar', pos: [13.6790, -89.2433], titulo: 'Hogar espacioso', zona: 'Col. La Sultana', zonaId: 'la-sultana', trayecto: { modo: 'walking', texto: '7 min caminando a La Sultana', min: 7 }, precio: 120, rating: 4.9, foto: hogarEspacioso, disponible: true, cocina: true, soloMujeres: true },
+  { id: 'balcon', pos: [13.6732, -89.2554], titulo: 'Cuarto con balcón', zona: 'Santa Elena', zonaId: 'santa-elena', trayecto: { modo: 'bus', texto: '12 min en bus a Los Próceres', min: 12 }, precio: 135, rating: 4.5, foto: cuartoBalcon, disponible: false, cocina: false, soloMujeres: true },
+  { id: 'tranquila', pos: [13.6756, -89.2370], titulo: 'Habitación en casa tranquila', zona: 'Jardines de Guadalupe', zonaId: 'jardines-de-guadalupe', trayecto: { modo: 'walking', texto: '5 min caminando a la Peatonal', min: 5 }, precio: 105, rating: 4.7, foto: casaTranquila, disponible: true, cocina: true, soloMujeres: true },
+  { id: 'madreselva', pos: [13.6575, -89.2496], titulo: 'Cuarto en casa de familia', zona: 'Urb. Madreselva', zonaId: 'antiguo-cuscatlan', trayecto: { modo: 'bus', texto: '15 min en bus a La Sultana', min: 15 }, precio: 110, rating: 4.6, foto: cuartoMadreselva, disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
+  { id: 'merliot', pos: [13.6805, -89.2735], titulo: 'Cuarto cerca de Plaza Merliot', zona: 'Ciudad Merliot', zonaId: 'ciudad-merliot', trayecto: { modo: 'bus', texto: '18 min en bus a La Sultana', min: 18 }, precio: 100, rating: 4.4, foto: cuartoMerliot, disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
+  { id: 'closet', pos: [13.7025, -89.2430], titulo: 'Habitación con clóset grande', zona: 'Col. Escalón', zonaId: 'escalon', trayecto: { modo: 'car', texto: '22 min en carro a Los Próceres', min: 22 }, precio: 130, rating: 4.8, foto: closetGrande, disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
 ]
 
 export const quad = (id) => QUADS.find((q) => q.id === id)
@@ -117,16 +117,7 @@ export const FILTROS_MENSAJES = [
 ]
 
 /* ---------- 11 · Mapa ---------- */
-// Posición del centro de cada pin en el marco de Figma (390 × 844).
-export const PINES = [
-  { quad: 'madreselva', x: 61, y: 196 },
-  { quad: 'tranquila', x: 308.5, y: 204 },
-  { quad: 'familia', x: 195.5, y: 448 },
-  { quad: 'bano-propio', x: 327, y: 456 },
-  { quad: 'amplia', x: 62, y: 576 },
-  { quad: 'closet', x: 326.5, y: 601 },
-]
-export const MI_UBICACION = { x: 250, y: 520 }
+// Las coordenadas reales de cada quad están en `pos` (ver data/geo.js)
 
 export const FILTROS_MAPA = [
   { id: 'todos', label: 'Todos' },

@@ -10,7 +10,7 @@ import { FILTROS_RAPIDOS, ZONAS, filtrar, quadsDe } from '../../data/quads.js'
 const normalizar = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
 /** Barra superior del buscador: atrás + campo + filtros. */
-function BarraBusqueda({ valor, onChange, onTap, autoFocus, onEnter, ir, nFiltros }) {
+function BarraBusqueda({ valor, onChange, onTap, autoFocus, onEnter, ir, nFiltros, modo }) {
   const input = useRef(null)
   useEffect(() => {
     if (autoFocus) input.current?.focus({ preventScroll: true })
@@ -31,7 +31,7 @@ function BarraBusqueda({ valor, onChange, onTap, autoFocus, onEnter, ir, nFiltro
           onKeyDown={(e) => e.key === 'Enter' && onEnter?.()}
         />
       </label>
-      <BotonFiltros n={nFiltros} ir={ir} />
+      <BotonFiltros n={nFiltros} ir={ir} modo={modo} />
     </div>
   )
 }
@@ -50,16 +50,18 @@ function Resaltado({ texto, busqueda }) {
 }
 
 /** 10 · Búsqueda — sugerencias de zonas mientras escribes. */
-export function Buscar({ consulta, setConsulta, ir, nFiltros }) {
+export function Buscar({ consulta, setConsulta, ir, nFiltros, modo }) {
   const zonas = ZONAS.filter((z) => normalizar(z.nombre).includes(normalizar(consulta)))
   const abrir = (z) => {
     setConsulta(z.nombre)
-    ir('resultados', z.id)
+    // Si la búsqueda empezó en el mapa, los resultados se ven en el mapa
+    if (modo === 'mapa') ir('mapa', z.id, { replace: true })
+    else ir('resultados', z.id)
   }
 
   return (
     <div className="home-screen">
-      <BarraBusqueda valor={consulta} onChange={setConsulta} autoFocus onEnter={() => zonas[0] && abrir(zonas[0])} ir={ir} nFiltros={nFiltros} />
+      <BarraBusqueda valor={consulta} onChange={setConsulta} autoFocus onEnter={() => zonas[0] && abrir(zonas[0])} ir={ir} nFiltros={nFiltros} modo={modo} />
       <div className="home-scroll home-scroll--flat">
         <motion.div className="zones" variants={stagger} initial="hidden" animate="show">
           <motion.p className="zones__label" variants={fadeUp}>
@@ -96,9 +98,11 @@ export function Buscar({ consulta, setConsulta, ir, nFiltros }) {
           <hr className="home-divider" />
         </motion.div>
       </div>
-      <div className="floating-map">
-        <BotonMapa onClick={() => ir('mapa')} />
-      </div>
+      {modo !== 'mapa' && (
+        <div className="floating-map">
+          <BotonMapa onClick={() => ir('mapa')} />
+        </div>
+      )}
     </div>
   )
 }
@@ -146,6 +150,9 @@ export function Resultados({ id, consulta, guardados, alternarGuardado, ir, filt
         </div>
       </motion.div>
       <div className="home__fade" />
+      <div className="floating-map">
+        <BotonMapa onClick={() => ir('mapa', id, { replace: true })} />
+      </div>
     </div>
   )
 }

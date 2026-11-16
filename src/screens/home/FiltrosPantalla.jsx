@@ -106,7 +106,7 @@ function Fila({ icon, titulo, desc, valor, onChange }) {
 }
 
 /** Filtros — pantalla completa con todos los criterios. */
-export default function FiltrosPantalla({ filtros, setFiltros, ir }) {
+export default function FiltrosPantalla({ filtros, setFiltros, ir, modo }) {
   const [f, setF] = useState(filtros)
   const set = (k, v) => setF((x) => ({ ...x, [k]: v }))
   const total = aplicarFiltros(QUADS, f).length
@@ -247,7 +247,8 @@ export default function FiltrosPantalla({ filtros, setFiltros, ir }) {
           disabled={total === 0}
           onClick={() => {
             setFiltros(f)
-            ir('resultados', 'filtros', { replace: true })
+            // Desde el mapa, los resultados vuelven al mapa
+            ir(modo === 'mapa' ? 'mapa' : 'resultados', 'filtros', { replace: true })
           }}
         >
           <AnimatePresence mode="popLayout" initial={false}>

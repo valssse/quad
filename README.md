@@ -42,17 +42,19 @@ Al terminar el onboarding de estudiante (o al iniciar sesión con cualquier usua
 - **Mensajes (08):** búsqueda por nombre o quad y filtros; al abrir una conversación se marca como leída.
 - **Perfil (09):** usa el nombre, la foto y la carrera del onboarding; "¿Tienes un cuarto libre?" abre el onboarding de anfitrión.
 - **Búsqueda (10):** sugerencias de zonas con la parte escrita en azul → resultados de la zona.
-- **Mapa (11):** pines de precio; al tocar uno se mueve la vista previa y el carrusel inferior.
+- **Mapa (11):** mapa real de OpenStreetMap (Leaflet): se arrastra con el dedo y se acerca o aleja pellizcando. Cada quad está en su colonia real y la UCA aparece marcada. Al tocar un pin sale la vista previa y el carrusel salta a ese quad. Si buscas una zona o aplicas filtros desde el mapa, los resultados se quedan en el mapa (hasta que tocas "Ver lista").
 - **Filtros:** el botón junto al buscador abre la pantalla de filtros (precio, cómo llegas, servicios, reglas, calificación y zonas). El botón muestra cuántos filtros hay activos.
 
 ### Detalle del Quad
 
 Cada uno de los 9 quads tiene su propia casa, anfitrión, familia, reglas, reseñas y chat (`src/data/detalle.js`). El quad "Cuarto en casa de familia" usa los textos y fotos del Figma; las fotos de las demás personas, mascotas y espacios son de Unsplash.
 
-- **Detalle (03):** galería deslizable con contador, qué incluye, reglas, mapa con zoom, reseña y barra fija (Preguntar / Solicitar).
+- **Detalle (03):** galería deslizable con contador (al tocar una foto se abre en pantalla completa), qué incluye, reglas, mapa real (iframe de OpenStreetMap con el quad y la UCA), reseña y barra fija (Preguntar / Solicitar).
 - **Perfil de la casa (04):** quiénes viven aquí, convivencia, presentación del anfitrión y desglose de reseñas.
 - **Conversación (05):** preguntas sugeridas con respuesta automática, tarjeta de visita (Aceptar / Otra fecha).
 - **Proponer otra fecha (06):** hoja con días y horas; la propuesta aparece en el chat.
+
+Las coordenadas salen de OpenStreetMap/Nominatim (`src/data/geo.js`). Mapas © colaboradores de OpenStreetMap.
 
 ## Cómo correrlo
 

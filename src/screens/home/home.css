@@ -1102,6 +1102,7 @@
 
 .floating-map {
   position: absolute;
+  z-index: 5;
   left: 0;
   right: 0;
   bottom: 40px;
@@ -1143,7 +1144,82 @@
 .map-canvas {
   position: absolute;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
+  isolation: isolate;
+  background: #f2efe9;
+  font-family: inherit;
+  touch-action: none;
+}
+
+/* Mapa real (Leaflet + OpenStreetMap) */
+.map-canvas .qpin {
+  background: none;
+  border: 0;
+}
+
+.map-canvas .price-pin {
+  animation: pin-in 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  cursor: pointer;
+}
+
+@keyframes pin-in {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+
+.uca-pin {
+  position: absolute;
+  translate: -50% -50%;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px 0 6px;
+  border: 2px solid #fff;
+  border-radius: var(--radius-full);
+  background: #0f172a;
+  box-shadow: 0 6px 18px rgba(15, 23, 41, 0.2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.uca-pin__dot {
+  width: 14px;
+  height: 14px;
+  border: 3px solid #ffd43b;
+  border-radius: 50%;
+}
+
+.map-canvas .me-halo {
+  animation: me-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes me-pulse {
+  50% {
+    scale: 1.15;
+    opacity: 0.7;
+  }
+}
+
+.map-canvas .leaflet-control-attribution {
+  margin: 0 8px 236px 0;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.75);
+  font-size: 10px;
+}
+
+.map-empty {
+  width: 100%;
+  padding: 16px;
+  border-radius: 18px;
+  background: #fff;
 }
 
 .map-canvas__img {

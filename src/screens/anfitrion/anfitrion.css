@@ -1182,3 +1182,43 @@
 .status-card__pulse {
   display: block;
 }
+
+/* Mapa real (OpenStreetMap) de "Dónde está el Quad" */
+.map--real .map__frame,
+.map--real .map__leaflet {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.map__leaflet {
+  background: #f2efe9;
+  font-family: inherit;
+  touch-action: none;
+}
+
+.map__leaflet .qpin {
+  background: none;
+  border: 0;
+}
+
+.map__pin--real {
+  position: absolute;
+  translate: -50% -50%;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  color: #fff;
+  box-shadow: 0 0 0 14px rgba(38, 103, 255, 0.25), 0 4px 10px rgba(38, 103, 255, 0.35);
+  cursor: grab;
+}
+
+.map__leaflet .leaflet-control-attribution {
+  font-size: 9px;
+}
