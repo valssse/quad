@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import Icon from '../../components/Icon.jsx'
 import { fadeUp, stagger } from '../../components/motion.js'
-import { BotonIcono, BotonMapa, Filtros, QuadFila } from './ui.jsx'
+import { BotonFiltros, BotonIcono, BotonMapa, Filtros, QuadFila } from './ui.jsx'
+import { aplicarFiltros } from '../../data/filtros.js'
+import { QUADS } from '../../data/quads.js'
 import { FILTROS_RAPIDOS, ZONAS, filtrar, quadsDe } from '../../data/quads.js'
 
 const normalizar = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
 /** Barra superior del buscador: atrás + campo + filtros. */
-function BarraBusqueda({ valor, onChange, onTap, autoFocus, onEnter }) {
+function BarraBusqueda({ valor, onChange, onTap, autoFocus, onEnter, ir, nFiltros }) {
   const input = useRef(null)
   useEffect(() => {
     if (autoFocus) input.current?.focus({ preventScroll: true })
@@ -29,7 +31,7 @@ function BarraBusqueda({ valor, onChange, onTap, autoFocus, onEnter }) {
           onKeyDown={(e) => e.key === 'Enter' && onEnter?.()}
         />
       </label>
-      <BotonIcono icon="filter-list" label="Filtros" />
+      <BotonFiltros n={nFiltros} ir={ir} />
     </div>
   )
 }
@@ -48,7 +50,7 @@ function Resaltado({ texto, busqueda }) {
 }
 
 /** 10 · Búsqueda — sugerencias de zonas mientras escribes. */
-export function Buscar({ consulta, setConsulta, ir }) {
+export function Buscar({ consulta, setConsulta, ir, nFiltros }) {
   const zonas = ZONAS.filter((z) => normalizar(z.nombre).includes(normalizar(consulta)))
   const abrir = (z) => {
     setConsulta(z.nombre)
@@ -57,7 +59,7 @@ export function Buscar({ consulta, setConsulta, ir }) {
 
   return (
     <div className="home-screen">
-      <BarraBusqueda valor={consulta} onChange={setConsulta} autoFocus onEnter={() => zonas[0] && abrir(zonas[0])} />
+      <BarraBusqueda valor={consulta} onChange={setConsulta} autoFocus onEnter={() => zonas[0] && abrir(zonas[0])} ir={ir} nFiltros={nFiltros} />
       <div className="home-scroll home-scroll--flat">
         <motion.div className="zones" variants={stagger} initial="hidden" animate="show">
           <motion.p className="zones__label" variants={fadeUp}>
@@ -102,14 +104,18 @@ export function Buscar({ consulta, setConsulta, ir }) {
 }
 
 /** 10 · Búsqueda · Resultados — quads de una zona (o de "Ver todo"). */
-export function Resultados({ id, consulta, guardados, alternarGuardado, ir }) {
+export function Resultados({ id, consulta, guardados, alternarGuardado, ir, filtros, nFiltros }) {
   const [filtro, setFiltro] = useState('todos')
-  const { titulo, sub, lista, zona } = quadsDe(id)
+  const conFiltros = id === 'filtros'
+  const avanzados = conFiltros ? aplicarFiltros(QUADS, filtros) : null
+  const { titulo, sub, lista, zona } = conFiltros
+    ? { titulo: 'Quads con tus filtros', sub: `${avanzados.length} ${avanzados.length === 1 ? 'resultado' : 'resultados'} · ${nFiltros} ${nFiltros === 1 ? 'filtro activo' : 'filtros activos'}`, lista: avanzados }
+    : quadsDe(id)
   const visibles = filtrar(lista, filtro)
 
   return (
     <div className="home-screen">
-      <BarraBusqueda valor={zona ? consulta || zona.nombre : titulo} onTap={() => ir('buscar')} />
+      <BarraBusqueda valor={zona ? consulta || zona.nombre : titulo} onTap={() => ir('buscar')} ir={ir} nFiltros={nFiltros} />
       <hr className="home-divider home-divider--top" />
       <motion.div className="home-scroll home-scroll--flat" variants={stagger} initial="hidden" animate="show">
         <div className="results-head">
@@ -129,6 +135,7 @@ export function Resultados({ id, consulta, guardados, alternarGuardado, ir }) {
                 quad={q}
                 guardado={guardados.includes(q.id)}
                 onToggle={() => alternarGuardado(q.id)}
+                onOpen={() => ir('quad', q.id)}
                 layout
                 variants={fadeUp}
                 exit={{ opacity: 0 }}

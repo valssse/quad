@@ -10,6 +10,12 @@ import Mensajes from './Mensajes.jsx'
 import Perfil from './Perfil.jsx'
 import Mapa from './Mapa.jsx'
 import { Buscar, Resultados } from './Buscar.jsx'
+import { Detalle, PerfilCasa } from './Detalle.jsx'
+import { Conversacion } from './Chat.jsx'
+import FiltrosPantalla from './FiltrosPantalla.jsx'
+import { useLiquidGlass } from '../../components/LiquidGlass.jsx'
+import { FILTROS_VACIOS, contarFiltros } from '../../data/filtros.js'
+import './detalle.css'
 import { GUARDADOS_INICIAL } from '../../data/quads.js'
 import { UNIVERSIDADES } from '../../data/estudiante.js'
 import './home.css'
@@ -22,12 +28,17 @@ const TABS = [
 ]
 const ES_TAB = TABS.map((t) => t.id)
 // Pantallas que se abren encima (sin barra de navegación)
-const APILADAS = ['buscar', 'resultados', 'mapa']
+const NIVEL = { buscar: 1, resultados: 2, filtros: 3, mapa: 3, quad: 4, casa: 5, chat: 6 }
+const APILADAS = Object.keys(NIVEL)
+// Pantallas que dibujan su propia barra de estado (foto o mapa detrás)
+const SIN_ESTADO = ['mapa', 'quad']
 
 /** Barra de navegación tipo vidrio, con la pastilla azul que se desliza al tab activo. */
 function Navegacion({ activo, onChange }) {
+  const [ref, vidrio, filtro] = useLiquidGlass()
   return (
-    <nav className="tabbar" aria-label="Navegación principal">
+    <nav ref={ref} className={`tabbar ${vidrio ? 'tabbar--liquid' : ''}`} style={vidrio} aria-label="Navegación principal">
+      {filtro}
       {TABS.map((t) => {
         const on = t.id === activo
         return (
@@ -63,10 +74,12 @@ const variantes = {
 export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudiante, navigate, onAnfitrion, onCerrarSesion }) {
   const [guardados, setGuardados] = useState(GUARDADOS_INICIAL)
   const [consulta, setConsulta] = useState('')
+  const [filtros, setFiltros] = useState(FILTROS_VACIOS)
+  const nFiltros = contarFiltros(filtros)
   const alternarGuardado = (id) => setGuardados((g) => (g.includes(id) ? g.filter((x) => x !== id) : [...g, id]))
 
   // Dirección para las pantallas apiladas
-  const nivel = (p) => (ES_TAB.includes(p) ? 0 : APILADAS.indexOf(p) + 1)
+  const nivel = (p) => NIVEL[p] || 0
   const [previa, setPrevia] = useState(pantalla)
   const [dir, setDir] = useState(1)
   if (previa !== pantalla) {
@@ -74,7 +87,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     setPrevia(pantalla)
   }
 
-  const ir = (p, param) => navigate(param ? `app/${p}/${param}` : `app/${p}`)
+  const ir = (p, param, opts) => navigate(param ? `app/${p}/${param}` : `app/${p}`, opts)
   const cambiarTab = (t) => t !== pantalla && navigate(`app/${t}`, { replace: true })
 
   // Datos del perfil: lo que llenó en el onboarding o los del Figma
@@ -87,7 +100,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     foto: estudiante?.foto || null,
   }
 
-  const props = { ir, perfil, guardados, alternarGuardado, consulta, setConsulta }
+  const props = { ir, perfil, guardados, alternarGuardado, consulta, setConsulta, filtros, setFiltros, nFiltros }
   const esTab = ES_TAB.includes(pantalla)
   const oscuro = pantalla === 'explorar' || pantalla === 'guardados'
 
@@ -99,21 +112,25 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     buscar: <Buscar {...props} />,
     resultados: <Resultados {...props} id={sub} />,
     mapa: <Mapa {...props} />,
+    filtros: <FiltrosPantalla {...props} />,
+    quad: <Detalle {...props} id={sub} />,
+    casa: <PerfilCasa {...props} id={sub} />,
+    chat: <Conversacion {...props} id={sub} />,
   }
 
   return (
     <div className="screen home">
       {/* Barra de estado fija (el mapa dibuja la suya encima de la imagen) */}
       <AnimatePresence initial={false}>
-        {pantalla !== 'mapa' && (
-          <motion.div key="status" className="home__status" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        {!SIN_ESTADO.includes(pantalla) && (
+          <motion.div key="status" className={`home__status ${pantalla === 'chat' ? 'home__status--white' : ''}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <StatusBar />
             <div className="safe-top" />
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className={`home__stage ${pantalla === 'mapa' ? 'home__stage--full' : ''}`}>
+      <div className={`home__stage ${SIN_ESTADO.includes(pantalla) ? 'home__stage--full' : ''}`}>
         <AnimatePresence initial={false} custom={{ apilada: !esTab || APILADAS.includes(previa), dir }}>
           <motion.div
             key={pantalla}

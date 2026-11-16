@@ -16,13 +16,11 @@ export default function IniciarSesion({ onSubmit, onSignup }) {
   const [password, setPassword] = useState('')
 
   // El botón se habilita solo cuando ambos campos tienen texto
-  // Atajo de pruebas: el usuario "1" entra directo al Home
-  const atajo = user.trim() === '1'
-  const canSubmit = atajo || (user.trim() !== '' && password !== '')
+  const canSubmit = user.trim() !== '' && password !== ''
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (canSubmit) onSubmit({ user: user.trim(), atajo })
+    if (canSubmit) onSubmit({ user: user.trim(), microsoft: false })
   }
 
   return (
@@ -78,7 +76,7 @@ export default function IniciarSesion({ onSubmit, onSignup }) {
               o
             </motion.div>
             <motion.div variants={fadeUp}>
-              <MicrosoftButton onClick={() => onSubmit({ user: 'microsoft', atajo: false })} />
+              <MicrosoftButton onClick={() => onSubmit({ user: 'microsoft', microsoft: true })} />
             </motion.div>
             <motion.p className="login__note" variants={fadeUp}>
               Puedes usar tu correo personal o universitario

@@ -14,10 +14,18 @@ const iniciales = (n) =>
     .join('')
 
 /** 08 · Mensajes — conversaciones con anfitriones. */
-export default function Mensajes() {
+// Leídas: se recuerdan al entrar a una conversación y volver
+let leidasGuardadas = []
+
+export default function Mensajes({ ir }) {
   const [filtro, setFiltro] = useState('todos')
   const [busqueda, setBusqueda] = useState('')
-  const [leidas, setLeidas] = useState([])
+  const [leidas, setLeidasEstado] = useState(leidasGuardadas)
+  const setLeidas = (fn) =>
+    setLeidasEstado((l) => {
+      leidasGuardadas = fn(l)
+      return leidasGuardadas
+    })
 
   const conv = CONVERSACIONES.map((c) => ({ ...c, noLeidos: leidas.includes(c.id) ? 0 : c.noLeidos }))
   const sinLeer = conv.filter((c) => c.noLeidos).length
@@ -62,7 +70,10 @@ export default function Mensajes() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   whileTap={{ backgroundColor: 'rgba(15, 23, 42, 0.03)' }}
-                  onClick={() => setLeidas((l) => (l.includes(c.id) ? l : [...l, c.id]))}
+                  onClick={() => {
+                    setLeidas((l) => (l.includes(c.id) ? l : [...l, c.id]))
+                    if (c.quadId) ir('chat', c.quadId)
+                  }}
                 >
                   <span className={`chat-row__avatar ${c.marca ? 'chat-row__avatar--brand' : ''}`}>
                     {c.foto ? <img src={c.foto} alt="" /> : c.iniciales || iniciales(c.nombre)}

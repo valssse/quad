@@ -6,7 +6,7 @@ import { Filtros, QuadFila } from './ui.jsx'
 import { FILTROS_GUARDADOS, filtrar, quad } from '../../data/quads.js'
 
 /** 07 · Guardados — quads marcados con el corazón. */
-export default function Guardados({ guardados, alternarGuardado }) {
+export default function Guardados({ guardados, alternarGuardado, ir }) {
   const [filtro, setFiltro] = useState('todos')
   // Los que se quitan quedan visibles hasta salir de la pantalla, para poder deshacer
   const [vistos] = useState(guardados)
@@ -41,6 +41,7 @@ export default function Guardados({ guardados, alternarGuardado }) {
                 key={q.id}
                 quad={q}
                 guardado={guardados.includes(q.id)}
+                onOpen={() => ir('quad', q.id)}
                 onToggle={() => alternarGuardado(q.id)}
                 layout
                 variants={fadeUp}

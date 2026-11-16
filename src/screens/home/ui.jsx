@@ -176,6 +176,21 @@ export function BotonIcono({ icon, size = 44, iconSize = 20, label, onClick, chi
   )
 }
 
+/** Botón de filtros (abre la pantalla Filtros) con el número de filtros activos. */
+export function BotonFiltros({ n = 0, ir, size = 44, iconSize = 20, className = '' }) {
+  return (
+    <BotonIcono icon="filter-list" iconSize={iconSize} size={size} label="Filtros" className={className} onClick={() => ir('filtros')}>
+      <AnimatePresence>
+        {n > 0 && (
+          <motion.span className="filter-count" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={{ type: 'spring', stiffness: 500, damping: 22 }}>
+            {n}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </BotonIcono>
+  )
+}
+
 /** Encabezado de sección con "Ver todo". */
 export function Encabezado({ titulo, sub, onVerTodo }) {
   return (

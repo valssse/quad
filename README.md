@@ -12,6 +12,8 @@ Este repositorio contiene el MVP de **Quad**, programado en **React + JavaScript
 | Estudiante · Onboarding y primeras pantallas | E01–E13 | ✅ Hecho |
 | Onboarding · Anfitrión | A01–A22 | ✅ Hecho |
 | Home (estudiante) | 02, 07–11 | ✅ Hecho |
+| Detalle del Quad | 03–06 | ✅ Hecho (los 9 quads) |
+| Filtros | — (no está en Figma) | ✅ Hecho |
 
 ### Onboarding compartido
 
@@ -33,7 +35,7 @@ Al empezar la parte 2 la barra se reinicia y vuelve a crecer hacia 1/9. Si en A1
 
 ### Home (estudiante)
 
-Al terminar el onboarding de estudiante se entra a `#/app/explorar`. La barra de navegación tipo vidrio es fija y la pastilla azul se desliza al tab activo.
+Al terminar el onboarding de estudiante (o al iniciar sesión con cualquier usuario y contraseña) se entra a `#/app/explorar`. La barra de navegación tiene el efecto Liquid Glass del Figma (refracción con un filtro SVG en Chrome/Edge; vidrio esmerilado en Safari) y la pastilla azul se desliza al tab activo.
 
 - **Inicio (02):** saludo según la hora, buscador, filtros rápidos (filtran los carruseles) y tres carruseles de cards.
 - **Guardados (07):** el corazón guarda o quita en toda la app; el contador se actualiza.
@@ -41,6 +43,16 @@ Al terminar el onboarding de estudiante se entra a `#/app/explorar`. La barra de
 - **Perfil (09):** usa el nombre, la foto y la carrera del onboarding; "¿Tienes un cuarto libre?" abre el onboarding de anfitrión.
 - **Búsqueda (10):** sugerencias de zonas con la parte escrita en azul → resultados de la zona.
 - **Mapa (11):** pines de precio; al tocar uno se mueve la vista previa y el carrusel inferior.
+- **Filtros:** el botón junto al buscador abre la pantalla de filtros (precio, cómo llegas, servicios, reglas, calificación y zonas). El botón muestra cuántos filtros hay activos.
+
+### Detalle del Quad
+
+Cada uno de los 9 quads tiene su propia casa, anfitrión, familia, reglas, reseñas y chat (`src/data/detalle.js`). El quad "Cuarto en casa de familia" usa los textos y fotos del Figma; las fotos de las demás personas, mascotas y espacios son de Unsplash.
+
+- **Detalle (03):** galería deslizable con contador, qué incluye, reglas, mapa con zoom, reseña y barra fija (Preguntar / Solicitar).
+- **Perfil de la casa (04):** quiénes viven aquí, convivencia, presentación del anfitrión y desglose de reseñas.
+- **Conversación (05):** preguntas sugeridas con respuesta automática, tarjeta de visita (Aceptar / Otra fecha).
+- **Proponer otra fecha (06):** hoja con días y horas; la propuesta aparece en el chat.
 
 ## Cómo correrlo
 
@@ -64,7 +76,7 @@ src/
 ├── screens/          # Una pantalla por archivo (+ su CSS)
 │   ├── estudiante/   # Onboarding de estudiante (E01–E13)
 │   ├── anfitrion/    # Onboarding de anfitrión (A01–A22)
-│   └── home/         # Home del estudiante (Explorar, Guardados, Mensajes, Perfil, Búsqueda, Mapa)
+│   └── home/         # Home del estudiante (Explorar, Guardados, Mensajes, Perfil, Búsqueda, Mapa, Filtros, Detalle, Chat)
 └── styles/           # tokens.css (variables de Figma), base.css, components.css
 ```
 

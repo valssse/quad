@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import StatusBar from '../../components/StatusBar.jsx'
 import Icon from '../../components/Icon.jsx'
-import { BotonIcono, BotonMapa, Filtros, QuadFila } from './ui.jsx'
+import { BotonFiltros, BotonIcono, BotonMapa, Filtros, QuadFila } from './ui.jsx'
 import { FILTROS_MAPA, MI_UBICACION, PINES, filtrar, quad } from '../../data/quads.js'
 import mapa from '../../assets/mapa/mapa-uca.jpg'
 
@@ -11,7 +11,7 @@ const px = (x) => `${(x / 390) * 100}%`
 const py = (y) => `${(y / 844) * 100}%`
 
 /** 11 · Mapa — pines de precio, vista previa del quad y carrusel inferior. */
-export default function Mapa({ guardados, alternarGuardado, ir }) {
+export default function Mapa({ guardados, alternarGuardado, ir, nFiltros }) {
   const [filtro, setFiltro] = useState('todos')
   const [seleccion, setSeleccion] = useState('familia')
   const [vista, setVista] = useState(true)
@@ -110,7 +110,7 @@ export default function Mapa({ guardados, alternarGuardado, ir }) {
                 <motion.button type="button" className="small-btn" whileTap={{ scale: 0.97 }} onClick={() => alternarGuardado(q.id)}>
                   {guardados.includes(q.id) ? 'Guardado' : 'Guardar'}
                 </motion.button>
-                <motion.button type="button" className="small-btn small-btn--primary" whileTap={{ scale: 0.97 }}>
+                <motion.button type="button" className="small-btn small-btn--primary" whileTap={{ scale: 0.97 }} onClick={() => ir('quad', q.id)}>
                   Ver quad
                 </motion.button>
               </div>
@@ -134,7 +134,7 @@ export default function Mapa({ guardados, alternarGuardado, ir }) {
             <Icon name="nav-arrow-down" size={16} />
           </motion.button>
           <BotonIcono icon="map-pin" label="Mi ubicación" className="icon-btn--shadow" />
-          <BotonIcono icon="filter-list" label="Filtros" className="icon-btn--shadow" />
+          <BotonFiltros n={nFiltros} ir={ir} className="icon-btn--shadow" />
         </div>
         <Filtros opciones={FILTROS_MAPA} valor={filtro} onChange={setFiltro} sombra className="filters--bleed map-filters" />
       </div>

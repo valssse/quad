@@ -1,0 +1,440 @@
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
+import StatusBar from '../../components/StatusBar.jsx'
+import Icon from '../../components/Icon.jsx'
+import { fadeUp, stagger } from '../../components/motion.js'
+import { Corazon } from './ui.jsx'
+import { quad as buscarQuad } from '../../data/quads.js'
+import { detalle } from '../../data/detalle.js'
+import mapaQuad from '../../assets/detalle/mapa-quad.jpg'
+
+const compartir = (q) => navigator.share?.({ title: q.titulo, text: `${q.titulo} · $${q.precio}/mes en Quad` }).catch(() => {})
+
+/** Foto redonda con respaldo de iniciales si la imagen no carga. */
+export function Avatar({ src, nombre, size = 48, tono = '#dce6ff', className = '' }) {
+  const [error, setError] = useState(false)
+  const ini = nombre
+    .split(' ')
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join('')
+  return (
+    <span className={`avatar-img ${className}`} style={{ width: size, height: size, background: tono }}>
+      {src && !error ? <img src={src} alt="" loading="lazy" onError={() => setError(true)} /> : <span>{ini}</span>}
+    </span>
+  )
+}
+
+/** Estrellas de calificación. */
+export function Estrellas({ n = 5, size = 13 }) {
+  return (
+    <span className="stars" style={{ gap: size > 14 ? 2 : 2 }}>
+      {Array.from({ length: n }, (_, i) => (
+        <Icon key={i} name="star-fill" size={size} className="star" />
+      ))}
+    </span>
+  )
+}
+
+/** Título de sección con enlace opcional ("Ver todo"). */
+function Titulo({ children, enlace, onEnlace }) {
+  return (
+    <div className="dt-title">
+      <h2>{children}</h2>
+      {enlace && (
+        <button type="button" className="dt-link" onClick={onEnlace}>
+          {enlace}
+        </button>
+      )}
+    </div>
+  )
+}
+
+/** Tarjeta de reseña (Lucía R. en Figma). */
+export function Resena({ r, texto, children }) {
+  return (
+    <motion.article className="dt-review" variants={fadeUp}>
+      <div className="dt-review__who">
+        <span className="dt-review__avatar" style={{ background: r.fondo, color: r.color }}>
+          {r.iniciales}
+        </span>
+        <div>
+          <p className="dt-review__name">{r.nombre}</p>
+          <p className="dt-review__meta">{r.carrera}</p>
+        </div>
+      </div>
+      <div className="dt-review__stars">
+        <Estrellas />
+        <span>· Vivió aquí {r.tiempo}</span>
+      </div>
+      <p className="dt-review__text">{texto}</p>
+      {children}
+    </motion.article>
+  )
+}
+
+/** Galería deslizable con contador "1 / 8". */
+function Galeria({ fotos }) {
+  const [i, setI] = useState(0)
+  const pista = useRef(null)
+  return (
+    <div className="dt-gallery">
+      <div
+        ref={pista}
+        className="dt-gallery__track"
+        onScroll={(e) => {
+          const el = e.currentTarget
+          setI(Math.round(el.scrollLeft / el.clientWidth))
+        }}
+      >
+        {fotos.map((f, k) => (
+          <img key={k} src={f} alt="" draggable="false" loading={k < 2 ? 'eager' : 'lazy'} />
+        ))}
+      </div>
+      <span className="dt-gallery__shade" />
+      <span className="dt-gallery__count">
+        {i + 1} / {fotos.length}
+      </span>
+    </div>
+  )
+}
+
+/** Mapa del quad (base exportada del Figma) con pin, halo y zoom. */
+function MapaQuad({ d }) {
+  const [zoom, setZoom] = useState(1)
+  return (
+    <div className="dt-map">
+      <motion.div className="dt-map__base" animate={{ scale: zoom }} transition={{ type: 'spring', stiffness: 260, damping: 30 }} style={{ transformOrigin: '66.3% 55.2%' }}>
+        <img src={mapaQuad} alt={`Mapa de ${d.colonia}`} draggable="false" />
+        <span className="dt-map__halo" />
+        <span className="dt-map__pin">
+          <Icon name="home-solid" size={20} />
+        </span>
+      </motion.div>
+      <div className="dt-map__zoom">
+        <button type="button" aria-label="Acercar" onClick={() => setZoom((z) => Math.min(z + 0.3, 1.9))}>
+          +
+        </button>
+        <button type="button" aria-label="Alejar" onClick={() => setZoom((z) => Math.max(z - 0.3, 1))}>
+          –
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/** 03 · Detalle del quad. */
+export function Detalle({ id, guardados, alternarGuardado, ir }) {
+  const q = buscarQuad(id) || buscarQuad('familia')
+  const d = detalle(q)
+  const a = d.anfitrion
+  const [solicitado, setSolicitado] = useState(false)
+  const [aviso, setAviso] = useState(false)
+  // Al pasar la galería, la barra superior se vuelve blanca (como un header normal)
+  const [solido, setSolido] = useState(false)
+  useEffect(() => {
+    if (!aviso) return
+    const t = setTimeout(() => setAviso(false), 2600)
+    return () => clearTimeout(t)
+  }, [aviso])
+  const modo = q.trayecto.modo
+  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d.colonia}, ${d.municipio}, El Salvador`)}`
+
+  return (
+    <div className="home-screen dt">
+      <div className="home-scroll dt-scroll" onScroll={(e) => setSolido(e.currentTarget.scrollTop > 230)}>
+        <Galeria fotos={d.galeria} />
+
+        <motion.div className="dt-body" variants={stagger} initial="hidden" animate="show">
+          <div className="dt-head">
+            <motion.div className="dt-badges" variants={fadeUp}>
+              <span className="dt-badge dt-badge--green">
+                <Icon name="home-solid" size={14} />
+                {d.tipo}
+              </span>
+              <span className="dt-badge dt-badge--amber">
+                <Icon name="star-fill" size={14} />
+                {q.rating.toFixed(1)} · {d.resenas} reseñas
+              </span>
+              <span className="dt-badge">
+                <Icon name={modo === 'walking' ? 'walking-fill' : modo === 'bus' ? 'bus-fill' : 'car-fill'} size={14} />
+                {d.trayecto}
+              </span>
+            </motion.div>
+            <motion.h1 variants={fadeUp}>{d.tituloLargo}</motion.h1>
+            <motion.p className="dt-place" variants={fadeUp}>
+              <Icon name="map-pin-fill" size={13} />
+              {d.colonia}, {d.municipio}
+            </motion.p>
+          </div>
+
+          <motion.button type="button" className="dt-host" variants={fadeUp} whileTap={{ scale: 0.985 }} onClick={() => ir('casa', q.id)}>
+            <Avatar src={a.foto} nombre={a.nombre} size={48} />
+            <span className="dt-host__text">
+              <span className="dt-host__name">{a.nombre}</span>
+              <span className="dt-host__sub">{a.detalle}</span>
+            </span>
+            <Icon name="nav-arrow-right" size={16} className="dt-chevron" />
+          </motion.button>
+
+          <motion.button type="button" className="dt-outline" variants={fadeUp} whileTap={{ scale: 0.985 }} onClick={() => ir('casa', q.id)}>
+            <span>Ver el Perfil de la casa</span>
+            <Icon name="nav-arrow-right" size={16} className="dt-chevron" />
+          </motion.button>
+
+          <motion.section className="dt-section" variants={fadeUp}>
+            <Titulo enlace="Ver todo">Qué incluye el Quad</Titulo>
+            <div className="dt-grid">
+              {d.incluye.map((s) => (
+                <div key={s.titulo} className="dt-service">
+                  <span className="dt-service__icon">
+                    <Icon name={s.icon} size={18} />
+                  </span>
+                  <span>
+                    <span className="dt-service__title">{s.titulo}</span>
+                    <span className="dt-service__sub">{s.detalle}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+
+          <hr className="dt-divider" />
+
+          <motion.section className="dt-section dt-section--rules" variants={fadeUp}>
+            <Titulo enlace="Ver todas">Reglas de la casa</Titulo>
+            {d.reglas.map((r) => (
+              <div key={r.titulo} className="dt-rule">
+                <span className="dt-rule__icon">
+                  <Icon name={r.icon} size={20} />
+                </span>
+                <span>
+                  <span className="dt-rule__title">{r.titulo}</span>
+                  <span className="dt-rule__sub">{r.detalle}</span>
+                </span>
+              </div>
+            ))}
+          </motion.section>
+
+          <hr className="dt-divider" />
+
+          <motion.section className="dt-section dt-section--map" variants={fadeUp}>
+            <Titulo>Dónde está el Quad</Titulo>
+            <MapaQuad d={d} />
+            <div className="dt-address">
+              <Icon name="map-pin-fill" size={16} />
+              <span>
+                <span className="dt-rule__title">{d.colonia}</span>
+                <span className="dt-address__sub">
+                  {d.municipio}, {d.departamento}
+                </span>
+              </span>
+              <a className="dt-outline dt-outline--small" href={maps} target="_blank" rel="noreferrer">
+                Abrir en Maps
+              </a>
+            </div>
+          </motion.section>
+
+          <hr className="dt-divider" />
+
+          <motion.section className="dt-section" variants={fadeUp}>
+            <div className="dt-score">
+              <div className="dt-score__main">
+                <span className="dt-score__num">{q.rating.toFixed(1)}</span>
+                <span>
+                  <Estrellas size={16} />
+                  <span className="dt-score__sub">Solo estancias completadas</span>
+                </span>
+              </div>
+              <button type="button" className="dt-link" onClick={() => ir('casa', q.id)}>
+                Ver todo
+              </button>
+            </div>
+            <Resena r={d.resena} texto={d.resena.texto} />
+          </motion.section>
+        </motion.div>
+      </div>
+
+      {/* Acciones sobre la galería */}
+      <div className={`dt-top ${solido ? 'dt-top--solid' : ''}`}>
+        <StatusBar tone={solido ? 'dark' : 'light'} />
+        <div className="safe-top" />
+        <div className="dt-top__row">
+          <motion.button type="button" className="dt-round" whileTap={{ scale: 0.9 }} aria-label="Atrás" onClick={() => window.history.back()}>
+            <Icon name="nav-arrow-left" size={20} />
+          </motion.button>
+          <div className="dt-top__right">
+            <motion.button type="button" className="dt-round" whileTap={{ scale: 0.9 }} aria-label="Compartir" onClick={() => compartir(q)}>
+              <Icon name="share" size={20} />
+            </motion.button>
+            <Corazon className="dt-round dt-heart" size={44} guardado={guardados.includes(q.id)} onToggle={() => alternarGuardado(q.id)} />
+          </div>
+        </div>
+      </div>
+
+      {/* Barra inferior fija */}
+      <div className="dt-bar">
+        <div className="dt-bar__price">
+          <p>
+            ${q.precio}
+            <small>/mes</small>
+          </p>
+          <span>Depósito: {d.deposito}</span>
+        </div>
+        <div className="dt-bar__actions">
+          <motion.button type="button" className="dt-btn" whileTap={{ scale: 0.96 }} onClick={() => ir('chat', q.id)}>
+            <Icon name="chat-bubble-fill" size={16} className="dt-btn__icon" />
+            Preguntar
+          </motion.button>
+          <motion.button
+            type="button"
+            className={`dt-btn dt-btn--primary ${solicitado ? 'dt-btn--done' : ''}`}
+            whileTap={{ scale: 0.96 }}
+            disabled={!q.disponible}
+            onClick={() => {
+              if (!solicitado) setAviso(true)
+              setSolicitado(true)
+            }}
+          >
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span key={solicitado ? 's' : q.disponible ? 'n' : 'x'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
+                {!q.disponible ? 'No disponible' : solicitado ? 'Solicitado' : 'Solicitar'}
+              </motion.span>
+            </AnimatePresence>
+          </motion.button>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {aviso && (
+          <motion.div className="dt-toast" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }}>
+            <Icon name="check" size={18} />
+            Solicitud enviada a {a.corto}. Te avisaremos cuando responda.
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+/** 04 · Perfil de la casa. */
+export function PerfilCasa({ id, ir }) {
+  const q = buscarQuad(id) || buscarQuad('familia')
+  const d = detalle(q)
+  const a = d.anfitrion
+  const c = d.casa
+  const barras = [
+    ['Limpieza', d.desglose.limpieza],
+    ['Respeto de horarios', d.desglose.horarios],
+    ['Comunicación', d.desglose.comunicacion],
+    ['Seguridad', d.desglose.seguridad],
+  ]
+
+  return (
+    <div className="home-screen hc">
+      <div className="hc-header">
+        <motion.button type="button" className="dt-round dt-round--border" whileTap={{ scale: 0.9 }} aria-label="Atrás" onClick={() => window.history.back()}>
+          <Icon name="nav-arrow-left" size={20} />
+        </motion.button>
+        <h1>Perfil de la casa</h1>
+        <motion.button type="button" className="dt-round dt-round--border" whileTap={{ scale: 0.9 }} aria-label="Compartir" onClick={() => compartir(q)}>
+          <Icon name="share-ios" size={20} />
+        </motion.button>
+      </div>
+
+      <motion.div className="home-scroll hc-scroll" variants={stagger} initial="hidden" animate="show">
+        <div className="hc-top">
+          <motion.div className="hc-card" variants={fadeUp}>
+            <div className="hc-card__text">
+              <h2>{c.nombre}</h2>
+              <p>{c.descripcion}</p>
+              <span className="hc-note">
+                <Icon name="info-circle" size={14} />
+                La familia decide qué información compartir
+              </span>
+            </div>
+            <div className="hc-stats">
+              <span>
+                <b>{q.rating.toFixed(1)}</b>Calificación
+              </span>
+              <span>
+                <b>{c.exinquilinos}</b>Exinquilinos
+              </span>
+              <span>
+                <b>{c.enQuad}</b>En Quad
+              </span>
+            </div>
+          </motion.div>
+
+          <motion.section className="hc-section" variants={fadeUp}>
+            <Titulo>Quiénes viven aquí</Titulo>
+            <div className="hc-people">
+              {d.miembros.map((p) => (
+                <div key={p.nombre} className="hc-person">
+                  <Avatar src={p.foto} nombre={p.nombre} size={44} tono={p.tono} />
+                  <span className="hc-person__name">{p.nombre}</span>
+                  <span className="hc-person__role">{p.rol}</span>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+        </div>
+
+        <motion.section className="hc-section" variants={fadeUp}>
+          <Titulo>Cómo es la convivencia</Titulo>
+          <div className="hc-tags">
+            {d.convivencia.map((t) => (
+              <span key={t.label} className="hc-tag">
+                <Icon name={t.icon} size={14} />
+                {t.label}
+              </span>
+            ))}
+          </div>
+        </motion.section>
+
+        <motion.section className="hc-section" variants={fadeUp}>
+          <Titulo>{a.corto} se presenta</Titulo>
+          <div className="hc-quote">
+            <span className="hc-quote__mark">“</span>
+            <p>{d.presentacion}</p>
+            <div className="hc-quote__author">
+              <Avatar src={a.foto} nombre={a.nombre} size={44} />
+              <span>
+                <b>{a.nombre}</b>
+                <small>{a.firma}</small>
+              </span>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section className="hc-section" variants={fadeUp}>
+          <Titulo enlace={`Ver ${d.resenas}`}>Reseñas de exinquilinos</Titulo>
+          <div className="hc-bars">
+            {barras.map(([k, v]) => (
+              <div key={k} className="hc-bar">
+                <span className="hc-bar__label">{k}</span>
+                <span className="hc-bar__track">
+                  <motion.span className="hc-bar__fill" initial={{ scaleX: 0 }} animate={{ scaleX: v / 5 }} transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }} />
+                </span>
+                <span className="hc-bar__num">{v.toFixed(1)}</span>
+              </div>
+            ))}
+          </div>
+          <Resena r={d.resena} texto={d.resena.textoCasa}>
+            <span className="hc-contact">
+              <Icon name="chat-bubble" size={16} />
+              Aceptó que futuros inquilinos le escriban
+            </span>
+          </Resena>
+        </motion.section>
+      </motion.div>
+
+      <div className="dt-bar dt-bar--single">
+        <motion.button type="button" className="hc-write" whileTap={{ scale: 0.97 }} onClick={() => ir('chat', q.id)}>
+          <Icon name="chat-bubble-fill" size={20} />
+          Escribir a {a.corto}
+        </motion.button>
+      </div>
+    </div>
+  )
+}

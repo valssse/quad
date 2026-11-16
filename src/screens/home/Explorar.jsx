@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import Icon from '../../components/Icon.jsx'
 import { fadeUp, stagger } from '../../components/motion.js'
-import { BotonIcono, Encabezado, Filtros, QuadCard } from './ui.jsx'
+import { BotonFiltros, BotonIcono, Encabezado, Filtros, QuadCard } from './ui.jsx'
 import { FILTROS_RAPIDOS, SECCIONES, filtrar, quad, saludo } from '../../data/quads.js'
 import sofia from '../../assets/personas/sofia.jpg'
 
 /** 02 · Explorar quads — saludo, buscador, filtros rápidos y carruseles. */
-export default function Explorar({ perfil, ir }) {
+export default function Explorar({ perfil, ir, nFiltros }) {
   const [filtro, setFiltro] = useState('todos')
   const secciones = SECCIONES.map((s) => ({ ...s, lista: filtrar(s.quads.map(quad), filtro) })).filter((s) => s.lista.length)
 
@@ -44,7 +44,7 @@ export default function Explorar({ perfil, ir }) {
               <Icon name="search" size={20} />
               Busca por colonia o calle
             </motion.button>
-            <BotonIcono icon="filter-list" iconSize={22} size={52} label="Filtros" className="icon-btn--square" />
+            <BotonFiltros n={nFiltros} ir={ir} iconSize={22} size={52} className="icon-btn--square" />
           </motion.div>
 
           <motion.div variants={fadeUp} className="explore-chips">
@@ -67,7 +67,7 @@ export default function Explorar({ perfil, ir }) {
               </motion.div>
               <motion.div className="carousel" variants={stagger}>
                 {s.lista.map((q) => (
-                  <QuadCard key={q.id} quad={q} />
+                  <QuadCard key={q.id} quad={q} onOpen={() => ir('quad', q.id)} />
                 ))}
               </motion.div>
             </motion.section>

@@ -12,6 +12,7 @@ import cuartoMadreselva from '../assets/quads/cuarto-madreselva.jpg'
 import cuartoMerliot from '../assets/quads/cuarto-merliot.jpg'
 import closetGrande from '../assets/quads/closet-grande.jpg'
 import andrea from '../assets/personas/andrea.jpg'
+import { DETALLES } from './detalle.js'
 
 /* ---------- Quads ---------- */
 // trayecto.modo: walking | bus | car  →  ícono walking-fill / bus-fill / car-fill
@@ -57,6 +58,8 @@ export function filtrar(lista, filtro) {
       return lista.filter((q) => q.soloMujeres)
     case 'lavanderia':
       return lista.filter((q) => q.lavanderia)
+    case 'visitas':
+      return lista.filter((q) => DETALLES[q.id]?.filtros.visitas)
     case 'cerca':
       return [...lista].sort((a, b) => a.trayecto.min - b.trayecto.min)
     case 'disponibles':
@@ -98,9 +101,9 @@ export function quadsDe(id) {
 
 /* ---------- 08 · Mensajes ---------- */
 export const CONVERSACIONES = [
-  { id: 'andrea', nombre: 'Andrea Martínez', foto: andrea, quad: 'Cuarto privado en casa de familia', mensaje: 'Visita propuesta: sáb 7 de nov, 10:00 a. m.', hora: '9:21 a. m.', noLeidos: 1, tipo: 'visita' },
-  { id: 'carlos', nombre: 'Carlos Rivas', quad: 'Cuarto con baño propio', mensaje: '¿Te gustaría agendar una visita esta semana?', hora: '8:05 a. m.', noLeidos: 2, tipo: 'visita' },
-  { id: 'rosa', nombre: 'Rosa López', quad: 'Habitación amplia y luminosa', mensaje: 'Sí, la cocina se puede usar hasta las 9 p. m.', hora: 'Ayer', noLeidos: 0, tipo: 'solicitud' },
+  { id: 'andrea', nombre: 'Andrea Martínez', foto: andrea, quadId: 'familia', quad: 'Cuarto privado en casa de familia', mensaje: 'Visita propuesta: sáb 7 de nov, 10:00 a. m.', hora: '9:21 a. m.', noLeidos: 1, tipo: 'visita' },
+  { id: 'carlos', nombre: 'Carlos Rivas', foto: DETALLES['bano-propio'].anfitrion.foto, quadId: 'bano-propio', quad: 'Cuarto con baño propio', mensaje: '¿Te gustaría agendar una visita esta semana?', hora: '8:05 a. m.', noLeidos: 2, tipo: 'visita' },
+  { id: 'rosa', nombre: 'Rosa López', foto: DETALLES.amplia.anfitrion.foto, quadId: 'amplia', quad: 'Habitación amplia y luminosa', mensaje: 'Sí, la cocina se puede usar hasta las 9 p. m.', hora: 'Ayer', noLeidos: 0, tipo: 'solicitud' },
   { id: 'roberto', nombre: 'Roberto López', quad: 'Estudio luminoso', mensaje: 'Tú: ¡Qué interesante! Hablemos más.', hora: 'Jue', noLeidos: 0, tipo: 'solicitud' },
   { id: 'ana', nombre: 'Ana Martínez', quad: 'Casa acogedora', mensaje: 'Tú: ¡Perfecto! Espero tu respuesta.', hora: 'Mié', noLeidos: 0, tipo: 'visita' },
   { id: 'quad', nombre: 'Equipo Quad', iniciales: 'Q', marca: true, quad: 'Soporte', mensaje: 'Tu correo UCA quedó verificado. ¡Bienvenida a Quad!', hora: '28 oct', noLeidos: 0, tipo: 'soporte' },
