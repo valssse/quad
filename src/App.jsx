@@ -84,7 +84,7 @@ export default function App() {
     ),
     inicio: <Splash onLogin={() => navigate('iniciar-sesion')} onSignup={() => navigate('crear-cuenta')} />,
     'iniciar-sesion': (
-      <IniciarSesion onSubmit={() => navigate('como-usaras')} onSignup={() => navigate('crear-cuenta')} />
+      <IniciarSesion onSubmit={({ atajo }) => navigate(atajo ? 'app/explorar' : 'como-usaras')} onSignup={() => navigate('crear-cuenta')} />
     ),
     'crear-cuenta': (
       <CrearCuenta
