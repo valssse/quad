@@ -8,6 +8,7 @@ import { BotonFiltros, BotonIcono, BotonMapa, Filtros, QuadFila } from './ui.jsx
 import { FILTROS_MAPA, QUADS, ZONAS, filtrar, quadsDe } from '../../data/quads.js'
 import { aplicarFiltros } from '../../data/filtros.js'
 import { CENTRO_INICIAL, UCA, ZONAS_POS, ZOOM_INICIAL } from '../../data/geo.js'
+import logoUca from '../../assets/universidades/uca.png'
 
 const TILES = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 const ATRIBUCION = '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>'
@@ -23,7 +24,7 @@ const iconoPrecio = (q, activo) =>
 
 const iconoUca = L.divIcon({
   className: 'qpin',
-  html: '<span class="uca-pin"><span class="uca-pin__dot"></span>UCA</span>',
+  html: '<span class="uca-pin"><img src="' + logoUca + '" alt="" />UCA</span>',
   iconSize: [0, 0],
 })
 
@@ -88,11 +89,11 @@ export default function Mapa({ guardados, alternarGuardado, ir, nFiltros, filtro
       bounceAtZoomLimits: false,
     })
     m.attributionControl.setPrefix(false)
-    L.tileLayer(TILES, { maxZoom: 19, attribution: ATRIBUCION, detectRetina: true }).addTo(m)
+    // Calles en escala de grises (solo la capa del mapa; los pines siguen en color)
+    L.tileLayer(TILES, { maxZoom: 19, attribution: ATRIBUCION, detectRetina: true, className: 'tiles-gris' }).addTo(m)
     L.marker(UCA.pos, { icon: iconoUca, keyboard: false, zIndexOffset: -10 })
       .addTo(m)
       .on('click', () => m.flyTo(UCA.pos, 17, { duration: 0.6 }))
-    yo.current = L.marker([13.6795, -89.2372], { icon: iconoYo, interactive: false, keyboard: false, zIndexOffset: -20 }).addTo(m)
 
     m.on('move zoom resize', medir)
     m.on('zoomanim', () => setAnimando(true))
@@ -112,6 +113,7 @@ export default function Mapa({ guardados, alternarGuardado, ir, nFiltros, filtro
       clearTimeout(t)
       m.remove()
       mapa.current = null
+      yo.current = null
       pines.current = {}
     }
   }, [])
@@ -186,6 +188,8 @@ export default function Mapa({ guardados, alternarGuardado, ir, nFiltros, filtro
   const miUbicacion = () => {
     const m = mapa.current
     const volar = (pos) => {
+      // El punto azul de "tú estás aquí" aparece solo al usar este botón
+      if (!yo.current && m) yo.current = L.marker(pos, { icon: iconoYo, interactive: false, keyboard: false, zIndexOffset: -20 }).addTo(m)
       yo.current?.setLatLng(pos)
       m?.flyTo(pos, 16.5, { duration: 0.7 })
     }

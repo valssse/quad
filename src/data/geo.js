@@ -32,14 +32,15 @@ export function distanciaKm([la1, lo1], [la2, lo2]) {
 
 export const textoDistancia = (km) => (km < 1 ? `${Math.round((km * 1000) / 10) * 10} m` : `${km.toFixed(1)} km`)
 
-/** iframe de OpenStreetMap que encuadra el quad y la UCA, con el marcador en el quad. */
+/**
+ * iframe de OpenStreetMap centrado en el quad (el pin azul lo dibuja la app justo en el centro)
+ * y con espacio suficiente para que la UCA también se vea.
+ */
 export function osmEmbed(pos) {
-  const lats = [pos[0], UCA.pos[0]]
-  const lons = [pos[1], UCA.pos[1]]
-  const padLa = Math.max((Math.max(...lats) - Math.min(...lats)) * 0.35, 0.0025)
-  const padLo = Math.max((Math.max(...lons) - Math.min(...lons)) * 0.35, 0.0035)
-  const bbox = [Math.min(...lons) - padLo, Math.min(...lats) - padLa, Math.max(...lons) + padLo, Math.max(...lats) + padLa].map((n) => n.toFixed(5)).join(',')
-  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${pos[0]},${pos[1]}`
+  const medLa = Math.max(Math.abs(UCA.pos[0] - pos[0]) * 1.9, 0.0022)
+  const medLo = Math.max(Math.abs(UCA.pos[1] - pos[1]) * 1.9, 0.0032)
+  const bbox = [pos[1] - medLo, pos[0] - medLa, pos[1] + medLo, pos[0] + medLa].map((n) => n.toFixed(5)).join(',')
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik`
 }
 
 /** Ruta del quad a la UCA en openstreetmap.org (a pie o en carro). */

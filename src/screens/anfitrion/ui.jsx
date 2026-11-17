@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { UCA, osmEmbed } from '../../data/geo.js'
+import logoUca from '../../assets/universidades/uca.png'
 import { AnimatePresence, motion, useDragControls } from 'motion/react'
 import Icon from '../../components/Icon.jsx'
 import Switch from '../../components/Switch.jsx'
@@ -248,8 +249,8 @@ export function Mapa({ ajustable = false }) {
     if (!ajustable || !caja.current) return
     const m = L.map(caja.current, { center: pos, zoom: 17, zoomControl: false, attributionControl: true })
     m.attributionControl.setPrefix(false)
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(m)
-    L.marker(UCA.pos, { icon: L.divIcon({ className: 'qpin', html: '<span class="uca-pin"><span class="uca-pin__dot"></span>UCA</span>', iconSize: [0, 0] }), interactive: false }).addTo(m)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap', className: 'tiles-gris' }).addTo(m)
+    L.marker(UCA.pos, { icon: L.divIcon({ className: 'qpin', html: '<span class="uca-pin"><img src="' + logoUca + '" alt="" />UCA</span>', iconSize: [0, 0] }), interactive: false }).addTo(m)
     const pin = L.marker(pos, {
       draggable: true,
       autoPan: true,

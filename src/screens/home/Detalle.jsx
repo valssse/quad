@@ -99,30 +99,27 @@ function Galeria({ fotos, onAbrir }) {
   )
 }
 
-/** Mapa real (iframe de OpenStreetMap): encuadra el quad y la UCA, con el marcador en el quad. */
+/**
+ * Mapa real (iframe de OpenStreetMap) centrado en el quad, en escala de grises,
+ * con el pin azul del Figma encima. Debajo: a cuánto queda de la UCA.
+ */
 function MapaQuad({ q, d }) {
   const [cargado, setCargado] = useState(false)
-  const km = distanciaKm(q.pos, UCA.pos)
   return (
     <div className="dt-map">
       <iframe
         title={`Mapa de ${d.colonia} y la UCA`}
         src={osmEmbed(q.pos)}
         loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
+        tabIndex={-1}
         onLoad={() => setCargado(true)}
         className={cargado ? 'dt-map__frame dt-map__frame--on' : 'dt-map__frame'}
       />
-      <div className="dt-map__legend">
-        <span>
-          <i className="dt-map__dot dt-map__dot--quad" />
-          Quad
-        </span>
-        <span>
-          <i className="dt-map__dot dt-map__dot--uca" />
-          UCA a {textoDistancia(km)}
-        </span>
-      </div>
+      <span className="dt-map__halo" />
+      <span className="dt-map__pin">
+        <Icon name="home-solid" size={20} />
+      </span>
+      <span className="dt-map__credit">© OpenStreetMap</span>
     </div>
   )
 }
@@ -292,6 +289,9 @@ export function Detalle({ id, guardados, alternarGuardado, ir }) {
           <motion.section className="dt-section dt-section--map" variants={fadeUp}>
             <Titulo>Dónde está el Quad</Titulo>
             <MapaQuad q={q} d={d} />
+            <p className="dt-map__distance">
+              Este quad está a <b>{textoDistancia(distanciaKm(q.pos, UCA.pos))}</b> de la UCA, en línea recta.
+            </p>
             <div className="dt-address">
               <Icon name="map-pin-fill" size={16} />
               <span>
