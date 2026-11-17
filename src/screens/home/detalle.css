@@ -1051,7 +1051,7 @@
 }
 
 /* ---------- 05 · Conversación ---------- */
-.home__status--white {
+.home__status.home__status--white {
   background: var(--bg-surface);
 }
 

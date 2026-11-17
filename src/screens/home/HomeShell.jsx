@@ -13,11 +13,13 @@ import { Buscar, Resultados } from './Buscar.jsx'
 import { Detalle, PerfilCasa } from './Detalle.jsx'
 import { Conversacion } from './Chat.jsx'
 import FiltrosPantalla from './FiltrosPantalla.jsx'
+import { MiPerfil, EditarPerfil } from './MiPerfil.jsx'
+import { perfilInicial } from '../../data/perfil.js'
 import { useLiquidGlass } from '../../components/LiquidGlass.jsx'
 import { FILTROS_VACIOS, contarFiltros } from '../../data/filtros.js'
 import './detalle.css'
 import { GUARDADOS_INICIAL } from '../../data/quads.js'
-import { UNIVERSIDADES } from '../../data/estudiante.js'
+import { ANIOS, UNIVERSIDADES } from '../../data/estudiante.js'
 import './home.css'
 
 const TABS = [
@@ -28,7 +30,7 @@ const TABS = [
 ]
 const ES_TAB = TABS.map((t) => t.id)
 // Pantallas que se abren encima (sin barra de navegación)
-const NIVEL = { buscar: 1, resultados: 2, filtros: 3, mapa: 3, quad: 4, casa: 5, chat: 6 }
+const NIVEL = { 'mi-perfil': 1, 'editar-perfil': 2, buscar: 1, resultados: 2, filtros: 3, mapa: 3, quad: 4, casa: 5, chat: 6 }
 const APILADAS = Object.keys(NIVEL)
 // Pantallas que dibujan su propia barra de estado (foto o mapa detrás)
 const SIN_ESTADO = ['mapa', 'quad']
@@ -76,6 +78,9 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
   const [consulta, setConsulta] = useState('')
   const [filtros, setFiltros] = useState(FILTROS_VACIOS)
   const nFiltros = contarFiltros(filtros)
+  // Perfil del estudiante (09): lo que llenó en el onboarding o el del Figma; se edita en 09b
+  const [yo, setYo] = useState(() => perfilInicial(cuenta, estudiante))
+  const [aviso, setAviso] = useState(false)
   const alternarGuardado = (id) => setGuardados((g) => (g.includes(id) ? g.filter((x) => x !== id) : [...g, id]))
 
   // Dirección para las pantallas apiladas
@@ -90,14 +95,19 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
   const ir = (p, param, opts) => navigate(param ? `app/${p}/${param}` : `app/${p}`, opts)
   const cambiarTab = (t) => t !== pantalla && navigate(`app/${t}`, { replace: true })
 
-  // Datos del perfil: lo que llenó en el onboarding o los del Figma
-  const nombre = (cuenta?.name || '').trim()
-  const uni = UNIVERSIDADES.find((u) => u.id === estudiante?.universidad)
+  // Datos del perfil para las demás pantallas
+  const uni = UNIVERSIDADES.find((u) => u.id === yo.universidad)
   const perfil = {
-    nombre: nombre ? nombre.split(' ')[0] : 'Sofía',
-    nombreCompleto: nombre || 'Sofía Ramírez',
-    detalle: [estudiante?.carrera || 'Ingeniería Industrial', `${estudiante?.anio || '2'}.º año`, uni?.corto || 'UCA'].join(' · '),
-    foto: estudiante?.foto || null,
+    nombre: yo.nombre.split(' ')[0],
+    nombreCompleto: yo.nombre,
+    detalle: [yo.carrera || 'Tu carrera', `${ANIOS.find((a) => a.id === yo.anio)?.label || '2.º'} año`, uni?.corto || 'UCA'].join(' · '),
+    foto: yo.foto || null,
+  }
+
+  const guardarPerfil = (nuevo) => {
+    setYo(nuevo)
+    setAviso(true)
+    window.history.back()
   }
 
   const props = { ir, perfil, guardados, alternarGuardado, consulta, setConsulta, filtros, setFiltros, nFiltros }
@@ -116,6 +126,8 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     quad: <Detalle {...props} id={sub} />,
     casa: <PerfilCasa {...props} id={sub} />,
     chat: <Conversacion {...props} id={sub} />,
+    'mi-perfil': <MiPerfil {...props} yo={yo} aviso={aviso} cerrarAviso={() => setAviso(false)} />,
+    'editar-perfil': <EditarPerfil {...props} yo={yo} guardar={guardarPerfil} />,
   }
 
   return (
@@ -123,7 +135,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
       {/* Barra de estado fija (el mapa dibuja la suya encima de la imagen) */}
       <AnimatePresence initial={false}>
         {!SIN_ESTADO.includes(pantalla) && (
-          <motion.div key="status" className={`home__status ${pantalla === 'chat' ? 'home__status--white' : ''}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div key="status" className={`home__status ${['chat', 'mi-perfil', 'editar-perfil'].includes(pantalla) ? 'home__status--white' : ''}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <StatusBar />
             <div className="safe-top" />
           </motion.div>

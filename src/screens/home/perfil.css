@@ -1,0 +1,201 @@
+/* ---------- 09a–09c · Mi perfil público y Editar perfil ---------- */
+.home-screen.mp {
+  background: var(--bg-surface);
+}
+
+.mp .hc-header {
+  height: 60px;
+  padding: 8px 16px;
+}
+
+.mp-spacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.mp-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 18px 24px 140px;
+}
+
+.mp-scroll--edit {
+  gap: 20px;
+}
+
+.mp-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mp-head h2 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.mp-head p {
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+/* El perfil mini se ve igual que en el onboarding, con borde y fondo blanco */
+.mp .mini {
+  background: var(--bg-surface);
+}
+
+/* Insignias (Badge · Tipo=Contorno) */
+.mp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: -14px;
+}
+
+.mp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  line-height: 1.4;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.mp-badge .icon {
+  color: var(--brand-primary);
+}
+
+.mp .profile-section {
+  gap: 12px;
+}
+
+.mp .profile-section__title {
+  font-size: 17px;
+}
+
+.mp .facts {
+  background: var(--bg-surface);
+}
+
+/* Barra inferior con el botón */
+.mp-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 16px 24px 34px;
+  background: var(--bg-surface);
+  box-shadow: var(--elevation-barra-inferior, 0 -4px 16px rgba(15, 23, 42, 0.06));
+}
+
+/* Aviso "Cambios guardados" (09c) */
+.mp-toast {
+  position: absolute;
+  top: 116px;
+  left: 20px;
+  right: 20px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #0f172a;
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+}
+
+.mp-toast .icon {
+  flex-shrink: 0;
+  color: #4ade80;
+}
+
+/* ---------- 09b · Editar perfil ---------- */
+.mp-photo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mp-photo__img {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--brand-primary-soft-strong);
+  color: var(--brand-primary);
+}
+
+.mp-photo__img > * {
+  grid-area: 1 / 1;
+}
+
+.mp-photo__img img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+}
+
+.mp-photo__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.mp-link {
+  padding: 0;
+  font: inherit;
+  color: var(--brand-primary);
+}
+
+.mp-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mp-fields .field__control {
+  position: relative;
+}
+
+.mp-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 28px;
+  cursor: pointer;
+}
+
+.mp-select__chevron {
+  position: absolute;
+  right: 16px;
+  pointer-events: none;
+  color: var(--text-secondary);
+}
+
+.mp-label {
+  font-size: var(--font-size-p);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-primary);
+}

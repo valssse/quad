@@ -30,7 +30,7 @@ const GRUPOS = [
 ]
 
 /** 09 · Perfil del estudiante. */
-export default function Perfil({ perfil, onAnfitrion, onCerrarSesion }) {
+export default function Perfil({ perfil, ir, onAnfitrion, onCerrarSesion }) {
   return (
     <div className="home-screen">
       <motion.div className="home-scroll profile" variants={stagger} initial="hidden" animate="show">
@@ -51,7 +51,7 @@ export default function Perfil({ perfil, onAnfitrion, onCerrarSesion }) {
             <h2>{perfil.nombreCompleto}</h2>
             <p>{perfil.detalle}</p>
           </div>
-          <motion.button type="button" className="small-btn" whileTap={{ scale: 0.98 }}>
+          <motion.button type="button" className="small-btn" whileTap={{ scale: 0.98 }} onClick={() => ir('mi-perfil')}>
             Ver mi perfil público
           </motion.button>
         </motion.section>
