@@ -80,9 +80,6 @@ export default function Skeleton({ tipo = 'estudiante' }) {
   return (
     <motion.div className="sk-screen" aria-busy="true" aria-label="Cargando" initial={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.35 } }}>
       <div className="sk-body">{tipo === 'anfitrion' ? <Anfitrion /> : <Estudiante />}</div>
-      <div className="sk-dock">
-        <B w={tipo === 'anfitrion' ? 330 : 282} h={62} r={999} />
-      </div>
     </motion.div>
   )
 }
