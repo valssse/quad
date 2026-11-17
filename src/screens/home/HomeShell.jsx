@@ -36,12 +36,12 @@ const APILADAS = Object.keys(NIVEL)
 const SIN_ESTADO = ['mapa', 'quad']
 
 /** Barra de navegación tipo vidrio, con la pastilla azul que se desliza al tab activo. */
-function Navegacion({ activo, onChange }) {
+export function Navegacion({ tabs = TABS, activo, onChange }) {
   const [ref, vidrio, filtro] = useLiquidGlass()
   return (
     <nav ref={ref} className={`tabbar ${vidrio ? 'tabbar--liquid' : ''}`} style={vidrio} aria-label="Navegación principal">
       {filtro}
-      {TABS.map((t) => {
+      {tabs.map((t) => {
         const on = t.id === activo
         return (
           <motion.button

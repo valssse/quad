@@ -23,6 +23,7 @@ import { ESTUDIANTE_INICIAL } from './data/estudiante.js'
 import AnfitrionFlow from './screens/anfitrion/AnfitrionFlow.jsx'
 import { ANFITRION_INICIAL } from './data/anfitrion.js'
 import HomeShell from './screens/home/HomeShell.jsx'
+import HostShell from './screens/host/HostShell.jsx'
 
 /**
  * Onboarding compartido de Quad (sección "Onboarding · Compartido" en Figma).
@@ -40,6 +41,7 @@ const FLOW = [
   'estudiante',
   'anfitrion',
   'app',
+  'host',
   'listo',
 ]
 
@@ -133,7 +135,7 @@ export default function App() {
         datos={anfitrion}
         setDatos={setAnfitrion}
         navigate={navigate}
-        onFinish={() => navigate('listo/anfitrion')}
+        onFinish={() => navigate('host/inicio')}
       />
     ),
     app: (
@@ -147,6 +149,16 @@ export default function App() {
           setRole('anfitrion')
           navigate('anfitrion/tipo')
         }}
+        onCerrarSesion={() => navigate('inicio')}
+      />
+    ),
+    host: (
+      <HostShell
+        pantalla={param}
+        sub={sub}
+        navigate={navigate}
+        onPublicar={() => navigate('anfitrion/fotos')}
+        onEstudiante={() => navigate('app/perfil')}
         onCerrarSesion={() => navigate('inicio')}
       />
     ),
