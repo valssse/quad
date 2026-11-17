@@ -1488,3 +1488,8 @@
     bottom: max(24px, calc(env(safe-area-inset-bottom) + 12px));
   }
 }
+
+/* Íconos con detalles recortados (cama, calendario): sobre la píldora azul */
+.tabbar__tab--on {
+  --icon-cut: var(--brand-primary);
+}

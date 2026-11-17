@@ -366,3 +366,107 @@ export const HISTORIAL = [
     ],
   },
 ]
+
+/* ---------- Mensajes del anfitrión (M01–M08) ---------- */
+export const FILTROS_MENSAJES_HOST = [
+  { id: 'todos', label: 'Todos' },
+  { id: 'no-leidos', label: 'No leídos' },
+  { id: 'solicitudes', label: 'Solicitudes' },
+  { id: 'visitas', label: 'Visitas' },
+]
+
+export const CHATS_HOST = [
+  {
+    id: 'sofia',
+    nombre: 'Sofía Ramírez',
+    corto: 'Sofía',
+    foto: sofia,
+    rol: 'Estudiante · Ingeniería Industrial · UCA',
+    quadId: 'familia',
+    quad: 'Cuarto privado en casa de familia',
+    hora: '9:26 a. m.',
+    noLeidos: 1,
+    tipo: 'visita',
+    mensajes: [
+      { de: 'ella', texto: 'Hola, Andrea. ¿Puedo usar la cocina para hacerme la cena después de clases?', hora: '9:15 a. m.' },
+      { de: 'yo', texto: 'Sí, la cocina es libre hasta las 9 p. m. y tendrías tu propia repisa en la refri.', hora: '9:20 a. m.' },
+      { de: 'ella', texto: '¡Perfecto! ¿Puedo ir a conocer la casa antes de decidir?', hora: '9:21 a. m.' },
+    ],
+    visita: { visitaId: 'sofia', fecha: 'Mié 11 de nov · 4:00 p. m.' },
+  },
+  {
+    id: 'daniela',
+    nombre: 'Daniela Flores',
+    corto: 'Daniela',
+    iniciales: 'DF',
+    rol: 'Estudiante · Psicología · UCA',
+    quadId: 'escritorio',
+    quad: 'Cuarto con escritorio',
+    hora: '8:40 a. m.',
+    noLeidos: 2,
+    tipo: 'solicitud',
+    mensajes: [
+      { de: 'ella', texto: 'Hola, Andrea. Te envié una solicitud para el cuarto con escritorio.', hora: '8:38 a. m.' },
+      { de: 'ella', texto: '¿Está disponible desde enero?', hora: '8:40 a. m.' },
+    ],
+  },
+  {
+    id: 'carlos',
+    nombre: 'Carlos Rivas',
+    corto: 'Carlos',
+    iniciales: 'CR',
+    rol: 'Estudiante · Ingeniería Civil · UCA',
+    quadId: 'escritorio',
+    quad: 'Cuarto con escritorio',
+    hora: 'Ayer',
+    noLeidos: 0,
+    tipo: 'visita',
+    mensajes: [
+      { de: 'yo', texto: 'Hola, Carlos. Te confirmo la visita para el lunes 9 a las 4:00 p. m.', hora: 'Ayer' },
+      { de: 'ella', texto: '¡Perfecto! Nos vemos el lunes a las 4.', hora: 'Ayer' },
+    ],
+  },
+  {
+    id: 'gabriela',
+    nombre: 'Gabriela Torres',
+    corto: 'Gabriela',
+    iniciales: 'GT',
+    rol: 'Estudiante · Arquitectura · UCA',
+    quadId: 'familia',
+    quad: 'Cuarto privado en casa de familia',
+    hora: 'Lun',
+    noLeidos: 0,
+    tipo: 'solicitud',
+    mensajes: [
+      { de: 'ella', texto: '¡Gracias por aceptarme! Quedo atenta al contrato.', hora: 'Lun' },
+      { de: 'yo', texto: 'Te envío el contrato mañana.', hora: 'Lun' },
+    ],
+  },
+  {
+    id: 'marcela',
+    nombre: 'Marcela Pineda',
+    corto: 'Marcela',
+    iniciales: 'MP',
+    rol: 'Inquilina · Psicología · UCA',
+    quadId: 'pequena',
+    quad: 'Habitación pequeña · inquilina',
+    hora: '2 nov',
+    noLeidos: 0,
+    tipo: 'inquilina',
+    mensajes: [
+      { de: 'yo', texto: 'Hola, Marcela. Te recuerdo que el pago de noviembre es el día 1.', hora: '31 oct' },
+      { de: 'ella', texto: 'Ya hice el pago de noviembre 🙌', hora: '2 nov' },
+    ],
+  },
+]
+
+export const RESPUESTAS_GUARDADAS = [
+  { titulo: 'Horarios de visita', texto: 'Las visitas son de lunes a sábado, de 9 a. m. a 6 p. m.' },
+  { titulo: 'Cómo llegar', texto: 'Estamos a 4 minutos caminando del portón peatonal de la UCA.' },
+  { titulo: 'Requisitos', texto: 'Pido tu carné de la universidad y un depósito igual a un mes.' },
+]
+export const RESPUESTAS_RAPIDAS_CHAT = [
+  { label: '¡Claro que sí!', texto: '¡Claro que sí!' },
+  { label: 'Te comparto cómo llegar', texto: 'Estamos a 4 minutos caminando del portón peatonal de la UCA. Te comparto la ubicación por aquí.' },
+  { label: 'Horarios de visita', texto: 'Las visitas son de lunes a sábado, de 9 a. m. a 6 p. m.' },
+]

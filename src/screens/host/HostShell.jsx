@@ -12,7 +12,8 @@ import { Destacar, EditarQuad, MisQuads, Pagar } from './MisQuads.jsx'
 import { Cobros, EditarCasa, PerfilHost, Resenas, Verificacion } from './PerfilHost.jsx'
 import { PerfilCasa } from '../home/Detalle.jsx'
 import Skeleton from '../../components/Skeleton.jsx'
-import { ESTANCIAS, HISTORIAL, MASCOTAS_CASA, MIS_QUADS, MOVIMIENTOS, PERSONAS_CASA, REPORTES, SOLICITUDES, TARJETA, VISITAS } from '../../data/host.js'
+import { ChatHost, MensajesHost } from './MensajesHost.jsx'
+import { ESTANCIAS, HISTORIAL, MASCOTAS_CASA, MIS_QUADS, MOVIMIENTOS, PERSONAS_CASA, RESPUESTAS_GUARDADAS, REPORTES, SOLICITUDES, TARJETA, VISITAS } from '../../data/host.js'
 import '../home/home.css'
 import '../home/detalle.css'
 import '../estudiante/estudiante.css'
@@ -26,24 +27,12 @@ const TABS = [
   { id: 'perfil', label: 'Perfil', icon: 'user', iconOn: 'user-solid' },
 ]
 const ES_TAB = TABS.map((t) => t.id)
-const NIVEL = { solicitud: 1, estancia: 1, reporte: 2, 'editar-quad': 1, destacar: 1, pagar: 2, casa: 1, 'editar-casa': 2, cobros: 1, verificacion: 1, resenas: 1 }
+const NIVEL = { chat: 1, solicitud: 1, estancia: 1, reporte: 2, 'editar-quad': 1, destacar: 1, pagar: 2, casa: 1, 'editar-casa': 2, cobros: 1, verificacion: 1, resenas: 1 }
 
 const variantes = {
   enter: ({ apilada, dir }) => (apilada ? { opacity: 0, x: dir >= 0 ? 32 : -32 } : { opacity: 0, y: 6 }),
   center: { opacity: 1, x: 0, y: 0, transition: { duration: 0.36, ease } },
   exit: ({ apilada, dir }) => ({ opacity: 0, x: apilada ? (dir >= 0 ? -24 : 24) : 0, transition: { duration: 0.18, ease } }),
-}
-
-/** Secciones que vienen en otras partes del Figma (Mis quads, Mensajes, Perfil). */
-function Pronto({ titulo, texto }) {
-  return (
-    <div className="home-screen hs">
-      <div className="home-scroll hs-soon">
-        <h1>{titulo}</h1>
-        <p>{texto}</p>
-      </div>
-    </div>
-  )
 }
 
 /**
@@ -62,6 +51,10 @@ export default function HostShell({ pantalla = 'inicio', sub, navigate, onPublic
   const [movimientos, setMovimientos] = useState(MOVIMIENTOS)
   const [casa, setCasa] = useState({ personas: PERSONAS_CASA, mascotas: MASCOTAS_CASA })
   const [casaVersion, setCasaVersion] = useState(0)
+  const [leidas, setLeidas] = useState([])
+  const [ultimos, setUltimos] = useState({})
+  const [bloqueados, setBloqueados] = useState([])
+  const [guardadas, setGuardadas] = useState(RESPUESTAS_GUARDADAS)
 
   // Skeleton de referencia al entrar
   const [cargando, setCargando] = useState(true)
@@ -175,6 +168,24 @@ export default function HostShell({ pantalla = 'inicio', sub, navigate, onPublic
     setSaldo(0)
   }
 
+  /* ---------- Mensajes ---------- */
+  const actualizarUltimo = (id, ultimo) => setUltimos((u) => ({ ...u, [id]: { ultimo } }))
+  const bloquear = (c) => {
+    setBloqueados((b) => [...b, c.id])
+    navigate('host/mensajes', { replace: true })
+    avisar(
+      `Bloqueaste a ${c.corto}. Ya no podrá escribirte.`,
+      {
+        label: 'Deshacer',
+        fn: () => {
+          setBloqueados((b) => b.filter((x) => x !== c.id))
+          setAviso(null)
+        },
+      },
+      'mensajes',
+    )
+  }
+
   const esTab = ES_TAB.includes(pantalla)
   const props = { ir, avisar, solicitudes, visitas, estancias: ESTANCIAS, totalCobro }
 
@@ -187,7 +198,21 @@ export default function HostShell({ pantalla = 'inicio', sub, navigate, onPublic
     inicio: <Panel {...props} quads={quads} inquilinas={ESTANCIAS.length} />,
     inquilinos: <Inquilinos {...props} seg={sub} historial={historial} confirmarVisita={confirmarVisita} />,
     quads: <MisQuads {...props} quads={quads} pausar={pausar} reactivar={reactivar} eliminar={eliminar} />,
-    mensajes: <Pronto titulo="Mensajes" texto="Tus conversaciones con estudiantes. Esta sección se programa en la siguiente parte del Figma (Anfitrión · Mensajes)." />,
+    mensajes: <MensajesHost {...props} leidas={leidas} marcarLeida={(id) => setLeidas((l) => (l.includes(id) ? l : [...l, id]))} ultimos={ultimos} bloqueados={bloqueados} />,
+    chat: (
+      <ChatHost
+        key={sub}
+        id={sub}
+        ir={ir}
+        guardadas={guardadas}
+        crearGuardada={(r) => setGuardadas((g) => [...g, r])}
+        confirmarVisita={(id) => setConfirmadas((c) => ({ ...c, [id]: true }))}
+        visitaConfirmada={confirmadas.sofia}
+        actualizarUltimo={actualizarUltimo}
+        bloquear={bloquear}
+        avisar={avisar}
+      />
+    ),
     perfil: <PerfilHost {...props} saldo={saldo} onEstudiante={onEstudiante} onCerrarSesion={onCerrarSesion} />,
     'editar-quad': (
       <EditarQuad
@@ -228,7 +253,7 @@ export default function HostShell({ pantalla = 'inicio', sub, navigate, onPublic
 
   return (
     <div className="screen home host">
-      <div className="home__status">
+      <div className={`home__status ${pantalla === 'chat' ? 'home__status--white' : ''}`}>
         <StatusBar />
         <div className="safe-top" />
       </div>

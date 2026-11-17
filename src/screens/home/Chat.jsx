@@ -21,8 +21,8 @@ const burbuja = {
 }
 
 /** 06 · Hoja "Propón otra fecha". */
-function HojaFecha({ abierta, anfitrion, onClose, onEnviar }) {
-  const [dia, setDia] = useState(11)
+export function HojaFecha({ abierta, anfitrion, onClose, onEnviar, diaInicial = 11 }) {
+  const [dia, setDia] = useState(diaInicial)
   const [hora, setHora] = useState('4:00 p. m.')
   const [nota, setNota] = useState('')
   const arrastre = useDragControls()

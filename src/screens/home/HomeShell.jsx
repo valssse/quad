@@ -84,7 +84,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
   const [aviso, setAviso] = useState(false)
 
   // Skeleton de referencia al entrar
-  const [cargando, setCargando] = useState(true)
+  const [cargando, setCargando] = useState(pantalla !== 'mapa')
   useEffect(() => {
     const t = setTimeout(() => setCargando(false), 1400)
     return () => clearTimeout(t)

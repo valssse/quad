@@ -2253,3 +2253,78 @@
   padding-right: 10px;
   white-space: nowrap;
 }
+
+/* ---------- M01–M08 · Mensajes del anfitrión ---------- */
+.mh-visit {
+  min-width: 240px;
+}
+
+.mh-wait {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: #eaf0ff;
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--brand-primary);
+}
+
+.mh-wait i {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--brand-primary);
+  animation: mh-pulso 1.4s ease-in-out infinite;
+}
+
+@keyframes mh-pulso {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.mh-time {
+  display: block;
+  text-align: right;
+}
+
+.ch-suggest .mh-saved {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mh-blue {
+  background: #eaf0ff;
+  color: var(--brand-primary);
+}
+
+.mh-new {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.hs-chat .ch-header__who {
+  min-width: 0;
+}
+
+.hs-chat .ch-header__who > span {
+  min-width: 0;
+}
+
+.hs-chat .ch-header__who small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mq-option small,
+.hs-chat .hs-sheet small {
+  font-size: inherit;
+}
