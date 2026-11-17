@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import StatusBar from '../../components/StatusBar.jsx'
 import Icon from '../../components/Icon.jsx'
+import Button from '../../components/Button.jsx'
 import { fadeUp, stagger } from '../../components/motion.js'
 import { Corazon } from './ui.jsx'
 import { quad as buscarQuad } from '../../data/quads.js'
@@ -391,7 +392,7 @@ export function Detalle({ id, guardados, alternarGuardado, ir }) {
 }
 
 /** 04 · Perfil de la casa. */
-export function PerfilCasa({ id, ir }) {
+export function PerfilCasa({ id, ir, anfitrion }) {
   const q = buscarQuad(id) || buscarQuad('familia')
   const d = detalle(q)
   const a = d.anfitrion
@@ -502,12 +503,21 @@ export function PerfilCasa({ id, ir }) {
         </motion.section>
       </motion.div>
 
-      <div className="dt-bar dt-bar--single">
-        <motion.button type="button" className="hc-write" whileTap={{ scale: 0.97 }} onClick={() => ir('chat', q.id)}>
-          <Icon name="chat-bubble-fill" size={20} />
-          Escribir a {a.corto}
-        </motion.button>
-      </div>
+      {anfitrion ? (
+        <div className="dt-bar dt-bar--single hc-bar--host">
+          <Button variant="outline" onClick={anfitrion.verComoEstudiante}>
+            Ver como estudiante
+          </Button>
+          <Button onClick={anfitrion.editar}>Editar convivencia</Button>
+        </div>
+      ) : (
+        <div className="dt-bar dt-bar--single">
+          <motion.button type="button" className="hc-write" whileTap={{ scale: 0.97 }} onClick={() => ir('chat', q.id)}>
+            <Icon name="chat-bubble-fill" size={20} />
+            Escribir a {a.corto}
+          </motion.button>
+        </div>
+      )}
     </div>
   )
 }

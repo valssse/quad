@@ -23,9 +23,122 @@ export const SEMANA = {
 }
 
 export const MIS_QUADS = [
-  { id: 'familia', titulo: 'Cuarto privado en casa de familia', precio: 115, foto: cuartoFamilia, estado: 'publicado', datos: '48 vistas · 3 solicitudes' },
-  { id: 'escritorio', titulo: 'Cuarto con escritorio', precio: 130, foto: cuartoBalcon, estado: 'revision' },
-  { id: 'pequena', titulo: 'Habitación pequeña', precio: 95, foto: casaTranquila, estado: 'pausado', datos: 'Pausado desde el 2 de nov' },
+  {
+    id: 'familia',
+    titulo: 'Cuarto privado en casa de familia',
+    precio: 115,
+    foto: cuartoFamilia,
+    fotos: [cuartoFamilia, fotoSala, fotoFachada],
+    estado: 'publicado',
+    datos: '48 vistas · 3 solicitudes',
+    semana: '48 vistas esta semana',
+    pausadoDesde: null,
+    secciones: [
+      { icon: 'bed-fill', titulo: 'Tipo de cuarto', texto: 'Cuarto privado · baño compartido' },
+      { icon: 'check-circle-fill', titulo: 'Qué incluye', texto: 'Internet, agua, luz y lavandería' },
+      { icon: 'shield-check-fill', titulo: 'Reglas de la casa', texto: '5 reglas · llegada antes de las 10 p. m.' },
+      { icon: 'map-pin-fill', titulo: 'Ubicación', texto: 'Jardines de Guadalupe · 4 min a la Peatonal' },
+      { icon: 'dollar-circle-fill', titulo: 'Precio y depósito', texto: '$115 al mes · depósito de $115' },
+      { icon: 'calendar-fill', titulo: 'Disponibilidad', texto: 'Desde el 5 de enero de 2027' },
+    ],
+  },
+  {
+    id: 'escritorio',
+    titulo: 'Cuarto con escritorio',
+    precio: 130,
+    foto: cuartoBalcon,
+    fotos: [cuartoBalcon, fotoSala],
+    estado: 'revision',
+    datos: 'Lo revisamos en menos de 24 h',
+    semana: 'En revisión · aún no aparece en Explorar',
+    secciones: [
+      { icon: 'bed-fill', titulo: 'Tipo de cuarto', texto: 'Cuarto privado · escritorio y balcón' },
+      { icon: 'check-circle-fill', titulo: 'Qué incluye', texto: 'Internet, agua y luz' },
+      { icon: 'shield-check-fill', titulo: 'Reglas de la casa', texto: '5 reglas · llegada antes de las 10 p. m.' },
+      { icon: 'map-pin-fill', titulo: 'Ubicación', texto: 'Jardines de Guadalupe · 4 min a la Peatonal' },
+      { icon: 'dollar-circle-fill', titulo: 'Precio y depósito', texto: '$130 al mes · depósito de $130' },
+      { icon: 'calendar-fill', titulo: 'Disponibilidad', texto: 'Desde el 10 de enero de 2027' },
+    ],
+  },
+  {
+    id: 'pequena',
+    titulo: 'Habitación pequeña',
+    precio: 95,
+    foto: casaTranquila,
+    fotos: [casaTranquila, fotoFachada],
+    estado: 'pausado',
+    datos: 'Pausado desde el 2 de nov',
+    semana: 'Pausado · no aparece en Explorar',
+    secciones: [
+      { icon: 'bed-fill', titulo: 'Tipo de cuarto', texto: 'Cuarto privado · baño compartido' },
+      { icon: 'check-circle-fill', titulo: 'Qué incluye', texto: 'Internet, agua y luz' },
+      { icon: 'shield-check-fill', titulo: 'Reglas de la casa', texto: '5 reglas · llegada antes de las 10 p. m.' },
+      { icon: 'map-pin-fill', titulo: 'Ubicación', texto: 'Jardines de Guadalupe · 4 min a la Peatonal' },
+      { icon: 'dollar-circle-fill', titulo: 'Precio y depósito', texto: '$95 al mes · depósito de $95' },
+      { icon: 'calendar-fill', titulo: 'Disponibilidad', texto: 'Ocupado hasta el 15 de diciembre' },
+    ],
+  },
+]
+
+/* ---------- Destacar (Q06–Q08) ---------- */
+export const PLANES = [
+  { dias: 7, precio: 4.99, alcance: 'Hasta 2× más visitas' },
+  { dias: 15, precio: 8.99, alcance: 'Hasta 3× más visitas', popular: true },
+  { dias: 30, precio: 14.99, alcance: 'Hasta 4× más visitas' },
+]
+export const INCLUYE_DESTACADO = ['Apareces primero en Explorar y en el mapa', 'Etiqueta “Destacado” en tu quad', 'Reporte de vistas y guardados cada semana']
+export const TARJETA = { nombre: 'Visa terminada en 4417', vence: 'Vence 08/28 · Toca para cambiar', corta: 'Visa •••• 4417' }
+
+/* ---------- Perfil del anfitrión (P01–P08) ---------- */
+export const PERFIL_HOST = {
+  nombre: 'Andrea Martínez',
+  desde: 'Anfitriona desde 2024',
+  rating: 4.9,
+  resenas: 12,
+}
+
+export const CUENTA_RETIRO = { banco: 'Banco Agrícola •••• 2231', detalle: 'Cuenta de ahorro · Andrea Martínez', corto: 'Banco Agrícola' }
+
+export const MOVIMIENTOS = [
+  { icon: 'dollar-circle-fill', tono: 'green', titulo: 'Pago de Marcela Pineda', texto: '1 de nov · Habitación pequeña', monto: 95 },
+  { icon: 'dollar-circle-fill', tono: 'green', titulo: 'Pago de Karla Méndez', texto: '1 de oct · Cuarto con balcón', monto: 135 },
+  { icon: 'star-fill', tono: 'gray', titulo: 'Quad destacado · 15 días', texto: '13 de nov · Visa •••• 4417', monto: -8.99 },
+  { icon: 'dollar-circle-fill', tono: 'gray', titulo: 'Retiro a Banco Agrícola', texto: '15 de oct', monto: -300 },
+]
+
+export const VERIFICACION = [
+  { titulo: 'Documento de identidad', texto: 'DUI · verificado el 3 de sep de 2024' },
+  { titulo: 'Selfie de validación', texto: 'Coincide con tu documento' },
+  { titulo: 'Teléfono', texto: '+503 •••• 4821' },
+  { titulo: 'Correo', texto: 'andrea.m••••@gmail.com' },
+]
+
+export const RESENAS_RECIBIDAS = {
+  promedio: 4.9,
+  total: 12,
+  barras: [
+    [5, 10],
+    [4, 2],
+    [3, 0],
+    [2, 0],
+    [1, 0],
+  ],
+  lista: [
+    { iniciales: 'VC', nombre: 'Valeria Cruz', carrera: 'Psicología · UCA', estancia: 'Vivió aquí 2 ciclos', texto: 'Andrea y su familia me hicieron sentir en casa. La cocina siempre estuvo disponible y respetaron mis horarios de estudio.' },
+    { iniciales: 'PR', nombre: 'Paola Rivas', carrera: 'Ingeniería Civil · UCA', estancia: 'Vivió aquí 1 ciclo', texto: 'Casa muy tranquila y a minutos de la UCA. Las reglas son claras desde el inicio.' },
+    { iniciales: 'GL', nombre: 'Gabriela López', carrera: 'Comunicaciones · UCA', estancia: 'Vivió aquí 1 ciclo', texto: 'Todo muy limpio y ordenado. Recomendado si buscas un lugar para concentrarte.' },
+    { iniciales: 'LR', nombre: 'Lucía R.', carrera: 'Ingeniería Industrial · UCA', estancia: 'Vivió aquí 2 ciclos', texto: 'Doña Rosa siempre estuvo pendiente sin ser invasiva. Las reglas estaban claras desde el inicio, eso me dio mucha tranquilidad.' },
+  ],
+}
+
+export const PERSONAS_CASA = [
+  { id: 'rosa', iniciales: 'RM', nombre: 'Rosa Martínez', rol: 'Mamá · Anfitriona principal' },
+  { id: 'carlos', iniciales: 'CM', nombre: 'Carlos Martínez', rol: 'Papá' },
+  { id: 'andrea', iniciales: 'AM', nombre: 'Andrea Martínez', rol: 'Hija · Estudiante de Contaduría' },
+]
+export const MASCOTAS_CASA = [
+  { id: 'perros', nombre: 'Perros', cantidad: 4 },
+  { id: 'gatos', nombre: 'Gatos', cantidad: 1 },
 ]
 
 export const BANNER_FOTO = cuartoBalcon

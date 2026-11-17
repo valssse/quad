@@ -1,7 +1,7 @@
 import { motion } from 'motion/react'
 import Icon from '../../components/Icon.jsx'
 import { fadeUp, stagger } from '../../components/motion.js'
-import { ANFITRIONA, BANNER_FOTO, MIS_QUADS, SEMANA } from '../../data/host.js'
+import { ANFITRIONA, BANNER_FOTO, SEMANA } from '../../data/host.js'
 import { Avatar, Estado } from './ui.jsx'
 
 const toque = { whileTap: { scale: 0.98 } }
@@ -12,7 +12,7 @@ function saludo() {
 }
 
 /** H01 · Panel del anfitrión. */
-export default function Panel({ ir, solicitudes, visitas, totalCobro, inquilinas }) {
+export default function Panel({ ir, quads, solicitudes, visitas, totalCobro, inquilinas }) {
   const nuevas = solicitudes.filter((s) => s.estado === 'nueva')
   const hoy = visitas.filter((v) => v.hoy)
   const pendientes = [
@@ -51,7 +51,7 @@ export default function Panel({ ir, solicitudes, visitas, totalCobro, inquilinas
             </span>
           </div>
           <span className="hs-cobro__line" />
-          <motion.button type="button" className="hs-cobro__link" {...toque} onClick={() => ir('inquilinos', 'estancias')}>
+          <motion.button type="button" className="hs-cobro__link" {...toque} onClick={() => ir('cobros')}>
             Ver cobros y retiros
             <Icon name="nav-arrow-right" size={16} />
           </motion.button>
@@ -81,7 +81,7 @@ export default function Panel({ ir, solicitudes, visitas, totalCobro, inquilinas
           <div className="hs-banner__text">
             <h2>Destaca tu quad</h2>
             <p>Aparece primero en Explorar y recibe hasta 3× más visitas.</p>
-            <motion.button type="button" className="hs-banner__btn" {...toque}>
+            <motion.button type="button" className="hs-banner__btn" {...toque} onClick={() => ir('destacar', quads.find((q) => q.estado === 'publicado')?.id || 'familia')}>
               Ver planes
               <Icon name="nav-arrow-right" size={16} />
             </motion.button>
@@ -130,7 +130,7 @@ export default function Panel({ ir, solicitudes, visitas, totalCobro, inquilinas
           <div className="hs-block__head">
             <div className="hs-block__head hs-block__head--start">
               <h2>Mis quads</h2>
-              <span className="hs-count">{MIS_QUADS.length}</span>
+              <span className="hs-count">{quads.length}</span>
             </div>
             <motion.button type="button" className="hs-link" {...toque} onClick={() => ir('quads')}>
               Ver todo
@@ -138,8 +138,8 @@ export default function Panel({ ir, solicitudes, visitas, totalCobro, inquilinas
             </motion.button>
           </div>
           <div className="hs-carousel">
-            {MIS_QUADS.map((q) => (
-              <motion.article key={q.id} className="hs-quad" {...toque}>
+            {quads.map((q) => (
+              <motion.article key={q.id} className="hs-quad" {...toque} onClick={() => ir('editar-quad', q.id)}>
                 <img src={q.foto} alt="" />
                 <div className="hs-quad__info">
                   <Estado id={q.estado} />

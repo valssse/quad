@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import StatusBar from '../../components/StatusBar.jsx'
 import Icon from '../../components/Icon.jsx'
@@ -16,6 +16,7 @@ import FiltrosPantalla from './FiltrosPantalla.jsx'
 import { MiPerfil, EditarPerfil } from './MiPerfil.jsx'
 import { perfilInicial } from '../../data/perfil.js'
 import { useLiquidGlass } from '../../components/LiquidGlass.jsx'
+import Skeleton from '../../components/Skeleton.jsx'
 import { FILTROS_VACIOS, contarFiltros } from '../../data/filtros.js'
 import './detalle.css'
 import { GUARDADOS_INICIAL } from '../../data/quads.js'
@@ -81,6 +82,13 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
   // Perfil del estudiante (09): lo que llenó en el onboarding o el del Figma; se edita en 09b
   const [yo, setYo] = useState(() => perfilInicial(cuenta, estudiante))
   const [aviso, setAviso] = useState(false)
+
+  // Skeleton de referencia al entrar
+  const [cargando, setCargando] = useState(true)
+  useEffect(() => {
+    const t = setTimeout(() => setCargando(false), 1400)
+    return () => clearTimeout(t)
+  }, [])
   const alternarGuardado = (id) => setGuardados((g) => (g.includes(id) ? g.filter((x) => x !== id) : [...g, id]))
 
   // Dirección para las pantallas apiladas
@@ -156,6 +164,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
             {contenido[pantalla] || contenido.explorar}
           </motion.div>
         </AnimatePresence>
+        <AnimatePresence>{cargando && <Skeleton key="sk" tipo="estudiante" />}</AnimatePresence>
       </div>
 
       {/* Degradado inferior para que la barra se lea sobre el contenido */}
@@ -174,7 +183,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
 
       {/* Navegación (+ "Ver Mapa" solo en Inicio) */}
       <AnimatePresence>
-        {esTab && (
+        {esTab && !cargando && (
           <motion.div
             className="home__dock"
             initial={{ y: 120, opacity: 0 }}

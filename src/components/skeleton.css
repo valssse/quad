@@ -1,0 +1,95 @@
+/* Skeleton de carga (referencia) */
+.sk-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  overflow: hidden;
+  background: var(--bg-screen);
+}
+
+.sk-body {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 6px 20px 0;
+}
+
+.sk {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #e6e9f0;
+}
+
+.sk::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.65) 50%, rgba(255, 255, 255, 0) 100%);
+  animation: sk-brillo 1.2s ease-in-out infinite;
+}
+
+@keyframes sk-brillo {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk::after {
+    animation: none;
+  }
+}
+
+.sk-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sk-row > .sk-col {
+  flex: 1;
+}
+
+.sk-row--tight {
+  gap: 8px;
+  overflow: hidden;
+}
+
+.sk-row--between {
+  justify-content: space-between;
+}
+
+.sk-row--card {
+  padding: 14px;
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  background: var(--bg-surface);
+}
+
+.sk-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sk-col--card {
+  gap: 10px;
+}
+
+.sk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.sk-dock {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
