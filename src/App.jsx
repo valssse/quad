@@ -86,7 +86,7 @@ export default function App() {
     ),
     inicio: <Splash onLogin={() => navigate('iniciar-sesion')} onSignup={() => navigate('crear-cuenta')} />,
     'iniciar-sesion': (
-      <IniciarSesion onSubmit={({ microsoft }) => navigate(microsoft ? 'como-usaras' : 'app/explorar')} onSignup={() => navigate('crear-cuenta')} />
+      <IniciarSesion onSubmit={({ microsoft }) => navigate(microsoft ? 'host/inicio' : 'app/explorar')} onSignup={() => navigate('crear-cuenta')} />
     ),
     'crear-cuenta': (
       <CrearCuenta
