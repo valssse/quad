@@ -321,11 +321,25 @@
 }
 
 .wb-fade--bottom {
-  top: 290px;
+  top: 270px;
+  height: 132px;
+  background: linear-gradient(
+    180deg,
+    rgba(245, 247, 251, 0) 0%,
+    rgba(245, 247, 251, 0.55) 35%,
+    rgba(245, 247, 251, 0.9) 65%,
+    var(--bg-screen) 88%
+  );
 }
 
 .wb-fade--top {
-  top: 0;
-  height: 90px;
-  background: linear-gradient(0deg, rgba(245, 247, 251, 0) 0%, var(--bg-screen) 100%);
+  top: -2px;
+  height: 92px;
+  background: linear-gradient(
+    0deg,
+    rgba(245, 247, 251, 0) 0%,
+    rgba(245, 247, 251, 0.55) 35%,
+    rgba(245, 247, 251, 0.9) 65%,
+    var(--bg-screen) 88%
+  );
 }
