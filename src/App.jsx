@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, MotionConfig, motion } from 'motion/react'
 import useHashRoute from './hooks/useHashRoute.js'
 import { screenVariants } from './components/motion.js'
@@ -47,6 +47,13 @@ const FLOW = [
 
 export default function App() {
   const { route, param, sub, direction, navigate } = useHashRoute(FLOW, 'bienvenida/1')
+
+  // Al abrir la app siempre se empieza en la Bienvenida 1, aunque la URL guardada apunte a la 2 o la 3
+  // (el carrusel actualiza el hash, y el navegador lo recuerda al volver a abrir el enlace).
+  useEffect(() => {
+    if (route === 'bienvenida' && param !== '1') navigate('bienvenida/1', { replace: true })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Splash animado al abrir la app: 'logo' → 'revelando' (la app ya está detrás) → 'listo'
   const [intro, setIntro] = useState('logo')
