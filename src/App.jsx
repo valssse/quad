@@ -20,10 +20,11 @@ import Permisos from './screens/Permisos.jsx'
 import Listo from './screens/Listo.jsx'
 import EstudianteFlow from './screens/estudiante/EstudianteFlow.jsx'
 import { ESTUDIANTE_INICIAL } from './data/estudiante.js'
-import AnfitrionFlow from './screens/anfitrion/AnfitrionFlow.jsx'
-import { ANFITRION_INICIAL } from './data/anfitrion.js'
 import HomeShell from './screens/home/HomeShell.jsx'
-import HostShell from './screens/host/HostShell.jsx'
+
+/** App del anfitrión (otro GitHub Pages): se abre al elegir "Anfitrión". */
+const URL_ANFITRION = 'https://valssse.github.io/Quad-Host/'
+const irAAnfitrion = () => window.location.assign(`${URL_ANFITRION}#/anfitrion/tipo`)
 
 /**
  * Onboarding compartido de Quad (sección "Onboarding · Compartido" en Figma).
@@ -39,9 +40,7 @@ const FLOW = [
   'como-usaras',
   'permisos',
   'estudiante',
-  'anfitrion',
   'app',
-  'host',
   'listo',
 ]
 
@@ -63,7 +62,6 @@ export default function App() {
   const [role, setRole] = useState('estudiante')
   const [permissions, setPermissions] = useState({ location: true, notifications: true })
   const [estudiante, setEstudiante] = useState(ESTUDIANTE_INICIAL)
-  const [anfitrion, setAnfitrion] = useState(ANFITRION_INICIAL)
 
   // Dirección interna del carrusel de bienvenida
   const [slideDir, setSlideDir] = useState(1)
@@ -87,7 +85,7 @@ export default function App() {
     ),
     inicio: <Splash onLogin={() => navigate('iniciar-sesion')} onSignup={() => navigate('crear-cuenta')} />,
     'iniciar-sesion': (
-      <IniciarSesion onSubmit={({ microsoft }) => navigate(microsoft ? 'host/inicio' : 'app/explorar')} onSignup={() => navigate('crear-cuenta')} />
+      <IniciarSesion onSubmit={() => navigate('app/explorar')} onSignup={() => navigate('crear-cuenta')} />
     ),
     'crear-cuenta': (
       <CrearCuenta
@@ -109,15 +107,20 @@ export default function App() {
       />
     ),
     'como-usaras': (
-      <ComoUsaras role={role} onRoleChange={setRole} onBack={goBack} onContinue={() => navigate('permisos')} />
+      <ComoUsaras
+        role={role}
+        onRoleChange={setRole}
+        onBack={goBack}
+        onContinue={() => (role === 'anfitrion' ? irAAnfitrion() : navigate('permisos'))}
+      />
     ),
     permisos: (
       <Permisos
         permissions={permissions}
         onToggle={(id, value) => setPermissions((p) => ({ ...p, [id]: value }))}
         onBack={goBack}
-        onContinue={() => navigate(role === 'estudiante' ? 'estudiante/universidad' : 'anfitrion/tipo')}
-        onSkip={() => navigate(role === 'estudiante' ? 'estudiante/universidad' : 'anfitrion/tipo')}
+        onContinue={() => navigate('estudiante/universidad')}
+        onSkip={() => navigate('estudiante/universidad')}
       />
     ),
     estudiante: (
@@ -130,15 +133,6 @@ export default function App() {
         onFinish={() => navigate('app/explorar')}
       />
     ),
-    anfitrion: (
-      <AnfitrionFlow
-        pasoId={param}
-        datos={anfitrion}
-        setDatos={setAnfitrion}
-        navigate={navigate}
-        onFinish={() => navigate('host/inicio')}
-      />
-    ),
     app: (
       <HomeShell
         pantalla={param}
@@ -146,20 +140,7 @@ export default function App() {
         cuenta={account}
         estudiante={estudiante}
         navigate={navigate}
-        onAnfitrion={() => {
-          setRole('anfitrion')
-          navigate('anfitrion/tipo')
-        }}
-        onCerrarSesion={() => navigate('inicio')}
-      />
-    ),
-    host: (
-      <HostShell
-        pantalla={param}
-        sub={sub}
-        navigate={navigate}
-        onPublicar={() => navigate('anfitrion/fotos')}
-        onEstudiante={() => navigate('app/perfil')}
+        onAnfitrion={irAAnfitrion}
         onCerrarSesion={() => navigate('inicio')}
       />
     ),

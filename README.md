@@ -4,6 +4,8 @@ Encuentra un quad cerca de tu universidad, con personas verificadas.
 
 Este repositorio contiene el MVP de **Quad**, programado en **React + JavaScript** con **Vite**, a partir del archivo de Figma *Quad App* (página **App**).
 
+> **Nota:** esta app es solo la parte del **estudiante**. El flujo del anfitrión (onboarding A01–A22 y panel) vive en su propio repositorio: <https://github.com/valssse/Quad-Host> (página: <https://valssse.github.io/Quad-Host/>). Al elegir *Ofrezco un Quad* en *¿Cómo usarás Quad?* se abre esa página.
+
 ## Estado de los flujos
 
 | Flujo | Pantallas de Figma | Estado |
