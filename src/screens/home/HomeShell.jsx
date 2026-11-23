@@ -17,6 +17,8 @@ import Alquiler from './Alquiler.jsx'
 import { ALQUILER_INICIAL, QUAD_ID } from '../../data/alquiler.js'
 import { detalle } from '../../data/detalle.js'
 import { MiPerfil, EditarPerfil } from './MiPerfil.jsx'
+import { Solicitudes, Notificaciones } from './Solicitudes.jsx'
+import { NOTIS_INICIAL } from '../../data/solicitudes.js'
 import { perfilInicial } from '../../data/perfil.js'
 import { useLiquidGlass } from '../../components/LiquidGlass.jsx'
 import Skeleton from '../../components/Skeleton.jsx'
@@ -34,7 +36,7 @@ const TABS = [
 ]
 const ES_TAB = TABS.map((t) => t.id)
 // Pantallas que se abren encima (sin barra de navegación)
-const NIVEL = { 'mi-perfil': 1, 'editar-perfil': 2, buscar: 1, resultados: 2, filtros: 3, mapa: 3, quad: 4, casa: 5, chat: 6, alquiler: 7 }
+const NIVEL = { 'mi-perfil': 1, 'editar-perfil': 2, buscar: 1, resultados: 2, filtros: 3, mapa: 3, quad: 4, casa: 5, chat: 6, alquiler: 7, solicitudes: 1, notificaciones: 1 }
 const APILADAS = Object.keys(NIVEL)
 // Pantallas que dibujan su propia barra de estado (foto o mapa detrás)
 const SIN_ESTADO = ['mapa', 'quad', 'alquiler']
@@ -91,10 +93,18 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
   const [noti, setNoti] = useState(null)
   const notiTimer = useRef(null)
   const respuestasDadas = useRef(0)
+  // Solicitudes enviadas a otras casas (la de Andrea se deduce del flujo de alquiler) y notificaciones
+  const [enviadas, setEnviadas] = useState([])
+  const [notis, setNotis] = useState(() =>
+    NOTIS_INICIAL.map((n) => ({ ...n, foto: n.fotoDe ? detalle(buscarQuad(n.fotoDe)).anfitrion.foto : null })),
+  )
+  const agregarNoti = (n) => setNotis((l) => [{ ...n, id: `n-${Date.now()}`, hace: 'Ahora', leida: false }, ...l])
+  const marcarLeidas = () => setNotis((l) => (l.some((n) => !n.leida) ? l.map((n) => ({ ...n, leida: true })) : l))
   const notificar = (n) => {
     clearTimeout(notiTimer.current)
     setNoti({ ...n, id: Date.now() })
     notiTimer.current = setTimeout(() => setNoti(null), 6000)
+    agregarNoti({ foto: n.foto, texto: n.texto, destino: n.destino })
   }
   useEffect(() => () => clearTimeout(notiTimer.current), [])
 
@@ -142,26 +152,45 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
   const solicitar = (id) => {
     const h = detalle(buscarQuad(id)).anfitrion
     if (id === QUAD_ID) {
-      setAlquiler((s) => ({ ...s, solicitud: 'enviada' }))
+      setAlquiler((s) => ({ ...s, solicitud: 'enviada', respuestaEn: Date.now() }))
       setTimeout(() => {
         setAlquiler((s) => (s.solicitud === 'enviada' ? { ...s, solicitud: 'aceptada' } : s))
-        notificar({ foto: h.foto, texto: `${h.corto} aceptó tu solicitud`, accion: () => ir('alquiler', 'aceptada') })
+        notificar({ foto: h.foto, texto: `${h.corto} aceptó tu solicitud`, destino: ['alquiler', 'aceptada'], accion: () => ir('alquiler', 'aceptada') })
       }, 6000)
       return
     }
     // Alterna: la primera solicitud se rechaza (R07), la siguiente pide más información (R08)
     const tipo = respuestasDadas.current++ % 2 ? 'mas-info' : 'rechazada'
+    setEnviadas((l) => [{ quadId: id, enviadaEn: Date.now(), estado: 'revision' }, ...l.filter((x) => x.quadId !== id)])
     setTimeout(() => {
       setRespuesta({ quadId: id, tipo })
+      setEnviadas((l) => l.map((x) => (x.quadId === id ? { ...x, estado: tipo } : x)))
       notificar({
         foto: h.foto,
         texto: tipo === 'rechazada' ? `${h.corto} respondió a tu solicitud` : `${h.corto} quiere saber algo más`,
+        destino: ['alquiler', tipo],
         accion: () => ir('alquiler', tipo),
       })
     }, 6000)
   }
 
-  const props = { ir, perfil, guardados, alternarGuardado, consulta, setConsulta, filtros, setFiltros, nFiltros, alquiler, solicitar }
+  // Solicitudes activas: las rápidas + la de Andrea (según el flujo de alquiler), la más reciente primero
+  const activas = [
+    ...enviadas,
+    ...(alquiler.solicitud && !alquiler.contratoFirmado
+      ? [{ quadId: QUAD_ID, enviadaEn: alquiler.respuestaEn ?? 0, estado: alquiler.solicitud === 'aceptada' ? 'aceptada' : 'revision' }]
+      : []),
+  ]
+    .filter((x) => x.estado !== 'rechazada')
+    .sort((a, b) => b.enviadaEn - a.enviadaEn)
+  const abrirSolicitud = (x) => {
+    if (x.quadId === QUAD_ID) return ir('alquiler', x.estado === 'aceptada' ? 'aceptada' : 'enviada')
+    ir(x.estado === 'mas-info' ? 'alquiler' : 'quad', x.estado === 'mas-info' ? 'mas-info' : x.quadId)
+  }
+  const abrirNoti = (n) => n.destino && ir(n.destino[0], n.destino[1])
+  const sinLeer = notis.filter((n) => !n.leida).length
+
+  const props = { activas, abrirSolicitud, sinLeer, ir, perfil, guardados, alternarGuardado, consulta, setConsulta, filtros, setFiltros, nFiltros, alquiler, solicitar }
   const esTab = ES_TAB.includes(pantalla)
   const oscuro = pantalla === 'explorar' || pantalla === 'guardados'
 
@@ -179,6 +208,8 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     chat: <Conversacion {...props} id={sub} />,
     'mi-perfil': <MiPerfil {...props} yo={yo} aviso={aviso} cerrarAviso={() => setAviso(false)} />,
     'editar-perfil': <EditarPerfil {...props} yo={yo} guardar={guardarPerfil} />,
+    solicitudes: <Solicitudes solicitudes={activas} abrirSolicitud={abrirSolicitud} />,
+    notificaciones: <Notificaciones notis={notis} abrirNoti={abrirNoti} marcarLeidas={marcarLeidas} />,
     alquiler: <Alquiler {...props} sub={sub} setAlquiler={setAlquiler} respuesta={respuesta} />,
   }
 

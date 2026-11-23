@@ -238,10 +238,6 @@ function HojaEnviarPerfil({ abierta, anfitrion, perfil, onClose, onEnviar }) {
                 <b>{yo.nombreCompleto}</b>
                 <small>{yo.detalle}</small>
               </span>
-              <span className="dt-sheet__badge">
-                <Icon name="check-circle-fill" size={14} />
-                {yo.genero === 'mujer' ? 'Verificada' : 'Verificado'}
-              </span>
             </div>
             <Button onClick={onEnviar}>Enviar solicitud</Button>
             <Button variant="outline" onClick={onClose}>
