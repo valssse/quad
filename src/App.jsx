@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AnimatePresence, MotionConfig, motion } from 'motion/react'
 import useHashRoute from './hooks/useHashRoute.js'
 import { screenVariants } from './components/motion.js'
@@ -9,7 +9,7 @@ const revealVariants = {
   center: { opacity: 1, x: 0 },
   exit: screenVariants.exit,
 }
-import Intro from './screens/Intro.jsx'
+import Intro, { INTRO_REVELADO } from './screens/Intro.jsx'
 import Bienvenida from './screens/Bienvenida.jsx'
 import Splash from './screens/Splash.jsx'
 import IniciarSesion from './screens/IniciarSesion.jsx'
@@ -45,18 +45,11 @@ const FLOW = [
   'listo',
 ]
 
-/** Duración del splash animado antes de pasar a la Bienvenida 1 (ms). */
-const INTRO_MS = 1800
-
 export default function App() {
   const { route, param, sub, direction, navigate } = useHashRoute(FLOW, 'bienvenida/1')
 
-  // Splash animado: se muestra siempre al abrir la app
-  const [introDone, setIntroDone] = useState(false)
-  useEffect(() => {
-    const id = setTimeout(() => setIntroDone(true), INTRO_MS)
-    return () => clearTimeout(id)
-  }, [])
+  // Splash animado al abrir la app: 'logo' → 'revelando' (la app ya está detrás) → 'listo'
+  const [intro, setIntro] = useState('logo')
 
   // Estado compartido del onboarding
   const [account, setAccount] = useState({ name: '', email: '' })
@@ -82,6 +75,7 @@ export default function App() {
         }}
         onSkip={() => navigate('inicio')}
         onFinish={() => navigate('inicio')}
+        retraso={intro === 'listo' ? 0 : 450}
       />
     ),
     inicio: <Splash onLogin={() => navigate('iniciar-sesion')} onSignup={() => navigate('crear-cuenta')} />,
@@ -169,28 +163,31 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <div className="stage">
         <div className="device">
-          {/* mode="wait": primero termina de salir el splash, luego entra la app */}
-          <AnimatePresence mode="wait">
-            {!introDone ? (
-              <Intro key="intro" />
-            ) : (
-              <div key="app" className="screen-layer">
-                <AnimatePresence initial={false} custom={direction}>
-                  <motion.div
-                    key={route}
-                    className="screen-layer"
-                    custom={direction}
-                    variants={route === 'inicio' ? revealVariants : screenVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                  >
-                    {screens[route]}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            )}
-          </AnimatePresence>
+          {/* La app se monta detrás del splash cuando empieza el recorte y entra con zoom y desenfoque suaves.
+              La primera pantalla no se desliza: la revela la máscara del splash. */}
+          {intro !== 'logo' && (
+            <motion.div
+              className="screen-layer"
+              initial={{ scale: 1.08, filter: 'blur(10px)' }}
+              animate={{ scale: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none', transform: 'none' } }}
+              transition={{ duration: INTRO_REVELADO + 0.15, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <AnimatePresence custom={direction}>
+                <motion.div
+                  key={route}
+                  className="screen-layer"
+                  custom={direction}
+                  variants={route === 'inicio' ? revealVariants : screenVariants}
+                  initial={intro === 'listo' ? 'enter' : 'center'}
+                  animate="center"
+                  exit="exit"
+                >
+                  {screens[route]}
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+          )}
+          {intro !== 'listo' && <Intro onRevelar={() => setIntro('revelando')} onFin={() => setIntro('listo')} />}
         </div>
       </div>
     </MotionConfig>

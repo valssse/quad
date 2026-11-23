@@ -165,29 +165,6 @@
   --icon-cut: var(--secondary-300);
 }
 
-.wb-chip--inverse {
-  box-shadow: 0 0 0 3px var(--bg-screen), 0 6px 14px rgba(15, 23, 42, 0.22);
-  background: var(--bg-inverse);
-  --icon-cut: var(--bg-inverse);
-  z-index: 2;
-}
-
-.wb-spark {
-  z-index: 3;
-}
-
-.wb-spark--blanco {
-  fill: var(--bg-surface);
-}
-
-.wb-spark--azul {
-  fill: var(--primary-200);
-}
-
-.wb-spark--amarillo {
-  fill: var(--yellow-100);
-}
-
 /* ---------- 01d · Órbitas y pastilla ---------- */
 .wb-orbit {
   border: 1.5px solid var(--bg-surface);
@@ -313,11 +290,7 @@
 }
 
 .wb-art--2 .wb-photo,
-.wb-art--2 .wb-spark {
-  z-index: 2;
-}
-
-/* ---------- 01f · Columnas en bucle ---------- */
+.wb-art--2 /* ---------- 01f · Columnas en bucle ---------- */
 .wb-col {
   top: 0;
   width: 100px;

@@ -19,3 +19,21 @@
   width: 88px;
   height: 88px;
 }
+
+/* Recorte: capa llena menos el hueco con forma del logo */
+.intro {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  will-change: mask-size, filter;
+}
+
+.intro__marca {
+  position: absolute;
+  z-index: 51;
+  pointer-events: none;
+}

@@ -36,12 +36,6 @@ const bienvenidas = [
       { icon: 'wifi-fill', x: 334, y: 160 },
       { icon: 'bed-fill', x: 212, y: 300 },
     ],
-    destellos: [
-      { x: 40, y: 40, s: 22, tono: 'blanco' },
-      { x: 236, y: 8, s: 34, tono: 'blanco' },
-      { x: 258, y: 230, s: 14, tono: 'azul' },
-      { x: 96, y: 220, s: 16, tono: 'azul' },
-    ],
   },
   {
     title: 'Conoce a la familia antes de llegar',
@@ -59,12 +53,6 @@ const bienvenidas = [
       { src: carlos, x: 258, y: 292, d: 44 },
       { src: sofia, x: 36, y: 338, d: 38 },
     ],
-    destellos: [
-      { x: 48, y: 250, s: 18, tono: 'azul' },
-      { x: 322, y: 240, s: 24, tono: 'amarillo' },
-      { x: 140, y: 262, s: 12, tono: 'azul' },
-      { x: 300, y: 300, s: 10, tono: 'azul' },
-    ],
   },
   {
     title: 'Todo seguro, dentro de Quad',
@@ -76,18 +64,6 @@ const bienvenidas = [
       { x: 27, y: 22, dir: 'abajo', dur: 26, fotos: [{ src: andrea, h: 176 }, { src: habitacionAmplia, h: 150 }, { src: hogarEspacioso, h: 160 }, { src: cuartoFamilia, h: 140 }] },
       { x: 145, y: 6, dir: 'arriba', dur: 24, fotos: [{ src: rosa, h: 120 }, { src: fachada, h: 210 }, { src: closetGrande, h: 150 }, { src: carlos, h: 180 }, { src: casaTranquila, h: 140 }] },
       { x: 263, y: 36, dir: 'abajo', dur: 28, fotos: [{ src: cuartoMerliot, h: 160 }, { src: sofia, h: 168 }, { src: madreselva, h: 140 }, { src: banoPropio, h: 150 }, { src: cuartoBalcon, h: 130 }] },
-    ],
-    // Entre columnas: centrados en las separaciones (x = 136 y 254)
-    chips: [
-      { icon: 'shield-check-fill', x: 118, y: 96 },
-      { icon: 'hero-lock-closed-solid', x: 236, y: 180 },
-      { icon: 'dollar-circle-fill', x: 118, y: 262 },
-    ],
-    destellos: [
-      { x: 12, y: 80, s: 20, tono: 'azul' },
-      { x: 356, y: 200, s: 26, tono: 'amarillo' },
-      { x: 240, y: 4, s: 14, tono: 'azul' },
-      { x: 138, y: 340, s: 12, tono: 'azul' },
     ],
   },
 ]

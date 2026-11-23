@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import StatusBar from '../components/StatusBar.jsx'
 import Button from '../components/Button.jsx'
@@ -10,7 +11,7 @@ import './Bienvenida.css'
 /**
  * 01d · 01e · 01f — Bienvenida (Rediseño B).
  * Ilustraciones animadas con motion: entradas suaves, resortes en círculos y chips,
- * flotación continua y, en la 3, columnas de fotos en bucle vertical infinito.
+ * flotación continua y, en la 3, columnas de fotos en bucle vertical infinito (solo imágenes).
  * Respeta prefers-reduced-motion por el MotionConfig de App.
  */
 const SALIDA = [0.22, 1, 0.36, 1]
@@ -29,34 +30,16 @@ const flotar = (i, amp = 6) => ({
   transition: { duration: 4 + (i % 3), ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse', delay: 0.9 + i * 0.15 },
 })
 
-function Destello({ x, y, s, tono, i }) {
-  return (
-    <motion.svg
-      className={`wb-spark wb-spark--${tono}`}
-      style={{ left: x, top: y }}
-      width={s}
-      height={s}
-      viewBox="0 0 22 22"
-      initial={{ opacity: 0, scale: 0.4, rotate: -20 }}
-      animate={{ opacity: [0, 1, 0.55, 1], scale: 1, rotate: 0 }}
-      transition={{ ...RESORTE, delay: 0.5 + i * 0.12, opacity: { duration: 3.2 + i, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: 0.5 + i * 0.12 } }}
-      aria-hidden="true"
-    >
-      <path d="M11 0C11.825 6.6 15.4 10.175 22 11C15.4 11.825 11.825 15.4 11 22C10.175 15.4 6.6 11.825 0 11C6.6 10.175 10.175 6.6 11 0Z" />
-    </motion.svg>
-  )
-}
-
-function Chip({ icon, x, y, i, oscuro }) {
+function Chip({ icon, x, y, i }) {
   return (
     <motion.span
-      className={`wb-chip ${oscuro ? 'wb-chip--inverse' : ''}`}
+      className="wb-chip"
       style={{ left: x, top: y }}
       initial={{ opacity: 0, scale: 0.6 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ ...RESORTE, delay: 0.55 + i * 0.1 }}
     >
-      <motion.span animate={oscuro ? undefined : flotar(i + 2, 4)} style={{ display: 'grid' }}>
+      <motion.span animate={flotar(i + 2, 4)} style={{ display: 'grid' }}>
         <Icon name={icon} size={18} />
       </motion.span>
     </motion.span>
@@ -92,9 +75,6 @@ function Ilustracion1({ b }) {
       </motion.span>
       {b.chips.map((c, i) => (
         <Chip key={c.icon} {...c} i={i} />
-      ))}
-      {b.destellos.map((d, i) => (
-        <Destello key={i} {...d} i={i} />
       ))}
     </>
   )
@@ -160,9 +140,6 @@ function Ilustracion2({ b }) {
           <motion.img src={p.src} alt="" draggable="false" animate={flotar(i, 4)} />
         </motion.span>
       ))}
-      {b.destellos.map((d, i) => (
-        <Destello key={i} {...d} i={i + 2} />
-      ))}
     </>
   )
 }
@@ -197,19 +174,24 @@ function Ilustracion3({ b }) {
       ))}
       <span className="wb-fade wb-fade--top" />
       <span className="wb-fade wb-fade--bottom" />
-      {b.chips.map((c, i) => (
-        <Chip key={c.icon} {...c} i={i} oscuro />
-      ))}
-      {b.destellos.map((d, i) => (
-        <Destello key={i} {...d} i={i} />
-      ))}
     </>
   )
 }
 
 const ILUSTRACIONES = [Ilustracion1, Ilustracion2, Ilustracion3]
 
-export default function Bienvenida({ index, direction, onChange, onSkip, onFinish }) {
+/**
+ * retraso (ms): al abrir la app, la ilustración y el texto esperan a que la máscara
+ * del splash empiece a abrirse, así su animación de entrada se ve completa.
+ */
+export default function Bienvenida({ index, direction, onChange, onSkip, onFinish, retraso = 0 }) {
+  const [visible, setVisible] = useState(retraso === 0)
+  useEffect(() => {
+    if (visible) return
+    const t = setTimeout(() => setVisible(true), retraso)
+    return () => clearTimeout(t)
+  }, [visible, retraso])
+
   const b = bienvenidas[index]
   const isLast = index === bienvenidas.length - 1
   const next = () => (isLast ? onFinish() : onChange(index + 1))
@@ -254,32 +236,34 @@ export default function Bienvenida({ index, direction, onChange, onSkip, onFinis
       </header>
 
       <main className="wb-stage">
-        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
-          <motion.div
-            key={index}
-            className="wb-slide"
-            custom={direction}
-            variants={slide}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.18}
-            onDragEnd={alSoltar}
-          >
-            <div className={`wb-art wb-art--${index + 1}`} aria-hidden="true">
-              <Ilustracion b={b} />
-            </div>
-            <div className="wb-text">
-              <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: SALIDA, delay: 0.15 }}>
-                {b.title}
-              </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: SALIDA, delay: 0.24 }}>
-                {b.text}
-              </motion.p>
-            </div>
-          </motion.div>
+        <AnimatePresence mode="popLayout" custom={direction}>
+          {visible && (
+            <motion.div
+              key={index}
+              className="wb-slide"
+              custom={direction}
+              variants={slide}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.18}
+              onDragEnd={alSoltar}
+            >
+              <div className={`wb-art wb-art--${index + 1}`} aria-hidden="true">
+                <Ilustracion b={b} />
+              </div>
+              <div className="wb-text">
+                <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: SALIDA, delay: 0.15 }}>
+                  {b.title}
+                </motion.h1>
+                <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: SALIDA, delay: 0.24 }}>
+                  {b.text}
+                </motion.p>
+              </div>
+            </motion.div>
+          )}
         </AnimatePresence>
       </main>
 
