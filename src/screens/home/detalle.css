@@ -199,7 +199,7 @@
   display: flex;
   flex-direction: column;
   gap: 22px;
-  padding: 20px 20px 130px;
+  padding: 20px 20px 112px;
 }
 
 .dt-head {
@@ -1827,10 +1827,11 @@
 
 .fl-check {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 0 0 2px var(--bg-surface);
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -2095,4 +2096,130 @@
   width: 18px;
   border-radius: 3px;
   background: #fff;
+}
+
+/* ---------- 07 · Hoja · Enviar tu perfil ---------- */
+.dt-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 10px 20px max(34px, calc(env(safe-area-inset-bottom) + 16px));
+}
+
+.dt-sheet__pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 4px;
+}
+
+.dt-sheet__pair img,
+.dt-sheet__pair .dt-sheet__ph {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px var(--bg-surface), 0 6px 16px rgba(15, 23, 42, 0.12);
+}
+
+.dt-sheet__ph {
+  display: grid;
+  place-items: center;
+  background: var(--brand-primary-soft);
+  color: var(--brand-primary);
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+}
+
+.dt-sheet__pair .icon {
+  color: var(--text-tertiary);
+}
+
+.dt-sheet__text h2 {
+  margin: 0 0 6px;
+  font-size: var(--font-size-h4);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.dt-sheet__text p {
+  margin: 0;
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.dt-sheet__card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  background: var(--bg-screen);
+}
+
+.dt-sheet__card img,
+.dt-sheet__card .dt-sheet__ph {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.dt-sheet__card span {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dt-sheet__card b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.dt-sheet__card small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dt-sheet__badge {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 4px !important;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--green-10);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--feedback-success);
+}
+
+/* Enlace a los detalles de la visita confirmada (R01) */
+.ch-visit__more {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--brand-primary-soft);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--brand-primary);
+  overflow: hidden;
 }

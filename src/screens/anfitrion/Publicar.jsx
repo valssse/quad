@@ -93,7 +93,7 @@ export function Precio({ datos, actualizar, siguiente }) {
   const comision = Math.round(datos.precio * COMISION * 100) / 100
   return (
     <Step actions={<Button onClick={siguiente} disabled={!datos.precio}>Continuar</Button>}>
-      <Heading title="Precio y depósito">Cuartos similares en tu zona cuestan entre $100 y $140 al mes.</Heading>
+      <Heading title="Precio y depósito">Quads similares en tu zona cuestan entre $100 y $140 al mes.</Heading>
 
       <motion.label className="price-card" variants={fadeUp}>
         <span className="price-card__label">Precio mensual</span>
@@ -202,7 +202,7 @@ export function Disponibilidad({ datos, actualizar, siguiente }) {
 }
 
 const YA_TIENES = [
-  'Fotos del cuarto y áreas comunes',
+  'Fotos del quad y áreas comunes',
   'Qué incluye y reglas de la casa',
   'Ubicación y zona aproximada',
   'Precio, depósito y disponibilidad',
@@ -266,23 +266,23 @@ const SERVICIOS_PREVIA = {
   cocina: { icon: 'cutlery-fill', titulo: 'Uso de cocina', sub: 'Con horario' },
   lavanderia: { icon: 'washing-fill', titulo: 'Lavandería', sub: '2 veces por semana' },
   wifi: { icon: 'wifi-fill', titulo: 'Wi-Fi', sub: 'Incluido' },
-  escritorio: { icon: 'hero-computer-desktop-solid', titulo: 'Escritorio', sub: 'En el cuarto' },
+  escritorio: { icon: 'hero-computer-desktop-solid', titulo: 'Escritorio', sub: 'En el quad' },
   'agua-luz': { icon: 'check-circle-fill', titulo: 'Agua y luz', sub: 'Incluidas' },
-  ventilador: { icon: 'hero-cloud-solid', titulo: 'Ventilador', sub: 'En el cuarto' },
-  aire: { icon: 'hero-sparkles-solid', titulo: 'Aire acondicionado', sub: 'En el cuarto' },
-  silla: { icon: 'user-solid', titulo: 'Silla', sub: 'En el cuarto' },
+  ventilador: { icon: 'hero-cloud-solid', titulo: 'Ventilador', sub: 'En el quad' },
+  aire: { icon: 'hero-sparkles-solid', titulo: 'Aire acondicionado', sub: 'En el quad' },
+  silla: { icon: 'user-solid', titulo: 'Silla', sub: 'En el quad' },
   limpieza: { icon: 'hero-sparkles-solid', titulo: 'Limpieza', sub: 'Áreas comunes' },
 }
 
 const CUARTO_PREVIA = {
-  privado: { titulo: 'Quad privado', titulo2: 'Cuarto privado' },
-  compartido: { titulo: 'Quad compartido', titulo2: 'Cuarto compartido' },
+  privado: { titulo: 'Quad privado', titulo2: 'Quad privado' },
+  compartido: { titulo: 'Quad compartido', titulo2: 'Quad compartido' },
   anexo: { titulo: 'Anexo', titulo2: 'Anexo independiente' },
 }
 
 const TIPO_PREVIA = { familia: 'Casa de familia', estudiante: 'Casa compartida', propietario: 'Residencia' }
 
-/** Galería deslizable con las fotos del cuarto (o marcadores si aún no hay fotos reales). */
+/** Galería deslizable con las fotos del quad (o marcadores si aún no hay fotos reales). */
 function Galeria({ fotos, onAtras }) {
   const [i, setI] = useState(0)
   const total = Math.max(1, fotos.length)

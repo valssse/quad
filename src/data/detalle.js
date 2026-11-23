@@ -95,7 +95,7 @@ const m = (de, texto, hora) => ({ de, texto, hora })
 export const DETALLES = {
   /* ---------- 1 · Casa Martínez (textos del Figma) ---------- */
   familia: {
-    tituloLargo: 'Cuarto privado en casa de familia',
+    tituloLargo: 'Quad privado en casa de familia',
     tipo: 'Casa de familia',
     resenas: 12,
     trayecto: '8 min al portón peatonal',
@@ -114,7 +114,7 @@ export const DETALLES = {
     ],
     casa: {
       nombre: 'Casa Martínez',
-      descripcion: 'Somos una familia tranquila. Rentamos el cuarto de mi hermano que se fue a estudiar fuera. Nos gusta que quien llegue se sienta en casa, pero también respetamos su espacio.',
+      descripcion: 'Somos una familia tranquila. Rentamos el quad de mi hermano que se fue a estudiar fuera. Nos gusta que quien llegue se sienta en casa, pero también respetamos su espacio.',
       exinquilinos: 6,
       enQuad: '2 años',
     },
@@ -179,12 +179,12 @@ export const DETALLES = {
     desglose: { limpieza: 5.0, horarios: 4.8, comunicacion: 4.9, seguridad: 4.9 },
     resena: {
       iniciales: 'MC', nombre: 'Mario C.', carrera: 'Arquitectura · UCA', tiempo: '3 ciclos', fondo: '#dce6ff', color: '#2667ff',
-      texto: 'El cuarto es enorme y tiene muy buena luz para estudiar. Doña Rosa siempre tenía café en las mañanas.',
+      texto: 'El quad es enorme y tiene muy buena luz para estudiar. Doña Rosa siempre tenía café en las mañanas.',
       textoCasa: 'Doña Rosa es muy atenta y la casa siempre estaba limpia. Daniel me ayudó a ubicarme en la universidad los primeros días.',
     },
     chat: [
-      m('anfitrion', '¡Hola, Sofía! Soy Rosa. El cuarto está disponible desde diciembre. ¿Qué te gustaría saber?', '7:48 a. m.'),
-      m('yo', 'Hola, doña Rosa. ¿El escritorio queda en el cuarto?', '8:02 a. m.'),
+      m('anfitrion', '¡Hola, Sofía! Soy Rosa. El quad está disponible desde diciembre. ¿Qué te gustaría saber?', '7:48 a. m.'),
+      m('yo', 'Hola, doña Rosa. ¿El escritorio queda en el quad?', '8:02 a. m.'),
       m('anfitrion', 'Sí, el escritorio y la silla se quedan. La ventana da al jardín, así que entra luz toda la mañana.', '8:10 a. m.'),
       m('yo', '¿Se puede usar la cocina en la noche?', '8:12 a. m.'),
       m('anfitrion', 'Sí, la cocina se puede usar hasta las 9 p. m.', 'Ayer'),
@@ -193,9 +193,9 @@ export const DETALLES = {
     filtros: { visitas: true, mascotas: true, banoPropio: false, wifi: true },
   },
 
-  /* ---------- 3 · Cuarto con baño propio (Carlos Rivas) ---------- */
+  /* ---------- 3 · Quad con baño propio (Carlos Rivas) ---------- */
   'bano-propio': {
-    tituloLargo: 'Cuarto con baño propio',
+    tituloLargo: 'Quad con baño propio',
     tipo: 'Casa de pareja joven',
     resenas: 9,
     trayecto: '6 min al portón peatonal',
@@ -214,7 +214,7 @@ export const DETALLES = {
     ],
     casa: {
       nombre: 'Casa Rivas',
-      descripcion: 'Somos Carlos y Mariela, una pareja joven. Trabajamos desde casa, así que valoramos la calma. El cuarto tiene entrada independiente y su propio baño.',
+      descripcion: 'Somos Carlos y Mariela, una pareja joven. Trabajamos desde casa, así que valoramos la calma. El quad tiene entrada independiente y su propio baño.',
       exinquilinos: 4,
       enQuad: '1 año',
     },
@@ -225,7 +225,7 @@ export const DETALLES = {
     ],
     convivencia: [tag('moon-fill', 'Casa silenciosa'), tag('lock', 'Entrada independiente'), tag('paw-fill', 'Hay un perro'), tag('no-smoking-fill', 'No se fuma')],
     presentacion:
-      'Hola, soy Carlos. Trabajo como desarrollador y paso casi todo el día en casa con Mariela y Max, nuestro golden. Nos gusta la tranquilidad, el café de olla y los domingos de series. El cuarto tiene su propio baño y entrada, para que tengas privacidad total. Lo único que pedimos es silencio en la noche.',
+      'Hola, soy Carlos. Trabajo como desarrollador y paso casi todo el día en casa con Mariela y Max, nuestro golden. Nos gusta la tranquilidad, el café de olla y los domingos de series. El quad tiene su propio baño y entrada, para que tengas privacidad total. Lo único que pedimos es silencio en la noche.',
     desglose: { limpieza: 4.7, horarios: 4.5, comunicacion: 4.6, seguridad: 4.8 },
     resena: {
       iniciales: 'JP', nombre: 'José P.', carrera: 'Ingeniería Eléctrica · UCA', tiempo: '1 ciclo', fondo: '#dcfce7', color: '#15803d',
@@ -234,7 +234,7 @@ export const DETALLES = {
     },
     chat: [
       m('anfitrion', 'Hola, Sofía. Soy Carlos. Gracias por tu interés en el cuarto.', '7:55 a. m.'),
-      m('yo', 'Hola, Carlos. ¿El baño es solo para el cuarto?', '8:01 a. m.'),
+      m('yo', 'Hola, Carlos. ¿El baño es solo para el quad?', '8:01 a. m.'),
       m('anfitrion', 'Sí, el baño es solo tuyo y tiene agua caliente.', '8:03 a. m.'),
       m('anfitrion', '¿Te gustaría agendar una visita esta semana?', '8:05 a. m.'),
     ],
@@ -282,7 +282,7 @@ export const DETALLES = {
       textoCasa: 'Doña Carmen y doña Teresa son un amor. Me cuidaron cuando me enfermé y me ayudaron con todo.',
     },
     chat: [
-      m('anfitrion', '¡Hola, Sofía! Qué gusto. Soy Carmen. Tenemos un cuarto libre desde enero.', '6:40 p. m.'),
+      m('anfitrion', '¡Hola, Sofía! Qué gusto. Soy Carmen. Tenemos un quad libre desde enero.', '6:40 p. m.'),
       m('yo', 'Hola, doña Carmen. ¿Cuántas estudiantes viven ahí?', '6:52 p. m.'),
       m('anfitrion', 'Ahora vive una muchacha de Usulután; serían dos contigo. Las dos estudian en la UCA.', '7:05 p. m.'),
     ],
@@ -290,9 +290,9 @@ export const DETALLES = {
     filtros: { visitas: true, mascotas: true, banoPropio: false, wifi: true },
   },
 
-  /* ---------- 5 · Cuarto con balcón (Gabriela Flores) ---------- */
+  /* ---------- 5 · Quad con balcón (Gabriela Flores) ---------- */
   balcon: {
-    tituloLargo: 'Cuarto con balcón y vista',
+    tituloLargo: 'Quad con balcón y vista',
     tipo: 'Solo mujeres',
     resenas: 7,
     trayecto: '12 min en bus a Los Próceres',
@@ -321,7 +321,7 @@ export const DETALLES = {
     ],
     convivencia: [tag('community-fill', 'Ambiente creativo'), tag('lock', 'Vigilancia 24 h'), tag('no-smoking-fill', 'No se fuma'), tag('clock-fill', 'Turnos de limpieza')],
     presentacion:
-      'Hola, soy Gabriela. Trabajo como diseñadora y comparto el apartamento con Valeria, que estudia Psicología. Nos gustan las plantas, el café de especialidad y ver películas los viernes. El cuarto tiene un balcón donde da el sol de la tarde. Buscamos a alguien respetuoso con el espacio y los turnos de limpieza.',
+      'Hola, soy Gabriela. Trabajo como diseñadora y comparto el apartamento con Valeria, que estudia Psicología. Nos gustan las plantas, el café de especialidad y ver películas los viernes. El quad tiene un balcón donde da el sol de la tarde. Buscamos a alguien respetuoso con el espacio y los turnos de limpieza.',
     desglose: { limpieza: 4.6, horarios: 4.4, comunicacion: 4.5, seguridad: 4.7 },
     resena: {
       iniciales: 'DS', nombre: 'Daniela S.', carrera: 'Comunicaciones · UCA', tiempo: '2 ciclos', fondo: '#ede9fe', color: '#6d28d9',
@@ -329,7 +329,7 @@ export const DETALLES = {
       textoCasa: 'Muy buen ambiente entre compañeras. Los turnos de limpieza se respetan y eso evita problemas.',
     },
     chat: [
-      m('anfitrion', 'Hola, Sofía. El cuarto ya está apartado hasta febrero, pero te aviso si se libera.', '3:15 p. m.'),
+      m('anfitrion', 'Hola, Sofía. El quad ya está apartado hasta febrero, pero te aviso si se libera.', '3:15 p. m.'),
       m('yo', '¡Gracias! Me encantaría que me avises.', '3:20 p. m.'),
     ],
     visita: 'Mié 11 de nov · 6:00 p. m.',
@@ -386,7 +386,7 @@ export const DETALLES = {
 
   /* ---------- 7 · Madreselva (Familia Portillo) ---------- */
   madreselva: {
-    tituloLargo: 'Cuarto en casa de familia',
+    tituloLargo: 'Quad en casa de familia',
     tipo: 'Casa de familia',
     resenas: 10,
     trayecto: '15 min en bus a La Sultana',
@@ -425,7 +425,7 @@ export const DETALLES = {
       textoCasa: 'Me sentí parte de la familia. Diego me presentó a sus amigos y me ayudó a adaptarme a San Salvador.',
     },
     chat: [
-      m('anfitrion', '¡Hola, Sofía! Soy Patricia. El cuarto está listo cuando quieras verlo.', '5:30 p. m.'),
+      m('anfitrion', '¡Hola, Sofía! Soy Patricia. El quad está listo cuando quieras verlo.', '5:30 p. m.'),
       m('yo', 'Hola, doña Patricia. ¿La lavandería está incluida en el precio?', '5:41 p. m.'),
       m('anfitrion', 'Sí, la lavadora y la secadora se pueden usar cuando quieras.', '5:45 p. m.'),
     ],
@@ -435,7 +435,7 @@ export const DETALLES = {
 
   /* ---------- 8 · Merliot (Roberto Mejía) ---------- */
   merliot: {
-    tituloLargo: 'Cuarto cerca de Plaza Merliot',
+    tituloLargo: 'Quad cerca de Plaza Merliot',
     tipo: 'Casa de familia',
     resenas: 6,
     trayecto: '18 min en bus a La Sultana',
@@ -471,7 +471,7 @@ export const DETALLES = {
       texto: 'Es el más barato que encontré y la parada queda cerca. Don Roberto y doña Silvia son muy amables.',
       textoCasa: 'Una casa tranquila y segura. Los horarios son algo estrictos, pero todo se habla.',
     },
-    chat: [m('anfitrion', 'Buenas tardes, Sofía. Soy Roberto. Si quieres venir a ver el cuarto, estamos todo el día.', '2:10 p. m.')],
+    chat: [m('anfitrion', 'Buenas tardes, Sofía. Soy Roberto. Si quieres venir a ver el quad, estamos todo el día.', '2:10 p. m.')],
     visita: 'Jue 12 de nov · 2:00 p. m.',
     filtros: { visitas: false, mascotas: false, banoPropio: false, wifi: true },
   },
@@ -508,11 +508,11 @@ export const DETALLES = {
     ],
     convivencia: [tag('lock', 'Calle con vigilancia'), tag('community-fill', 'Ambiente relajado'), tag('paw-fill', 'Hay una mascota'), tag('no-smoking-fill', 'No se fuma')],
     presentacion:
-      'Hola, soy Isabel. Soy abogada y vivo con Fernanda, mi hija, y con Coco, un perrito muy juguetón. Salimos temprano y volvemos de noche, así que la casa es tranquila durante el día para estudiar. El cuarto tiene un clóset enorme y mucha luz. Nos gusta que haya confianza y buena comunicación.',
+      'Hola, soy Isabel. Soy abogada y vivo con Fernanda, mi hija, y con Coco, un perrito muy juguetón. Salimos temprano y volvemos de noche, así que la casa es tranquila durante el día para estudiar. El quad tiene un clóset enorme y mucha luz. Nos gusta que haya confianza y buena comunicación.',
     desglose: { limpieza: 4.9, horarios: 4.7, comunicacion: 4.8, seguridad: 4.9 },
     resena: {
       iniciales: 'MR', nombre: 'María R.', carrera: 'Mercadeo · UCA', tiempo: '2 ciclos', fondo: '#fce7f3', color: '#be185d',
-      texto: 'Queda un poco lejos, pero la zona es muy segura y el cuarto es precioso. Coco me esperaba todas las tardes.',
+      texto: 'Queda un poco lejos, pero la zona es muy segura y el quad es precioso. Coco me esperaba todas las tardes.',
       textoCasa: 'Isabel y Fernanda son muy respetuosas y confiadas. Me trataron como una más de la casa.',
     },
     chat: [

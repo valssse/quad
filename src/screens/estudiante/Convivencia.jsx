@@ -2,19 +2,27 @@ import { motion } from 'motion/react'
 import Step from './Step.jsx'
 import Heading from './Heading.jsx'
 import ChipGroups from './ChipGroups.jsx'
+import Categorias from './Categorias.jsx'
 import Button from '../../components/Button.jsx'
 import Switch from '../../components/Switch.jsx'
 import Icon from '../../components/Icon.jsx'
 import { fadeUp } from '../../components/motion.js'
-import { CONVIVENCIA } from '../../data/estudiante.js'
+import { CONVIVENCIA_PREFERENCIAS, RUTINA } from '../../data/estudiante.js'
 
-/** E11 · ¿Cómo te gusta convivir? — preferencias, rutina y convivencia con la familia. */
+/** E11 · ¿Cómo te gusta convivir? — preferencias por categoría, rutina y convivencia con la familia. */
 export default function Convivencia({ datos, actualizar, alternar, siguiente }) {
+  // "Solo mujeres" o "Solo hombres" solo se muestran según cómo se identificó en E10b
+  const grupos = CONVIVENCIA_PREFERENCIAS.map((g) => ({
+    ...g,
+    items: g.items.filter((i) => !i.genero || datos.genero === i.genero),
+  }))
+
   return (
     <Step className="step--long" actions={<Button onClick={siguiente}>Continuar</Button>}>
       <Heading title="¿Cómo te gusta convivir?">Así encontramos casas que encajen con tu forma de vivir.</Heading>
 
-      <ChipGroups grupos={CONVIVENCIA} seleccion={datos.convivencia} onToggle={(id) => alternar('convivencia', id)} />
+      <Categorias titulo="Preferencias" grupos={grupos} seleccion={datos.convivencia} onToggle={(id) => alternar('convivencia', id)} />
+      <ChipGroups grupos={[RUTINA]} seleccion={datos.convivencia} onToggle={(id) => alternar('convivencia', id)} />
 
       <motion.div className="perm-row" variants={fadeUp}>
         <Icon name="group-fill" className="note__icon" />

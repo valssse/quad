@@ -27,7 +27,7 @@ import {
 const MIN_FOTOS = 5
 const CASILLAS = 6
 
-/** A13 · Agrega fotos del cuarto — galería de 6 casillas; la primera es la portada. */
+/** A13 · Agrega fotos del quad — galería de 6 casillas; la primera es la portada. */
 export function Fotos({ datos, actualizar, siguiente }) {
   const input = useRef(null)
   const reemplazar = useRef(null)
@@ -53,7 +53,7 @@ export function Fotos({ datos, actualizar, siguiente }) {
 
   return (
     <Step actions={<Button onClick={siguiente}>Continuar</Button>}>
-      <Heading title="Agrega fotos del cuarto">Mínimo {MIN_FOTOS}. La primera será la portada.</Heading>
+      <Heading title="Agrega fotos del quad">Mínimo {MIN_FOTOS}. La primera será la portada.</Heading>
 
       <motion.div className="gallery" variants={fadeUp}>
         {casillas.map((foto, i) =>
@@ -95,11 +95,11 @@ export function Fotos({ datos, actualizar, siguiente }) {
   )
 }
 
-/** A14 · ¿Qué tipo de cuarto es? + capacidad. */
+/** A14 · ¿Qué tipo de quad es? + capacidad. */
 export function TipoCuarto({ datos, actualizar, siguiente }) {
   return (
     <Step actions={<Button onClick={siguiente}>Continuar</Button>}>
-      <Heading title="¿Qué tipo de cuarto es?" />
+      <Heading title="¿Qué tipo de quad es?" />
       <div className="heading" role="radiogroup" style={{ gap: 10 }}>
         {TIPOS_CUARTO.map((t) => (
           <SelectCard
@@ -117,21 +117,21 @@ export function TipoCuarto({ datos, actualizar, siguiente }) {
         <p className="section-label">Capacidad</p>
         <div className="pet-row">
           <span className="option__texts">
-            <span className="option__title">Estudiantes por cuarto</span>
+            <span className="option__title">Estudiantes por quad</span>
             <span className="option__desc">Máximo permitido</span>
           </span>
-          <Contador grande valor={datos.capacidad} min={1} max={6} onChange={(v) => actualizar({ capacidad: v })} label="Estudiantes por cuarto" />
+          <Contador grande valor={datos.capacidad} min={1} max={6} onChange={(v) => actualizar({ capacidad: v })} label="Estudiantes por quad" />
         </div>
       </motion.div>
     </Step>
   )
 }
 
-/** A15 · ¿Qué incluye el cuarto? */
+/** A15 · ¿Qué incluye el quad? */
 export function Incluye({ datos, actualizar, alternar, siguiente }) {
   return (
     <Step className="step--long" actions={<Button onClick={siguiente}>Continuar</Button>}>
-      <Heading title="¿Qué incluye el cuarto?">Marca todo lo que entra en el precio.</Heading>
+      <Heading title="¿Qué incluye el quad?">Marca todo lo que entra en el precio.</Heading>
       <ChipGroups grupos={INCLUYE} seleccion={datos.incluye} onToggle={(id) => alternar('incluye', id)} />
       <motion.div className="section" variants={fadeUp}>
         <p className="section-label">Baño</p>

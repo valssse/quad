@@ -22,6 +22,25 @@
   --border-default: #e6e8ee;
   --neutral-300: #e6e8ee;
   --neutral-400: #cbd5e1;
+  --border-strong: #cbd5e1;
+  --bg-inverse: #0f172a;
+
+  /* ---------- Paleta (Primary, Secondary, Yellow, Green, Red) ---------- */
+  --primary-100: #bfd1ff;
+  --primary-200: #7fa3ff;
+  --secondary-300: #1d2a47;
+  --yellow-100: #f5b301;
+  --yellow-10: rgba(245, 179, 1, 0.1);
+  --green-100: #22c55e;
+  --green-10: rgba(34, 197, 94, 0.1);
+  --red-100: #ef4444;
+  --red-10: rgba(239, 68, 68, 0.1);
+
+  /* ---------- Feedback ---------- */
+  --feedback-success: #15803d;
+  --feedback-warning: #b45309;
+  --feedback-danger: #ef4444;
+  --rating-star: #f5b301;
 
   /* ---------- Tipografía ---------- */
   --font-family-primary: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;

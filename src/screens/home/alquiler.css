@@ -1,0 +1,965 @@
+/* ==========================================================
+   Flujo de alquiler (R01–R28)
+   Secciones "Alquiler · …" de Figma. Fondo bg/screen, tarjetas blancas r20.
+   ========================================================== */
+
+.al {
+  background: var(--bg-screen);
+  z-index: 0;
+}
+
+.al-status {
+  flex-shrink: 0;
+  background: var(--bg-screen);
+  z-index: 2;
+}
+
+/* ---------- Barra superior ---------- */
+.al-top {
+  height: 46px;
+  padding: 6px 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.al-top h1 {
+  margin: 0;
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-back,
+.al-top__space {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.al-back {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+/* ---------- Escenario y capas ---------- */
+.al-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.al-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-screen);
+}
+
+.al-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.al-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.al-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 20px 24px;
+}
+
+.al-actions {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 24px max(34px, calc(env(safe-area-inset-bottom) + 16px));
+  background: var(--bg-surface);
+  box-shadow: var(--elevation-barra-inferior);
+}
+
+.al-actions .btn {
+  width: 100%;
+}
+
+/* ---------- Encabezados ---------- */
+.al-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 24px 0 8px;
+  text-align: center;
+}
+
+.al-hero__icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--brand-primary-soft);
+  color: var(--brand-primary);
+}
+
+.al-hero__icon--verde {
+  background: var(--green-10);
+  color: var(--feedback-success);
+}
+
+.al-hero__icon--amarillo {
+  background: var(--yellow-10);
+  color: var(--yellow-100);
+}
+
+.al-hero__icon--gris {
+  background: var(--bg-surface);
+  color: var(--text-tertiary);
+}
+
+.al-hero h2,
+.al-title h2 {
+  margin: 0;
+  font-size: var(--font-size-h3);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.al-hero p,
+.al-title p {
+  margin: 0;
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.al-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.al-title__step {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--brand-primary);
+}
+
+/* ---------- Quad en conversación ---------- */
+.al-quad {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 16px;
+  background: var(--bg-screen);
+  text-align: left;
+  color: var(--text-tertiary);
+}
+
+.al-quad img {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.al-quad span {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.al-quad b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-quad small {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ---------- Tarjetas y datos ---------- */
+.al-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  background: var(--bg-surface);
+}
+
+.al-card--tight {
+  gap: 8px;
+}
+
+.al-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.al-card__head h3 {
+  margin: 0;
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-link {
+  padding: 0;
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--brand-primary);
+}
+
+.al-datos {
+  display: flex;
+  flex-direction: column;
+  margin-top: -6px;
+}
+
+.al-dato {
+  width: 100%;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-default);
+  text-align: left;
+}
+
+.al-dato:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.al-dato span {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.al-dato b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.al-dato--total span {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-dato--total b {
+  font-size: var(--font-size-h5);
+  color: var(--brand-primary);
+}
+
+.al-dato--link span {
+  color: var(--text-body);
+}
+
+.al-texto {
+  margin: 0;
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-body);
+}
+
+.al-bubble {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--bg-screen);
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-body);
+}
+
+.al-note {
+  align-items: flex-start;
+}
+
+/* ---------- Pasos (timeline) ---------- */
+.al-pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.al-paso {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  text-align: left;
+}
+
+.al-paso > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.al-paso b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-paso--muted b {
+  color: var(--text-secondary);
+}
+
+.al-paso small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.al-mark {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: var(--feedback-success);
+}
+
+.al-mark > * {
+  grid-area: 1 / 1;
+  display: grid;
+}
+
+.al-mark__ring {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border-strong);
+}
+
+.al-mark--actual .al-mark__ring {
+  border: 2px solid var(--brand-primary);
+  background: var(--brand-primary-soft);
+}
+
+/* ---------- Insignias ---------- */
+.al-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.al-badge--green {
+  background: var(--green-10);
+  color: var(--feedback-success);
+}
+
+.al-badge--green-strong {
+  padding: 7px 12px;
+  border: 1px solid #bfe6cc;
+  background: linear-gradient(180deg, #f1fbf4 0%, #e4f6ea 100%);
+  color: var(--feedback-success);
+}
+
+.al-badge--amber {
+  background: var(--yellow-10);
+  color: var(--feedback-warning);
+}
+
+.al-badge--outline {
+  padding: 7px 12px;
+  border: 1px solid var(--border-strong);
+  color: var(--neutral-700, #475569);
+}
+
+/* ---------- Persona ---------- */
+.al-persona {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.al-persona img,
+.al-persona__ini {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.al-persona__ini {
+  display: grid;
+  place-items: center;
+  background: var(--brand-primary-soft-strong);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--brand-primary);
+}
+
+.al-persona > span:nth-of-type(1),
+.al-persona > img + span,
+.al-persona > .al-persona__ini + span {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.al-persona b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-persona small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+/* ---------- Opciones (R03, R13, R23) ---------- */
+.al-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.al-opt {
+  width: 100%;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  background: var(--bg-surface);
+  text-align: left;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.al-opt--on {
+  border-color: var(--brand-primary);
+  background: var(--brand-primary-soft);
+}
+
+.al-opt__icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--bg-screen);
+  color: var(--text-secondary);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.al-opt--on .al-opt__icon {
+  background: var(--bg-surface);
+  color: var(--brand-primary);
+}
+
+.al-opt__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.al-opt__text b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-opt__text small {
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.al-opt__check {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: grid;
+  color: var(--brand-primary);
+}
+
+.al-opt__check > * {
+  grid-area: 1 / 1;
+  display: grid;
+}
+
+/* ---------- Banner (recordatorio) y próximo pago ---------- */
+.al-banner,
+.al-next {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--brand-primary-soft);
+}
+
+.al-banner {
+  flex-direction: row;
+  align-items: center;
+  color: var(--brand-primary);
+}
+
+.al-next__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--brand-primary);
+}
+
+.al-banner span,
+.al-next__row span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.al-banner b,
+.al-next b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-banner small,
+.al-next small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.al-small-btn {
+  height: 36px;
+  border-radius: 10px;
+  background: var(--brand-primary);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-on-brand);
+}
+
+.al-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.al-acciones .option--action .option__icon--svg {
+  color: var(--brand-primary);
+}
+
+/* ---------- Pagos ---------- */
+.al-pagos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.al-pago {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  text-align: left;
+}
+
+.al-pago > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.al-pago b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-pago small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.al-pago__icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--bg-screen);
+  color: var(--text-secondary);
+}
+
+.al-pago__icon--pagado {
+  background: var(--green-10);
+  color: var(--feedback-success);
+}
+
+/* ---------- Progreso ---------- */
+.al-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bg-screen);
+  overflow: hidden;
+}
+
+.al-progress span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--brand-primary);
+}
+
+.al-progress--label {
+  margin-top: -4px;
+}
+
+.al-progress__text {
+  margin-top: -6px;
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--brand-primary);
+}
+
+/* ---------- Monto (pagos) ---------- */
+.al-monto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0 4px;
+  text-align: center;
+}
+
+.al-monto > span {
+  font-size: var(--font-size-p);
+  color: var(--text-secondary);
+}
+
+.al-monto > b {
+  font-size: var(--font-size-h1);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-monto > small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.al-monto .al-badge {
+  margin-top: 4px;
+}
+
+.al-metodo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.al-metodo > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.al-metodo b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-metodo small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.al-metodo__card {
+  width: 44px;
+  height: 30px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: var(--bg-inverse);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-on-brand);
+}
+
+/* ---------- Comprobante / recibo ---------- */
+.al-receipt__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 0 4px;
+  text-align: center;
+  color: var(--feedback-success);
+}
+
+.al-receipt__head b {
+  font-size: var(--font-size-h2);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-receipt__head small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+/* ---------- Contrato ---------- */
+.al-pdf {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  background: var(--bg-surface);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--brand-primary);
+  text-align: left;
+}
+
+.al-accept {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: var(--text-body);
+  text-align: left;
+}
+
+.al-box {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: grid;
+  border-radius: 999px;
+  border: 1.5px solid var(--border-strong);
+  color: var(--brand-primary);
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.al-box > span {
+  display: grid;
+  margin: -1.5px;
+}
+
+.al-box--on {
+  border-color: transparent;
+}
+
+/* ---------- Formularios ---------- */
+.al-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.al-field__label {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.al-textarea {
+  background: var(--bg-screen);
+  color: var(--text-body);
+  height: 112px;
+}
+
+.al-body > .al-textarea {
+  background: var(--bg-surface);
+}
+
+.al-textarea--short {
+  height: 88px;
+}
+
+.al-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.al-chip {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  background: var(--bg-surface);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.al-chip--on {
+  border-color: var(--brand-primary);
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.al-fotos {
+  display: flex;
+  gap: 10px;
+}
+
+.al-foto {
+  width: 80px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--border-strong);
+  border-radius: 16px;
+  background: var(--bg-surface);
+  color: var(--text-tertiary);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.al-foto--on {
+  border-style: solid;
+  border-color: var(--brand-primary);
+  background: var(--brand-primary-soft);
+  color: var(--brand-primary);
+}
+
+/* ---------- Reseña ---------- */
+.al-stars-card {
+  align-items: center;
+  gap: 8px;
+}
+
+.al-stars {
+  display: flex;
+  gap: 6px;
+}
+
+.al-star {
+  padding: 0;
+  color: var(--border-default);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.al-star--on {
+  color: var(--rating-star);
+}
+
+.al-stars__label {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ---------- Aviso con acción y carga ---------- */
+.dt-toast.al-toast {
+  bottom: 120px;
+  z-index: 20;
+}
+
+.dt-toast.al-toast--low {
+  bottom: max(24px, calc(env(safe-area-inset-bottom) + 12px));
+}
+
+.al-toast > span {
+  flex: 1;
+}
+
+.al-toast .icon {
+  color: var(--green-100);
+}
+
+.al-toast__btn {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: #fff;
+}
+
+.al-spinner {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  animation: al-girar 0.8s linear infinite;
+}
+
+@keyframes al-girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn--primary.btn--loading:disabled {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}

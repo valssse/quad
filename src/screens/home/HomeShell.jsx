@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import StatusBar from '../../components/StatusBar.jsx'
 import Icon from '../../components/Icon.jsx'
@@ -13,13 +13,16 @@ import { Buscar, Resultados } from './Buscar.jsx'
 import { Detalle, PerfilCasa } from './Detalle.jsx'
 import { Conversacion } from './Chat.jsx'
 import FiltrosPantalla from './FiltrosPantalla.jsx'
+import Alquiler from './Alquiler.jsx'
+import { ALQUILER_INICIAL, QUAD_ID } from '../../data/alquiler.js'
+import { detalle } from '../../data/detalle.js'
 import { MiPerfil, EditarPerfil } from './MiPerfil.jsx'
 import { perfilInicial } from '../../data/perfil.js'
 import { useLiquidGlass } from '../../components/LiquidGlass.jsx'
 import Skeleton from '../../components/Skeleton.jsx'
 import { FILTROS_VACIOS, contarFiltros } from '../../data/filtros.js'
 import './detalle.css'
-import { GUARDADOS_INICIAL } from '../../data/quads.js'
+import { GUARDADOS_INICIAL, quad as buscarQuad } from '../../data/quads.js'
 import { ANIOS, UNIVERSIDADES } from '../../data/estudiante.js'
 import './home.css'
 
@@ -31,10 +34,10 @@ const TABS = [
 ]
 const ES_TAB = TABS.map((t) => t.id)
 // Pantallas que se abren encima (sin barra de navegación)
-const NIVEL = { 'mi-perfil': 1, 'editar-perfil': 2, buscar: 1, resultados: 2, filtros: 3, mapa: 3, quad: 4, casa: 5, chat: 6 }
+const NIVEL = { 'mi-perfil': 1, 'editar-perfil': 2, buscar: 1, resultados: 2, filtros: 3, mapa: 3, quad: 4, casa: 5, chat: 6, alquiler: 7 }
 const APILADAS = Object.keys(NIVEL)
 // Pantallas que dibujan su propia barra de estado (foto o mapa detrás)
-const SIN_ESTADO = ['mapa', 'quad']
+const SIN_ESTADO = ['mapa', 'quad', 'alquiler']
 
 /** Barra de navegación tipo vidrio, con la pastilla azul que se desliza al tab activo. */
 export function Navegacion({ tabs = TABS, activo, onChange }) {
@@ -82,6 +85,18 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
   // Perfil del estudiante (09): lo que llenó en el onboarding o el del Figma; se edita en 09b
   const [yo, setYo] = useState(() => perfilInicial(cuenta, estudiante))
   const [aviso, setAviso] = useState(false)
+  // Flujo de alquiler (R01–R28) y respuestas simuladas a solicitudes rápidas
+  const [alquiler, setAlquiler] = useState(ALQUILER_INICIAL)
+  const [respuesta, setRespuesta] = useState(null)
+  const [noti, setNoti] = useState(null)
+  const notiTimer = useRef(null)
+  const respuestasDadas = useRef(0)
+  const notificar = (n) => {
+    clearTimeout(notiTimer.current)
+    setNoti({ ...n, id: Date.now() })
+    notiTimer.current = setTimeout(() => setNoti(null), 6000)
+  }
+  useEffect(() => () => clearTimeout(notiTimer.current), [])
 
   // Skeleton de referencia al entrar
   const [cargando, setCargando] = useState(pantalla !== 'mapa')
@@ -110,6 +125,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     nombreCompleto: yo.nombre,
     detalle: [yo.carrera || 'Tu carrera', `${ANIOS.find((a) => a.id === yo.anio)?.label || '2.º'} año`, uni?.corto || 'UCA'].join(' · '),
     foto: yo.foto || null,
+    genero: estudiante?.genero || 'mujer',
   }
 
   const guardarPerfil = (nuevo) => {
@@ -118,7 +134,34 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     window.history.back()
   }
 
-  const props = { ir, perfil, guardados, alternarGuardado, consulta, setConsulta, filtros, setFiltros, nFiltros }
+  /**
+   * Solicitud rápida desde el detalle (07): la anfitriona responde a los pocos segundos.
+   * Con Andrea sigue el flujo completo (acepta → contrato); con las demás casas se
+   * alterna entre "no aceptó" (R07) y "quiere saber algo más" (R08).
+   */
+  const solicitar = (id) => {
+    const h = detalle(buscarQuad(id)).anfitrion
+    if (id === QUAD_ID) {
+      setAlquiler((s) => ({ ...s, solicitud: 'enviada' }))
+      setTimeout(() => {
+        setAlquiler((s) => (s.solicitud === 'enviada' ? { ...s, solicitud: 'aceptada' } : s))
+        notificar({ foto: h.foto, texto: `${h.corto} aceptó tu solicitud`, accion: () => ir('alquiler', 'aceptada') })
+      }, 6000)
+      return
+    }
+    // Alterna: la primera solicitud se rechaza (R07), la siguiente pide más información (R08)
+    const tipo = respuestasDadas.current++ % 2 ? 'mas-info' : 'rechazada'
+    setTimeout(() => {
+      setRespuesta({ quadId: id, tipo })
+      notificar({
+        foto: h.foto,
+        texto: tipo === 'rechazada' ? `${h.corto} respondió a tu solicitud` : `${h.corto} quiere saber algo más`,
+        accion: () => ir('alquiler', tipo),
+      })
+    }, 6000)
+  }
+
+  const props = { ir, perfil, guardados, alternarGuardado, consulta, setConsulta, filtros, setFiltros, nFiltros, alquiler, solicitar }
   const esTab = ES_TAB.includes(pantalla)
   const oscuro = pantalla === 'explorar' || pantalla === 'guardados'
 
@@ -136,6 +179,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     chat: <Conversacion {...props} id={sub} />,
     'mi-perfil': <MiPerfil {...props} yo={yo} aviso={aviso} cerrarAviso={() => setAviso(false)} />,
     'editar-perfil': <EditarPerfil {...props} yo={yo} guardar={guardarPerfil} />,
+    alquiler: <Alquiler {...props} sub={sub} setAlquiler={setAlquiler} respuesta={respuesta} />,
   }
 
   return (
@@ -206,6 +250,34 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
             </AnimatePresence>
             <Navegacion activo={pantalla} onChange={cambiarTab} />
           </motion.div>
+        )}
+      </AnimatePresence>
+      {/* Notificación simulada (respuesta de la anfitriona, recordatorios) */}
+      <AnimatePresence>
+        {noti && (
+          <motion.button
+            key={noti.id}
+            type="button"
+            className="home-noti"
+            initial={{ opacity: 0, y: -40, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -40, scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0.6, bottom: 0 }}
+            onDragEnd={(_, info) => info.offset.y < -30 && setNoti(null)}
+            onClick={() => {
+              setNoti(null)
+              noti.accion()
+            }}
+          >
+            <img src={noti.foto} alt="" />
+            <span>
+              <small>Quad · ahora</small>
+              <b>{noti.texto}</b>
+            </span>
+          </motion.button>
         )}
       </AnimatePresence>
     </div>

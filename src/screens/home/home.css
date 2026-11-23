@@ -1493,3 +1493,48 @@
 .tabbar__tab--on {
   --icon-cut: var(--brand-primary);
 }
+
+/* ---------- Notificación simulada ---------- */
+.home-noti {
+  position: absolute;
+  top: max(54px, calc(env(safe-area-inset-top) + 8px));
+  left: 12px;
+  right: 12px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+  text-align: left;
+}
+
+.home-noti img {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.home-noti span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.home-noti small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.home-noti b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}

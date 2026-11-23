@@ -4,7 +4,7 @@ import ChipGroups from './ChipGroups.jsx'
 import Button from '../../components/Button.jsx'
 import { SERVICIOS } from '../../data/estudiante.js'
 
-/** E10 · ¿Qué no puede faltar? — servicios, cuarto y extras. */
+/** E10 · ¿Qué no puede faltar? — servicios, quad y extras. */
 export default function Servicios({ datos, alternar, siguiente }) {
   return (
     <Step className="step--long" actions={<Button onClick={siguiente}>Continuar</Button>}>

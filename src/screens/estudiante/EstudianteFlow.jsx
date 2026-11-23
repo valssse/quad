@@ -7,7 +7,8 @@ import { screenVariants } from '../../components/motion.js'
 import { PASOS, TOTAL_PASOS } from '../../data/estudiante.js'
 import PhotoSheet from './PhotoSheet.jsx'
 import Universidad from './Universidad.jsx'
-import Verificar from './Verificar.jsx'
+import Verificar, { CarneRevision, VerificarCarne, VerificarCorreo } from './Verificar.jsx'
+import Identidad from './Identidad.jsx'
 import Codigo from './Codigo.jsx'
 import Verificado from './Verificado.jsx'
 import Foto from './Foto.jsx'
@@ -28,6 +29,9 @@ import './estudiante.css'
 const PANTALLAS = {
   universidad: Universidad,
   verificar: Verificar,
+  'verificar-correo': VerificarCorreo,
+  'verificar-carne': VerificarCarne,
+  'carne-revision': CarneRevision,
   codigo: Codigo,
   verificado: Verificado,
   foto: Foto,
@@ -39,6 +43,7 @@ const PANTALLAS = {
   referencia: Referencia,
   tipo: Tipo,
   servicios: Servicios,
+  identidad: Identidad,
   convivencia: Convivencia,
   mudanza: Mudanza,
   perfil: Perfil,
@@ -47,7 +52,7 @@ const PANTALLAS = {
 
 /**
  * Estudiante · Onboarding y primeras pantallas.
- * La barra superior (atrás + progreso n/14) es persistente: al cambiar de paso
+ * La barra superior (atrás + progreso n/15) es persistente: al cambiar de paso
  * solo se desliza el contenido y la barra avanza animada.
  */
 export default function EstudianteFlow({ pasoId, datos, setDatos, cuenta, navigate, onFinish }) {

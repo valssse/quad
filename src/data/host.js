@@ -25,7 +25,7 @@ export const SEMANA = {
 export const MIS_QUADS = [
   {
     id: 'familia',
-    titulo: 'Cuarto privado en casa de familia',
+    titulo: 'Quad privado en casa de familia',
     precio: 115,
     foto: cuartoFamilia,
     fotos: [cuartoFamilia, fotoSala, fotoFachada],
@@ -34,7 +34,7 @@ export const MIS_QUADS = [
     semana: '48 vistas esta semana',
     pausadoDesde: null,
     secciones: [
-      { icon: 'bed-fill', titulo: 'Tipo de cuarto', texto: 'Cuarto privado · baño compartido' },
+      { icon: 'bed-fill', titulo: 'Tipo de quad', texto: 'Quad privado · baño compartido' },
       { icon: 'check-circle-fill', titulo: 'Qué incluye', texto: 'Internet, agua, luz y lavandería' },
       { icon: 'shield-check-fill', titulo: 'Reglas de la casa', texto: '5 reglas · llegada antes de las 10 p. m.' },
       { icon: 'map-pin-fill', titulo: 'Ubicación', texto: 'Jardines de Guadalupe · 4 min a la Peatonal' },
@@ -44,7 +44,7 @@ export const MIS_QUADS = [
   },
   {
     id: 'escritorio',
-    titulo: 'Cuarto con escritorio',
+    titulo: 'Quad con escritorio',
     precio: 130,
     foto: cuartoBalcon,
     fotos: [cuartoBalcon, fotoSala],
@@ -52,7 +52,7 @@ export const MIS_QUADS = [
     datos: 'Lo revisamos en menos de 24 h',
     semana: 'En revisión · aún no aparece en Explorar',
     secciones: [
-      { icon: 'bed-fill', titulo: 'Tipo de cuarto', texto: 'Cuarto privado · escritorio y balcón' },
+      { icon: 'bed-fill', titulo: 'Tipo de quad', texto: 'Quad privado · escritorio y balcón' },
       { icon: 'check-circle-fill', titulo: 'Qué incluye', texto: 'Internet, agua y luz' },
       { icon: 'shield-check-fill', titulo: 'Reglas de la casa', texto: '5 reglas · llegada antes de las 10 p. m.' },
       { icon: 'map-pin-fill', titulo: 'Ubicación', texto: 'Jardines de Guadalupe · 4 min a la Peatonal' },
@@ -70,7 +70,7 @@ export const MIS_QUADS = [
     datos: 'Pausado desde el 2 de nov',
     semana: 'Pausado · no aparece en Explorar',
     secciones: [
-      { icon: 'bed-fill', titulo: 'Tipo de cuarto', texto: 'Cuarto privado · baño compartido' },
+      { icon: 'bed-fill', titulo: 'Tipo de quad', texto: 'Quad privado · baño compartido' },
       { icon: 'check-circle-fill', titulo: 'Qué incluye', texto: 'Internet, agua y luz' },
       { icon: 'shield-check-fill', titulo: 'Reglas de la casa', texto: '5 reglas · llegada antes de las 10 p. m.' },
       { icon: 'map-pin-fill', titulo: 'Ubicación', texto: 'Jardines de Guadalupe · 4 min a la Peatonal' },
@@ -101,7 +101,7 @@ export const CUENTA_RETIRO = { banco: 'Banco Agrícola •••• 2231', detal
 
 export const MOVIMIENTOS = [
   { icon: 'dollar-circle-fill', tono: 'green', titulo: 'Pago de Marcela Pineda', texto: '1 de nov · Habitación pequeña', monto: 95 },
-  { icon: 'dollar-circle-fill', tono: 'green', titulo: 'Pago de Karla Méndez', texto: '1 de oct · Cuarto con balcón', monto: 135 },
+  { icon: 'dollar-circle-fill', tono: 'green', titulo: 'Pago de Karla Méndez', texto: '1 de oct · Quad con balcón', monto: 135 },
   { icon: 'star-fill', tono: 'gray', titulo: 'Quad destacado · 15 días', texto: '13 de nov · Visa •••• 4417', monto: -8.99 },
   { icon: 'dollar-circle-fill', tono: 'gray', titulo: 'Retiro a Banco Agrícola', texto: '15 de oct', monto: -300 },
 ]
@@ -159,11 +159,11 @@ export const SOLICITUDES = [
     estado: 'nueva',
     entra: '5 ene',
     duracionCorta: '6 meses',
-    quadCorto: 'Cuarto privado',
+    quadCorto: 'Quad privado',
     extracto: 'Hola, Andrea. Soy tranquila y ordenada, estudio casi todo el día…',
     pendiente: 'Quiere entrar el 5 de enero',
     datos: [
-      ['Quad', 'Cuarto privado en casa de familia'],
+      ['Quad', 'Quad privado en casa de familia'],
       ['Ingreso', '5 de enero de 2027'],
       ['Duración', '6 meses · ciclo 01-2027'],
       ['Pago mensual', '$115'],
@@ -189,17 +189,17 @@ export const SOLICITUDES = [
     estado: 'nueva',
     entra: '10 ene',
     duracionCorta: '1 ciclo',
-    quadCorto: 'Cuarto con escritorio',
-    extracto: 'Hola, me interesa el cuarto con escritorio. ¿Está disponible desde enero?',
+    quadCorto: 'Quad con escritorio',
+    extracto: 'Hola, me interesa el quad con escritorio. ¿Está disponible desde enero?',
     pendiente: 'Quiere entrar el 10 de enero',
     datos: [
-      ['Quad', 'Cuarto con escritorio'],
+      ['Quad', 'Quad con escritorio'],
       ['Ingreso', '10 de enero de 2027'],
       ['Duración', '1 ciclo · ciclo 01-2027'],
       ['Pago mensual', '$130'],
       ['Depósito', '$130'],
     ],
-    mensaje: 'Hola, me interesa el cuarto con escritorio. ¿Está disponible desde enero? Vengo de San Miguel y busco un lugar tranquilo para estudiar, cerca de la UCA.',
+    mensaje: 'Hola, me interesa el quad con escritorio. ¿Está disponible desde enero? Vengo de San Miguel y busco un lugar tranquilo para estudiar, cerca de la UCA.',
     reglas: [
       { estado: OK, titulo: 'Hora de llegada', texto: 'Tu casa: antes de las 10 p. m. · Daniela suele llegar a las 6 p. m.' },
       { estado: OK, titulo: 'Visitas', texto: 'Solo de día · Daniela casi no recibe visitas' },
@@ -219,10 +219,10 @@ export const SOLICITUDES = [
     estado: 'aceptada',
     entra: '15 ene',
     duracionCorta: '12 meses',
-    quadCorto: 'Cuarto privado',
+    quadCorto: 'Quad privado',
     extracto: '¡Gracias por aceptarme! Quedo atenta al contrato.',
     datos: [
-      ['Quad', 'Cuarto privado en casa de familia'],
+      ['Quad', 'Quad privado en casa de familia'],
       ['Ingreso', '15 de enero de 2027'],
       ['Duración', '12 meses · 2027'],
       ['Pago mensual', '$115'],
@@ -240,7 +240,7 @@ export const SOLICITUDES = [
 ]
 
 export const MOTIVOS_RECHAZO = [
-  'El cuarto ya no está disponible',
+  'El quad ya no está disponible',
   'Las fechas no coinciden',
   'No encaja con las reglas de la casa',
   'Otro motivo',
@@ -248,9 +248,9 @@ export const MOTIVOS_RECHAZO = [
 
 /* ---------- Visitas (H15–H16) ---------- */
 export const VISITAS = [
-  { id: 'carlos', dia: 'Hoy · lunes 9 de nov', hora: '4:00', ampm: 'p. m.', nombre: 'Carlos Rivas', quad: 'Cuarto con escritorio', confirmada: true, hoy: true },
-  { id: 'sofia', dia: 'Miércoles 11 de nov', hora: '4:00', ampm: 'p. m.', nombre: 'Sofía Ramírez', corto: 'Sofía', quad: 'Cuarto privado en casa de familia', confirmada: false },
-  { id: 'daniela', dia: 'Viernes 13 de nov', hora: '10:00', ampm: 'a. m.', nombre: 'Daniela Flores', quad: 'Cuarto con escritorio', confirmada: true },
+  { id: 'carlos', dia: 'Hoy · lunes 9 de nov', hora: '4:00', ampm: 'p. m.', nombre: 'Carlos Rivas', quad: 'Quad con escritorio', confirmada: true, hoy: true },
+  { id: 'sofia', dia: 'Miércoles 11 de nov', hora: '4:00', ampm: 'p. m.', nombre: 'Sofía Ramírez', corto: 'Sofía', quad: 'Quad privado en casa de familia', confirmada: false },
+  { id: 'daniela', dia: 'Viernes 13 de nov', hora: '10:00', ampm: 'a. m.', nombre: 'Daniela Flores', quad: 'Quad con escritorio', confirmada: true },
 ]
 
 /* ---------- Estancias (H17, H19) ---------- */
@@ -286,7 +286,7 @@ export const ESTANCIAS = [
     corto: 'Karla',
     iniciales: 'KM',
     carrera: 'Arquitectura',
-    quad: 'Cuarto con balcón',
+    quad: 'Quad con balcón',
     contratoCorto: 'Contrato del 1 de sep al 31 de dic',
     pagoTexto: 'Venció el 1 de nov · $135',
     alDia: false,
@@ -294,7 +294,7 @@ export const ESTANCIAS = [
     termina: 49,
     vencido: { titulo: 'El pago de noviembre venció hace 12 días', texto: '$135 · Le enviaremos un recordatorio amable de tu parte por la app.', mes: 'noviembre' },
     datos: [
-      ['Quad', 'Cuarto con balcón'],
+      ['Quad', 'Quad con balcón'],
       ['Vigencia', '1 sep – 31 dic 2026'],
       ['Pago mensual', '$135 · cada día 1'],
       ['Depósito', '$135 · en resguardo'],
@@ -354,15 +354,15 @@ export const HISTORIAL = [
   {
     mes: 'Octubre 2026',
     items: [
-      { icon: 'group-fill', tono: 'gray', titulo: 'Rechazaste a Mario Alvarado', texto: 'Las fechas no coincidían · Cuarto privado', fecha: '28 oct' },
-      { icon: 'calendar-fill', tono: 'amber', titulo: 'Lucía Pérez canceló su visita', texto: 'Cuarto con escritorio · 3:00 p. m.', fecha: '12 oct' },
+      { icon: 'group-fill', tono: 'gray', titulo: 'Rechazaste a Mario Alvarado', texto: 'Las fechas no coincidían · Quad privado', fecha: '28 oct' },
+      { icon: 'calendar-fill', tono: 'amber', titulo: 'Lucía Pérez canceló su visita', texto: 'Quad con escritorio · 3:00 p. m.', fecha: '12 oct' },
     ],
   },
   {
     mes: 'Junio 2026',
     items: [
       { icon: 'home-solid', tono: 'blue', titulo: 'Terminó la estancia de Valeria Cruz', texto: 'Habitación pequeña · ago 2025 – jun 2026', fecha: '30 jun' },
-      { icon: 'home-solid', tono: 'blue', titulo: 'Terminó la estancia de Paola Rivas', texto: 'Cuarto privado · ene – jun 2026', fecha: '30 jun' },
+      { icon: 'home-solid', tono: 'blue', titulo: 'Terminó la estancia de Paola Rivas', texto: 'Quad privado · ene – jun 2026', fecha: '30 jun' },
     ],
   },
 ]
@@ -383,7 +383,7 @@ export const CHATS_HOST = [
     foto: sofia,
     rol: 'Estudiante · Ingeniería Industrial · UCA',
     quadId: 'familia',
-    quad: 'Cuarto privado en casa de familia',
+    quad: 'Quad privado en casa de familia',
     hora: '9:26 a. m.',
     noLeidos: 1,
     tipo: 'visita',
@@ -401,12 +401,12 @@ export const CHATS_HOST = [
     iniciales: 'DF',
     rol: 'Estudiante · Psicología · UCA',
     quadId: 'escritorio',
-    quad: 'Cuarto con escritorio',
+    quad: 'Quad con escritorio',
     hora: '8:40 a. m.',
     noLeidos: 2,
     tipo: 'solicitud',
     mensajes: [
-      { de: 'ella', texto: 'Hola, Andrea. Te envié una solicitud para el cuarto con escritorio.', hora: '8:38 a. m.' },
+      { de: 'ella', texto: 'Hola, Andrea. Te envié una solicitud para el quad con escritorio.', hora: '8:38 a. m.' },
       { de: 'ella', texto: '¿Está disponible desde enero?', hora: '8:40 a. m.' },
     ],
   },
@@ -417,7 +417,7 @@ export const CHATS_HOST = [
     iniciales: 'CR',
     rol: 'Estudiante · Ingeniería Civil · UCA',
     quadId: 'escritorio',
-    quad: 'Cuarto con escritorio',
+    quad: 'Quad con escritorio',
     hora: 'Ayer',
     noLeidos: 0,
     tipo: 'visita',
@@ -433,7 +433,7 @@ export const CHATS_HOST = [
     iniciales: 'GT',
     rol: 'Estudiante · Arquitectura · UCA',
     quadId: 'familia',
-    quad: 'Cuarto privado en casa de familia',
+    quad: 'Quad privado en casa de familia',
     hora: 'Lun',
     noLeidos: 0,
     tipo: 'solicitud',

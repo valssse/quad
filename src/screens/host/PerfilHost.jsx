@@ -69,7 +69,7 @@ export function PerfilHost({ ir, saldo, onEstudiante, onCerrarSesion }) {
             <Icon name="user-solid" size={22} />
           </span>
           <span className="option__texts">
-            <span className="option__title">¿También buscas cuarto?</span>
+            <span className="option__title">¿También buscas quad?</span>
             <span className="option__desc">Cambia a modo estudiante con la misma cuenta</span>
           </span>
           <Icon name="nav-arrow-right" size={18} className="host-cta__chevron" />

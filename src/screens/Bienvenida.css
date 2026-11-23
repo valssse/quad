@@ -1,57 +1,354 @@
 /* ==========================================================
-   01d–01f · Bienvenida
+   01d–01f · Bienvenida (Rediseño B)
+   Ilustración de 390 × 400 con posiciones absolutas como en Figma.
    ========================================================== */
 
-.welcome {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-9);
-}
-
-.welcome__slide {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-9);
-  touch-action: pan-y;
-  cursor: grab;
-}
-
-.welcome__slide:active {
-  cursor: grabbing;
-}
-
-/* Ilustración: tarjeta 320px · elipse 260px · burbuja 128px · ícono 64px */
-.illustration {
-  position: relative;
-  height: 320px;
-  display: grid;
-  place-items: center;
+.wb {
   overflow: hidden;
-  background: var(--brand-primary-soft);
-  border-radius: var(--radius-16);
 }
 
-.illustration > * {
-  grid-area: 1 / 1;
-}
-
-.illustration__ellipse {
-  width: 260px;
-  height: 260px;
+.wb-glow {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 560px;
+  background: linear-gradient(180deg, var(--brand-primary-soft-strong) 0%, rgba(234, 240, 255, 0.6) 70%, rgba(255, 255, 255, 0) 100%);
   pointer-events: none;
 }
 
-.illustration__bubble {
+.wb > :not(.wb-glow) {
   position: relative;
-  z-index: 1; /* siempre sobre la elipse animada */
-  width: 128px;
-  height: 128px;
+}
+
+/* ---------- Barra superior: atrás · progreso segmentado · omitir ---------- */
+.wb-top {
+  height: 40px;
+  margin: 2px 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.wb-top > span {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.wb-steps {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+}
+
+.wb-step {
+  flex: 1;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--border-default);
+  transition: background-color 0.4s var(--ease-out);
+}
+
+.wb-step--light {
+  background: var(--text-on-brand);
+}
+
+.wb-step__fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--brand-primary);
+  transform-origin: left center;
+}
+
+.wb-skip {
+  flex-shrink: 0;
+  padding: 0;
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ---------- Escenario ---------- */
+.wb-stage {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.wb-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  touch-action: pan-y;
+}
+
+.wb-art {
+  position: relative;
+  width: 390px;
+  height: 400px;
+  flex-shrink: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wb-art > * {
+  position: absolute;
+}
+
+.wb-text {
+  width: 100%;
+  max-width: 390px;
+  padding: 16px 30px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.wb-text h1 {
+  margin: 0;
+  font-size: var(--font-size-h1);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.wb-text p {
+  margin: 0;
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.wb-actions {
+  box-shadow: none;
+}
+
+.wb-actions .btn {
+  width: 100%;
+}
+
+/* ---------- Elementos comunes ---------- */
+.wb-photo {
+  border-radius: 999px;
+  border: 2px solid var(--bg-surface);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+  overflow: hidden;
+  background: var(--bg-screen);
+}
+
+.wb-photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.wb-photo--person {
+  border-width: 3px;
+}
+
+.wb-chip {
+  width: 36px;
+  height: 36px;
   display: grid;
   place-items: center;
-  background: var(--brand-primary);
-  border-radius: var(--radius-full);
+  border-radius: 12px;
+  background: var(--secondary-300);
+  color: var(--text-on-brand);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22);
+  --icon-cut: var(--secondary-300);
 }
 
-.illustration__bubble img {
-  pointer-events: none;
+.wb-chip--inverse {
+  background: var(--bg-inverse);
+  --icon-cut: var(--bg-inverse);
+  z-index: 2;
+}
+
+.wb-spark {
+  z-index: 3;
+}
+
+.wb-spark--blanco {
+  fill: var(--bg-surface);
+}
+
+.wb-spark--azul {
+  fill: var(--primary-200);
+}
+
+.wb-spark--amarillo {
+  fill: var(--yellow-100);
+}
+
+/* ---------- 01d · Órbitas y pastilla ---------- */
+.wb-orbit {
+  border: 1.5px solid var(--bg-surface);
+  border-radius: 50%;
+}
+
+.wb-orbit--out {
+  left: 15px;
+  top: 101px;
+  width: 360px;
+  height: 190px;
+}
+
+.wb-orbit--in {
+  left: 55px;
+  top: 131px;
+  width: 280px;
+  height: 130px;
+}
+
+.wb-pill {
+  left: 78px;
+  top: 168px;
+  width: 224px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px 14px 16px;
+  border-radius: 999px;
+  background: var(--bg-surface);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+  font-size: var(--font-size-h4);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-primary);
+  z-index: 2;
+}
+
+.wb-pill .icon {
+  color: var(--brand-primary);
+}
+
+/* ---------- 01e · Teléfono y tarjetas ---------- */
+.wb-phone {
+  left: 75px;
+  top: 10px;
+  width: 240px;
+  height: 350px;
+  padding: 20px 27px;
+  border: 2px solid var(--border-strong);
+  border-radius: 40px;
+  background: var(--bg-surface);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.wb-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px 12px 12px;
+  border-radius: 16px;
+  background: var(--bg-surface);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.1);
+  z-index: 1;
+}
+
+.wb-card__bar {
+  width: 3px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.wb-card img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.wb-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.wb-card b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.wb-card--check b {
+  color: var(--text-body);
+}
+
+.wb-card small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.wb-card__box {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--brand-primary);
+  border-radius: 5px;
+}
+
+.wb-fade {
+  left: 0;
+  top: 250px;
+  width: 390px;
+  height: 110px;
+  background: linear-gradient(180deg, rgba(245, 247, 251, 0) 0%, var(--bg-screen) 100%);
+  z-index: 1;
+}
+
+.wb-art--2 .wb-photo,
+.wb-art--2 .wb-spark {
+  z-index: 2;
+}
+
+/* ---------- 01f · Columnas en bucle ---------- */
+.wb-col {
+  top: 0;
+  width: 100px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.wb-col__track {
+  position: absolute;
+  left: 0;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 14px;
+  will-change: transform;
+}
+
+.wb-col__track img {
+  width: 100px;
+  flex-shrink: 0;
+  display: block;
+  border-radius: 50px;
+  object-fit: cover;
+}
+
+.wb-fade--bottom {
+  top: 290px;
+}
+
+.wb-fade--top {
+  top: 0;
+  height: 90px;
+  background: linear-gradient(0deg, rgba(245, 247, 251, 0) 0%, var(--bg-screen) 100%);
 }

@@ -30,7 +30,23 @@ const GRUPOS = [
 ]
 
 /** 09 · Perfil del estudiante. */
-export default function Perfil({ perfil, ir, onAnfitrion, onCerrarSesion }) {
+/** Textos y destino de "Mi alquiler" según en qué va el flujo (R01–R28). */
+function miAlquiler(al) {
+  const sol = {
+    null: { desc: 'Visita confirmada con Andrea', destino: 'visita' },
+    enviada: { desc: '1 solicitud en revisión', destino: 'enviada' },
+    aceptada: { desc: 'Andrea aceptó · falta el contrato', destino: al.contratoFirmado ? (al.anfitrionaFirmo ? 'firmado' : 'esperando-firma') : 'aceptada' },
+  }[al.solicitud]
+  const enEstancia = al.pagado
+  return {
+    'Mis solicitudes': al.pagado ? { desc: 'Solicitud aceptada · quad apartado', destino: 'apartado' } : sol,
+    'Mi estancia': enEstancia ? { desc: 'Quad privado en casa de familia · al día', destino: 'estancia' } : { desc: 'Aún no tienes una estancia activa' },
+    'Pagos y recibos': enEstancia ? { desc: 'Próximo pago: 1 de enero', destino: 'recibo' } : { desc: 'Sin pagos pendientes' },
+  }
+}
+
+export default function Perfil({ perfil, ir, onAnfitrion, onCerrarSesion, alquiler }) {
+  const al = alquiler ? miAlquiler(alquiler) : {}
   return (
     <div className="home-screen">
       <motion.div className="home-scroll profile" variants={stagger} initial="hidden" animate="show">
@@ -61,7 +77,7 @@ export default function Perfil({ perfil, ir, onAnfitrion, onCerrarSesion }) {
             <Icon name="home-solid" size={22} />
           </span>
           <span className="option__texts">
-            <span className="option__title">¿Tienes un cuarto libre?</span>
+            <span className="option__title">¿Tienes un quad libre?</span>
             <span className="option__desc">Cambia a modo anfitrión y publica tu quad</span>
           </span>
           <Icon name="nav-arrow-right" size={18} className="host-cta__chevron" />
@@ -70,16 +86,19 @@ export default function Perfil({ perfil, ir, onAnfitrion, onCerrarSesion }) {
         {GRUPOS.map((g) => (
           <motion.section key={g.titulo} className="profile-group" variants={fadeUp}>
             <p className="profile-group__label">{g.titulo}</p>
-            {g.items.map((i) => (
-              <motion.button key={i.titulo} type="button" className="action-row" whileTap={{ scale: 0.99 }}>
+            {g.items.map((i) => {
+              const extra = al[i.titulo]
+              return (
+              <motion.button key={i.titulo} type="button" className="action-row" whileTap={{ scale: 0.99 }} onClick={extra?.destino ? () => ir('alquiler', extra.destino) : undefined}>
                 <Icon name={i.icon} size={24} className="action-row__icon" />
                 <span className="option__texts">
                   <span className="option__title">{i.titulo}</span>
-                  <span className="option__desc">{i.desc}</span>
+                  <span className="option__desc">{extra?.desc || i.desc}</span>
                 </span>
                 <Icon name="nav-arrow-right" size={18} className="action-row__chevron" />
               </motion.button>
-            ))}
+              )
+            })}
           </motion.section>
         ))}
 

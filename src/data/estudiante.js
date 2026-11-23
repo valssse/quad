@@ -8,12 +8,15 @@ import ues from '../assets/universidades/ues.png'
 import ufg from '../assets/universidades/ufg.png'
 import esen from '../assets/universidades/esen.png'
 
-/* ---------- Pasos (14 en la barra de progreso) ---------- */
-export const TOTAL_PASOS = 14
+/* ---------- Pasos (15 en la barra de progreso) ---------- */
+export const TOTAL_PASOS = 15
 
 export const PASOS = [
   { id: 'universidad', paso: 1 },
   { id: 'verificar', paso: 2 },
+  { id: 'verificar-correo', paso: 2 },
+  { id: 'verificar-carne', paso: 2 },
+  { id: 'carne-revision', paso: 2 },
   { id: 'codigo', paso: 3 },
   { id: 'verificado', paso: 3, sinBarra: true },
   { id: 'foto', paso: 4 },
@@ -25,10 +28,11 @@ export const PASOS = [
   { id: 'referencia', paso: 8 },
   { id: 'tipo', paso: 9 },
   { id: 'servicios', paso: 10 },
-  { id: 'convivencia', paso: 11 },
-  { id: 'mudanza', paso: 12 },
-  { id: 'perfil', paso: 13 },
-  { id: 'listo', paso: 14 },
+  { id: 'identidad', paso: 11 },
+  { id: 'convivencia', paso: 12 },
+  { id: 'mudanza', paso: 13 },
+  { id: 'perfil', paso: 14 },
+  { id: 'listo', paso: 15 },
 ]
 
 /* ---------- E01 · Universidades ---------- */
@@ -41,8 +45,8 @@ export const UNIVERSIDADES = [
 
 /* ---------- E02 · Métodos de verificación ---------- */
 export const METODOS = [
-  { id: 'correo', titulo: 'Con tu correo universitario', desc: 'Te llega un código al instante', icon: 'mail', iconSel: 'hero-envelope-solid' },
-  { id: 'carne', titulo: 'Con tu carné estudiantil', desc: 'Sube una foto; lo revisamos en 24 horas', icon: 'media-image', iconSel: 'hero-photo-solid' },
+  { id: 'correo', titulo: 'Con tu correo universitario', desc: 'Te llega un código al instante', icon: 'hero-envelope-solid', iconSel: 'hero-envelope-solid' },
+  { id: 'carne', titulo: 'Con tu carné estudiantil', desc: 'Sube una foto; lo revisamos en 24 horas', icon: 'hero-camera-solid', iconSel: 'hero-camera-solid' },
 ]
 
 /* ---------- E05d · Año ---------- */
@@ -54,23 +58,70 @@ export const ANIOS = [
   { id: '5', label: '5.º o más' },
 ]
 
-/* ---------- E06 · Intereses ---------- */
-export const INTERESES = [
-  { id: 'musica', label: 'Música', icon: 'hero-musical-note', iconSel: 'hero-musical-note-solid' },
-  { id: 'deportes', label: 'Deportes', icon: 'hero-trophy', iconSel: 'hero-trophy-solid' },
-  { id: 'cocinar', label: 'Cocinar', icon: 'cutlery', iconSel: 'cutlery-fill' },
-  { id: 'lectura', label: 'Lectura', icon: 'hero-book-open', iconSel: 'hero-book-open-solid' },
-  { id: 'videojuegos', label: 'Videojuegos', icon: 'hero-puzzle-piece', iconSel: 'hero-puzzle-piece-solid' },
-  { id: 'arte', label: 'Arte', icon: 'hero-paint-brush', iconSel: 'hero-paint-brush-solid' },
-  { id: 'voluntariado', label: 'Voluntariado', icon: 'heart', iconSel: 'heart-solid' },
-  { id: 'cine', label: 'Cine', icon: 'hero-film', iconSel: 'hero-film-solid' },
-  { id: 'viajes', label: 'Viajes', icon: 'hero-globe-americas', iconSel: 'hero-globe-americas-solid' },
-  { id: 'fotografia', label: 'Fotografía', icon: 'hero-camera', iconSel: 'hero-camera-solid' },
-  { id: 'tecnologia', label: 'Tecnología', icon: 'hero-computer-desktop', iconSel: 'hero-computer-desktop-solid' },
-  { id: 'naturaleza', label: 'Naturaleza', icon: 'hero-sun', iconSel: 'hero-sun-solid' },
-  { id: 'mascotas', label: 'Mascotas', icon: 'paw-fill', iconSel: 'paw-fill' },
-  { id: 'idiomas', label: 'Idiomas', icon: 'hero-language', iconSel: 'hero-language-solid' },
+/* ---------- E05d · Ciudad de origen ---------- */
+export const CIUDADES = ['San Salvador', 'Santa Ana', 'San Miguel', 'Santa Tecla', 'Soyapango', 'Sonsonate', 'Usulután']
+export const OTRA_CIUDAD = 'Otra ciudad o país'
+
+/* ---------- E06 · Intereses (5 categorías, 28 opciones) ---------- */
+const interes = (id, label, icon, iconSel = icon) => ({ id, label, icon, iconSel })
+export const INTERESES_GRUPOS = [
+  {
+    titulo: 'Arte y cultura',
+    items: [
+      interes('musica', 'Música', 'hero-musical-note', 'hero-musical-note-solid'),
+      interes('lectura', 'Lectura', 'hero-book-open', 'hero-book-open-solid'),
+      interes('arte', 'Arte', 'hero-paint-brush', 'hero-paint-brush-solid'),
+      interes('cine', 'Cine', 'hero-film', 'hero-film-solid'),
+      interes('fotografia', 'Fotografía', 'hero-camera', 'hero-camera-solid'),
+      interes('idiomas', 'Idiomas', 'hero-language', 'hero-language-solid'),
+      interes('teatro', 'Teatro', 'sparks', 'hero-sparkles-solid'),
+      interes('baile', 'Baile', 'heart', 'heart-solid'),
+    ],
+  },
+  {
+    titulo: 'Deporte y bienestar',
+    items: [
+      interes('deportes', 'Deportes', 'hero-trophy', 'hero-trophy-solid'),
+      interes('gimnasio', 'Gimnasio', 'hero-bolt', 'hero-bolt-solid'),
+      interes('yoga', 'Yoga', 'heart', 'heart-solid'),
+      interes('correr', 'Correr', 'walking', 'walking-fill'),
+      interes('ciclismo', 'Ciclismo', 'map-pin', 'map-pin-fill'),
+    ],
+  },
+  {
+    titulo: 'Vida social',
+    items: [
+      interes('cocinar', 'Cocinar', 'cutlery', 'cutlery-fill'),
+      interes('voluntariado', 'Voluntariado', 'heart', 'heart-solid'),
+      interes('viajes', 'Viajes', 'hero-globe-americas', 'hero-globe-americas-solid'),
+      interes('cafe', 'Café', 'cutlery', 'cutlery-fill'),
+      interes('fiestas', 'Fiestas', 'sparks', 'hero-sparkles-solid'),
+      interes('juegos-mesa', 'Juegos de mesa', 'hero-puzzle-piece', 'hero-puzzle-piece-solid'),
+    ],
+  },
+  {
+    titulo: 'Tecnología y juegos',
+    items: [
+      interes('videojuegos', 'Videojuegos', 'hero-puzzle-piece', 'hero-puzzle-piece-solid'),
+      interes('tecnologia', 'Tecnología', 'hero-computer-desktop', 'hero-computer-desktop-solid'),
+      interes('programacion', 'Programación', 'hero-computer-desktop', 'hero-computer-desktop-solid'),
+      interes('anime', 'Anime', 'sparks', 'hero-sparkles-solid'),
+      interes('diseno', 'Diseño', 'hero-paint-brush', 'hero-paint-brush-solid'),
+    ],
+  },
+  {
+    titulo: 'Naturaleza y animales',
+    items: [
+      interes('naturaleza', 'Naturaleza', 'hero-sun', 'hero-sun-solid'),
+      interes('mascotas', 'Mascotas', 'paw-fill'),
+      interes('senderismo', 'Senderismo', 'walking', 'walking-fill'),
+      interes('jardineria', 'Jardinería', 'hero-sun', 'hero-sun-solid'),
+    ],
+  },
 ]
+
+/* ---------- E06 · Intereses (lista plana, para el perfil) ---------- */
+export const INTERESES = INTERESES_GRUPOS.flatMap((g) => g.items)
 
 /* ---------- E07 · Presupuesto ---------- */
 export const PRESUPUESTO = { min: 50, max: 300, paso: 10 }
@@ -82,9 +133,9 @@ export const ATAJOS = [
 
 /* ---------- E08 · Punto de referencia ---------- */
 export const ENTRADAS = [
-  { id: 'peatonal', titulo: 'Portón peatonal', desc: 'Calle de acceso a pie', icon: 'walking', iconSel: 'walking-fill' },
-  { id: 'principal', titulo: 'Portón principal', desc: 'Entrada vehicular', icon: 'map-pin', iconSel: 'map-pin-fill' },
-  { id: 'mapa', titulo: 'Otro punto en el mapa', desc: 'Elige un lugar exacto', icon: 'map-pin', iconSel: 'map-pin-fill' },
+  { id: 'peatonal', titulo: 'Portón peatonal', desc: 'Calle de acceso a pie', icon: 'walking-fill', iconSel: 'walking-fill' },
+  { id: 'principal', titulo: 'Portón principal', desc: 'Entrada vehicular', icon: 'car-fill', iconSel: 'car-fill' },
+  { id: 'mapa', titulo: 'Otro punto en el mapa', desc: 'Elige un lugar exacto', icon: 'map-pin-fill', iconSel: 'map-pin-fill' },
 ]
 export const TRANSPORTES = [
   { id: 'caminando', label: 'Caminando', icon: 'walking', iconSel: 'walking-fill' },
@@ -95,9 +146,9 @@ export const TRANSPORTES = [
 /* ---------- E09 · Tipo de quad ---------- */
 export const TIPOS = [
   { id: 'familia', titulo: 'Casa de familia', corto: 'casa de familia', desc: 'Vives con una familia y compartes espacios comunes', icon: 'group', iconSel: 'group-fill' },
-  { id: 'independiente', titulo: 'Cuarto independiente', corto: 'cuarto independiente', desc: 'Entrada propia o anexo dentro de una casa', icon: 'bed', iconSel: 'bed-fill' },
-  { id: 'compartido', titulo: 'Cuarto compartido', corto: 'cuarto compartido', desc: 'Compartes cuarto con otro estudiante', icon: 'community', iconSel: 'community-fill' },
-  { id: 'apartamento', titulo: 'Apartamento con estudiantes', corto: 'apartamento', desc: 'Cuarto propio, áreas compartidas con otros universitarios', icon: 'home', iconSel: 'home-solid' },
+  { id: 'independiente', titulo: 'Quad independiente', corto: 'quad independiente', desc: 'Entrada propia o anexo dentro de una casa', icon: 'bed', iconSel: 'bed-fill' },
+  { id: 'compartido', titulo: 'Quad compartido', corto: 'quad compartido', desc: 'Compartes quad con otro estudiante', icon: 'community', iconSel: 'community-fill' },
+  { id: 'apartamento', titulo: 'Apartamento con estudiantes', corto: 'apartamento', desc: 'Quad propio, áreas compartidas con otros universitarios', icon: 'home', iconSel: 'home-solid' },
 ]
 
 /* ---------- E10 · Servicios imprescindibles ---------- */
@@ -113,7 +164,7 @@ export const SERVICIOS = [
     ],
   },
   {
-    titulo: 'En el cuarto',
+    titulo: 'En el quad',
     items: [
       { id: 'cama', label: 'Cama y clóset', icon: 'hero-archive-box', iconSel: 'hero-archive-box-solid' },
       { id: 'escritorio', label: 'Escritorio', icon: 'hero-computer-desktop', iconSel: 'hero-computer-desktop-solid' },
@@ -131,28 +182,55 @@ export const SERVICIOS = [
   },
 ]
 
+/* ---------- E10b · ¿Cómo te identificas? ---------- */
+export const GENEROS = [
+  { id: 'mujer', titulo: 'Mujer', desc: 'Podrás ver casas “Solo mujeres”', icon: 'female-fill', iconSel: 'female-fill' },
+  { id: 'hombre', titulo: 'Hombre', desc: 'Podrás ver casas “Solo hombres”', icon: 'user-solid', iconSel: 'user-solid' },
+  { id: 'nd', titulo: 'Prefiero no decirlo', desc: 'Verás casas mixtas', icon: 'shield-check-fill', iconSel: 'shield-check-fill' },
+]
+
 /* ---------- E11 · Convivencia ---------- */
-export const CONVIVENCIA = [
+export const CONVIVENCIA_PREFERENCIAS = [
   {
-    titulo: 'Preferencias',
+    titulo: 'Quién vive en la casa',
     items: [
-      { id: 'mujeres', label: 'Solo mujeres', corto: 'solo mujeres', icon: 'female', iconSel: 'female-fill' },
-      { id: 'hombres', label: 'Solo hombres', corto: 'solo hombres', icon: 'user', iconSel: 'user-solid' },
+      { id: 'mujeres', label: 'Solo mujeres', corto: 'solo mujeres', icon: 'female', iconSel: 'female-fill', genero: 'mujer' },
+      { id: 'hombres', label: 'Solo hombres', corto: 'solo hombres', icon: 'user', iconSel: 'user-solid', genero: 'hombre' },
+      { id: 'mixta', label: 'Casa mixta', corto: 'casa mixta', icon: 'community', iconSel: 'community-fill' },
+      { id: 'familia-hijos', label: 'Familia con hijos', corto: 'familia con hijos', icon: 'home', iconSel: 'home-solid' },
+    ],
+  },
+  {
+    titulo: 'Servicios cerca',
+    items: [
+      { id: 'lavanderia-incluida', label: 'Lavandería incluida', corto: 'lavandería incluida', icon: 'washing-machine', iconSel: 'washing-fill' },
+      { id: 'lavanderia-cerca', label: 'Lavandería cerca', corto: 'lavandería cerca', icon: 'map-pin', iconSel: 'map-pin-fill' },
+      { id: 'wifi-incluido', label: 'Wi-Fi incluido', corto: 'wi-fi incluido', icon: 'wifi', iconSel: 'wifi-fill' },
+      { id: 'agua-luz-incluidas', label: 'Agua y luz incluidas', corto: 'agua y luz incluidas', icon: 'hero-bolt', iconSel: 'hero-bolt-solid' },
+    ],
+  },
+  {
+    titulo: 'Reglas de la casa',
+    items: [
       { id: 'mascotas', label: 'Acepto mascotas', corto: 'con mascotas', icon: 'paw-fill', iconSel: 'paw-fill' },
       { id: 'no-fumadores', label: 'No fumadores', corto: 'sin fumar', icon: 'no-smoking-fill', iconSel: 'no-smoking-fill' },
       { id: 'tranquilo', label: 'Ambiente tranquilo', corto: 'tranquilo', icon: 'moon-fill', iconSel: 'moon-fill' },
-    ],
-  },
-  {
-    titulo: 'Tu rutina',
-    items: [
-      { id: 'noche', label: 'Estudio de noche', icon: 'moon-fill', iconSel: 'moon-fill' },
-      { id: 'tarde', label: 'A veces llego tarde', icon: 'clock', iconSel: 'clock-fill' },
-      { id: 'madrugo', label: 'Madrugo', icon: 'hero-sun', iconSel: 'hero-sun-solid' },
-      { id: 'fines', label: 'Paso fines de semana fuera', icon: 'map-pin', iconSel: 'map-pin-fill' },
+      { id: 'sin-fiestas', label: 'Sin fiestas', corto: 'sin fiestas', icon: 'bell', iconSel: 'hero-bell-solid' },
+      { id: 'visitas', label: 'Visitas permitidas', corto: 'con visitas', icon: 'user-plus', iconSel: 'user-plus' },
     ],
   },
 ]
+export const RUTINA = {
+  titulo: 'Tu rutina',
+  items: [
+    { id: 'noche', label: 'Estudio de noche', icon: 'moon-fill', iconSel: 'moon-fill' },
+    { id: 'tarde', label: 'A veces llego tarde', icon: 'clock', iconSel: 'clock-fill' },
+    { id: 'madrugo', label: 'Madrugo', icon: 'hero-sun', iconSel: 'hero-sun-solid' },
+    { id: 'fines', label: 'Paso fines de semana fuera', icon: 'map-pin', iconSel: 'map-pin-fill' },
+  ],
+}
+/** Todas las opciones de convivencia (para el resumen del perfil). */
+export const CONVIVENCIA = [...CONVIVENCIA_PREFERENCIAS, RUTINA]
 
 /* ---------- E12 · Mudanza ---------- */
 export const FECHAS = [
@@ -172,6 +250,7 @@ export const ESTUDIANTE_INICIAL = {
   universidad: 'uca',
   metodo: 'correo',
   correoUni: '',
+  carne: false,
   foto: null,
   carrera: '',
   anio: '2',
@@ -185,6 +264,8 @@ export const ESTUDIANTE_INICIAL = {
   tipos: [],
   servicios: [],
   convivencia: [],
+  genero: 'mujer',
+  puntoMapa: null,
   convivirFamilia: true,
   mudanza: 'ciclo1',
   duracion: 'anio',

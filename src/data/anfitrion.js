@@ -1,7 +1,7 @@
 /**
  * Datos del onboarding de anfitrión (sección "Onboarding · Anfitrión" en Figma).
  * Parte 1 (n/12): perfil y verificación del anfitrión.
- * Parte 2 (n/9): publicar el cuarto (quad).
+ * Parte 2 (n/9): publicar el quad (quad).
  * El estado inicial reproduce los valores que muestra Figma.
  */
 export { UNIVERSIDADES } from './estudiante.js'
@@ -38,9 +38,9 @@ export const PASOS = [
 
 /* ---------- A01 · Cómo ofreces tu espacio ---------- */
 export const TIPOS_ANFITRION = [
-  { id: 'familia', titulo: 'Familia anfitriona', desc: 'Rentas uno o más cuartos dentro de tu casa', icon: 'group', iconSel: 'group-fill' },
-  { id: 'estudiante', titulo: 'Estudiante con cuarto libre', desc: 'Compartes tu casa o apartamento con otro universitario', icon: 'user', iconSel: 'user-solid' },
-  { id: 'propietario', titulo: 'Propietario', desc: 'Tienes cuartos o un edificio pensado para estudiantes', icon: 'home', iconSel: 'home-solid' },
+  { id: 'familia', titulo: 'Familia anfitriona', desc: 'Rentas uno o más quads dentro de tu casa', icon: 'group', iconSel: 'group-fill' },
+  { id: 'estudiante', titulo: 'Estudiante con quad libre', desc: 'Compartes tu casa o apartamento con otro universitario', icon: 'user', iconSel: 'user-solid' },
+  { id: 'propietario', titulo: 'Propietario', desc: 'Tienes quads o un edificio pensado para estudiantes', icon: 'home', iconSel: 'home-solid' },
 ]
 
 /* ---------- A02 · Documento ---------- */
@@ -132,16 +132,16 @@ export const DISTANCIAS = {
 
 /* ---------- A12 · Ten a la mano ---------- */
 export const TEN_A_LA_MANO = [
-  '5 fotos o más del cuarto y áreas comunes',
+  '5 fotos o más del quad y áreas comunes',
   'Precio mensual y depósito',
   'Reglas de la casa',
   'Fecha desde la que está libre',
 ]
 
-/* ---------- A14 · Tipo de cuarto ---------- */
+/* ---------- A14 · Tipo de quad ---------- */
 export const TIPOS_CUARTO = [
-  { id: 'privado', titulo: 'Cuarto privado', desc: 'Solo para un estudiante', icon: 'bed', iconSel: 'bed-fill' },
-  { id: 'compartido', titulo: 'Cuarto compartido', desc: 'Dos o más estudiantes en el mismo cuarto', icon: 'community', iconSel: 'community-fill' },
+  { id: 'privado', titulo: 'Quad privado', desc: 'Solo para un estudiante', icon: 'bed', iconSel: 'bed-fill' },
+  { id: 'compartido', titulo: 'Quad compartido', desc: 'Dos o más estudiantes en el mismo quad', icon: 'community', iconSel: 'community-fill' },
   { id: 'anexo', titulo: 'Anexo independiente', desc: 'Entrada propia dentro de la propiedad', icon: 'home', iconSel: 'home-solid' },
 ]
 
@@ -193,8 +193,8 @@ export const TIPOS_REGLA = [
 
 export const MODOS_VISITA = [
   { id: 'no', titulo: 'No se permiten visitas', desc: 'Solo viven quienes están en el contrato', icon: 'home', iconSel: 'home-solid' },
-  { id: 'comunes', titulo: 'Solo en áreas comunes', desc: 'Sala o patio, sin entrar al cuarto', icon: 'group', iconSel: 'group-fill' },
-  { id: 'cuarto', titulo: 'También en el cuarto', desc: 'Con aviso previo a la familia', icon: 'bed', iconSel: 'bed-fill' },
+  { id: 'comunes', titulo: 'Solo en áreas comunes', desc: 'Sala o patio, sin entrar al quad', icon: 'group', iconSel: 'group-fill' },
+  { id: 'cuarto', titulo: 'También en el quad', desc: 'Con aviso previo a la familia', icon: 'bed', iconSel: 'bed-fill' },
 ]
 
 export const NORMAS_CONVIVENCIA = [
@@ -334,13 +334,13 @@ export function describirRegla(id, r, extra) {
           ? 'No se permiten visitas'
           : v.modo === 'comunes'
             ? `En la sala, hasta las ${hora12(v.hasta)}`
-            : `También en el cuarto, hasta las ${hora12(v.hasta)}`
+            : `También en el quad, hasta las ${hora12(v.hasta)}`
       const larga =
         v.modo === 'no'
           ? 'No se permiten visitas.'
           : v.modo === 'comunes'
             ? `Permitidas en la sala hasta las ${hora12(v.hasta)}.`
-            : `Permitidas también en el cuarto, con aviso, hasta las ${hora12(v.hasta)}.`
+            : `Permitidas también en el quad, con aviso, hasta las ${hora12(v.hasta)}.`
       return { titulo: 'Visitas', corta, larga }
     }
     case 'cocina':

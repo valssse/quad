@@ -27,9 +27,14 @@
 }
 
 .btn--primary:disabled {
-  opacity: 0.45;
+  /* Botón/Primario · Deshabilitado */
+  background: var(--border-default);
+  color: var(--text-tertiary);
   cursor: not-allowed;
   box-shadow: none;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
 }
 
 .btn--outline {

@@ -238,7 +238,7 @@ export function Casa({ datos, actualizar, siguiente }) {
         <textarea
           id="descripcion-casa"
           className="textarea textarea--104"
-          placeholder="Ej. Somos una familia tranquila. Rentamos el cuarto de nuestro hijo que se fue a estudiar fuera."
+          placeholder="Ej. Somos una familia tranquila. Rentamos el quad de nuestro hijo que se fue a estudiar fuera."
           value={datos.descripcion}
           onChange={(e) => actualizar({ descripcion: e.target.value })}
         />
@@ -417,7 +417,7 @@ export function PerfilListo({ datos, actualizar, siguiente, onFinish }) {
   return (
     <Step actions={<Button onClick={ahora ? siguiente : onFinish}>Continuar</Button>}>
       <Heading title="¡Tu perfil está listo!">
-        Ahora publica el cuarto que ofreces. Mientras no lo hagas, los estudiantes no podrán encontrarte.
+        Ahora publica el quad que ofreces. Mientras no lo hagas, los estudiantes no podrán encontrarte.
       </Heading>
       <div className="heading" role="radiogroup" style={{ gap: 10 }}>
         <SelectCard

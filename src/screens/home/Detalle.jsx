@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useDragControls } from 'motion/react'
 import StatusBar from '../../components/StatusBar.jsx'
 import Icon from '../../components/Icon.jsx'
 import Button from '../../components/Button.jsx'
@@ -191,12 +191,76 @@ function VisorFotos({ fotos, inicio, onCerrar }) {
   )
 }
 
+function Iniciales({ nombre }) {
+  const ini = (nombre || '').split(' ').filter(Boolean).slice(0, 2).map((x) => x[0]).join('')
+  return <span className="dt-sheet__ph">{ini}</span>
+}
+
+/** 07 · Hoja · Enviar tu perfil: confirma antes de mandar la solicitud. */
+function HojaEnviarPerfil({ abierta, anfitrion, perfil, onClose, onEnviar }) {
+  const arrastre = useDragControls()
+  const yo = perfil || {}
+  return (
+    <AnimatePresence>
+      {abierta && (
+        <div className="sheet-layer" role="dialog" aria-modal="true" aria-label={`Enviaremos tu perfil a ${anfitrion.corto}`}>
+          <motion.div className="sheet-dim" onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} />
+          <motion.div
+            className="sheet dt-sheet"
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ type: 'spring', stiffness: 380, damping: 38 }}
+            drag="y"
+            dragListener={false}
+            dragControls={arrastre}
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.6 }}
+            onDragEnd={(_, info) => (info.offset.y > 90 || info.velocity.y > 500) && onClose()}
+          >
+            <span className="ch-sheet__grip" onPointerDown={(e) => arrastre.start(e)}>
+              <span />
+            </span>
+            <div className="dt-sheet__pair">
+              {yo.foto ? <img src={yo.foto} alt="" /> : <Iniciales nombre={yo.nombreCompleto} />}
+              <Icon name="nav-arrow-right" size={22} />
+              <img src={anfitrion.foto} alt="" />
+            </div>
+            <div className="dt-sheet__text">
+              <h2>Enviaremos tu perfil a {anfitrion.corto}</h2>
+              <p>
+                {anfitrion.corto} verá tu foto, carrera, año e intereses, y que eres estudiante verificado. No verá tu correo ni tu teléfono.
+              </p>
+            </div>
+            <div className="dt-sheet__card" aria-label="Así te verá">
+              {yo.foto ? <img src={yo.foto} alt="" /> : <Iniciales nombre={yo.nombreCompleto} />}
+              <span>
+                <b>{yo.nombreCompleto}</b>
+                <small>{yo.detalle}</small>
+              </span>
+              <span className="dt-sheet__badge">
+                <Icon name="check-circle-fill" size={14} />
+                {yo.genero === 'mujer' ? 'Verificada' : 'Verificado'}
+              </span>
+            </div>
+            <Button onClick={onEnviar}>Enviar solicitud</Button>
+            <Button variant="outline" onClick={onClose}>
+              Cancelar
+            </Button>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  )
+}
+
 /** 03 · Detalle del quad. */
-export function Detalle({ id, guardados, alternarGuardado, ir }) {
+export function Detalle({ id, guardados, alternarGuardado, ir, perfil, solicitar, alquiler }) {
   const q = buscarQuad(id) || buscarQuad('familia')
   const d = detalle(q)
   const a = d.anfitrion
-  const [solicitado, setSolicitado] = useState(false)
+  const [solicitado, setSolicitado] = useState(q.id === 'familia' && !!alquiler?.solicitud)
+  const [hoja, setHoja] = useState(false)
   const [aviso, setAviso] = useState(false)
   // Al pasar la galería, la barra superior se vuelve blanca (como un header normal)
   const [solido, setSolido] = useState(false)
@@ -363,10 +427,7 @@ export function Detalle({ id, guardados, alternarGuardado, ir }) {
             className={`dt-btn dt-btn--primary ${solicitado ? 'dt-btn--done' : ''}`}
             whileTap={{ scale: 0.96 }}
             disabled={!q.disponible}
-            onClick={() => {
-              if (!solicitado) setAviso(true)
-              setSolicitado(true)
-            }}
+            onClick={() => !solicitado && setHoja(true)}
           >
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.span key={solicitado ? 's' : q.disponible ? 'n' : 'x'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
@@ -377,13 +438,26 @@ export function Detalle({ id, guardados, alternarGuardado, ir }) {
         </div>
       </div>
 
+      <HojaEnviarPerfil
+        abierta={hoja}
+        anfitrion={a}
+        perfil={perfil}
+        onClose={() => setHoja(false)}
+        onEnviar={() => {
+          setHoja(false)
+          setSolicitado(true)
+          setAviso(true)
+          solicitar?.(q.id)
+        }}
+      />
+
       <AnimatePresence>{visor !== null && <VisorFotos fotos={d.galeria} inicio={visor} onCerrar={() => setVisor(null)} />}</AnimatePresence>
 
       <AnimatePresence>
         {aviso && (
           <motion.div className="dt-toast" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }}>
-            <Icon name="check" size={18} />
-            Solicitud enviada a {a.corto}. Te avisaremos cuando responda.
+            <Icon name="check-circle-fill" size={20} />
+            Enviamos tu perfil a {a.corto}
           </motion.div>
         )}
       </AnimatePresence>

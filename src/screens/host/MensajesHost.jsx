@@ -282,9 +282,6 @@ export function ChatHost({ id, ir, guardadas, crearGuardada, confirmarVisita, vi
               </AnimatePresence>
             </span>
           </button>
-          <motion.button type="button" className="dt-round dt-round--soft" whileTap={{ scale: 0.9 }} aria-label="Videollamada">
-            <Icon name="video-camera" size={20} />
-          </motion.button>
         </div>
         <div className="ch-quad-wrap">
           <motion.button type="button" className="ch-quad" whileTap={{ scale: 0.985 }} onClick={() => ir('editar-quad', q.id)}>

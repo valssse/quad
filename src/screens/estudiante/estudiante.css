@@ -501,3 +501,368 @@ ul.tips {
 .field__input[type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
+
+/* ---------- E02 · Opción · Acción ---------- */
+.option--action {
+  min-height: 69px;
+  padding: 14px 16px;
+  gap: 14px;
+}
+
+.option--action .option__icon--svg {
+  color: var(--brand-primary);
+}
+
+.option__chevron {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.est-help {
+  align-self: center;
+  margin-top: auto;
+}
+
+/* ---------- E02b · Carné estudiantil ---------- */
+.carne-drop {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 20px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 20px;
+  background: var(--bg-surface);
+  text-align: center;
+}
+
+.carne-drop__icon {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--brand-primary-soft);
+  color: var(--brand-primary);
+}
+
+.carne-drop__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.carne-drop__text b {
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.carne-drop__text small {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.carne-drop__btn {
+  padding: 9px 26px;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  background: var(--bg-surface);
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.carne-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+}
+
+.carne {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.carne__uni {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--primary-100);
+}
+
+.carne__datos {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.carne__datos img,
+.carne__ph {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.carne__ph {
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.carne__datos span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.carne__datos b {
+  font-size: var(--font-size-h4);
+  font-weight: 500;
+}
+
+.carne__datos small {
+  font-size: var(--font-size-small);
+  color: var(--primary-100);
+}
+
+.carne__vig {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+}
+
+.carne-card__estado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carne-card__estado > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.carne-card__estado .icon,
+.carne-tips .icon {
+  color: var(--green-100);
+}
+
+.carne-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+}
+
+.carne-tips b {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.carne-tips span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--font-size-small);
+  color: var(--text-body);
+}
+
+/* ---------- E02c · Pantalla centrada ---------- */
+.est-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 56px 0 8px;
+  text-align: center;
+}
+
+.est-center__icon {
+  width: 80px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.est-center__icon--amber {
+  background: var(--yellow-10);
+  color: var(--yellow-100);
+}
+
+.est-center h1 {
+  margin: 0 0 6px;
+  font-size: var(--font-size-h3);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.est-center p {
+  margin: 0;
+  font-size: var(--font-size-p);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+/* ---------- E05d · Selector de ciudad ---------- */
+.field__control--select {
+  width: 100%;
+  min-height: 52px;
+  padding: 15px var(--spacing-7);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.field__value {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--font-size-h5);
+  color: var(--text-primary);
+}
+
+.field__value--empty {
+  color: var(--text-tertiary);
+}
+
+.field__chevron {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.city-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 80%;
+  padding: 10px 20px max(34px, calc(env(safe-area-inset-bottom) + 16px));
+}
+
+.city-sheet h2 {
+  margin: 0;
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.city-sheet__list {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.city-sheet__item {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-default);
+  font-size: var(--font-size-p);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.city-sheet__item:last-child {
+  border-bottom: 0;
+}
+
+.city-sheet__item--on {
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+  color: var(--brand-primary);
+}
+
+.city-sheet__item--otra {
+  color: var(--text-secondary);
+}
+
+.city-sheet__item .icon {
+  color: var(--brand-primary);
+}
+
+/* ---------- E06 / E11 · Categorías de chips ---------- */
+.cats {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cat__label {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ---------- E08b · Otro punto en el mapa ---------- */
+.pick-map {
+  position: relative;
+  height: 210px;
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.pick-map__canvas {
+  position: absolute;
+  inset: 0;
+  background: #e9edf3;
+}
+
+.pick-map__pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 500;
+  color: var(--brand-primary);
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(15, 23, 42, 0.25));
+}
+
+.pick-map__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  z-index: 500;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--bg-surface);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-primary);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+  pointer-events: none;
+}
+
+.city-sheet .field__control {
+  min-height: 50px;
+}

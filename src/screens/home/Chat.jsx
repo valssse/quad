@@ -125,7 +125,7 @@ export function HojaFecha({ abierta, anfitrion, onClose, onEnviar, diaInicial = 
 }
 
 /** Tarjeta "Visita propuesta" con Aceptar / Otra fecha. */
-function TarjetaVisita({ v, propia, onAceptar, onOtra }) {
+function TarjetaVisita({ v, propia, onAceptar, onOtra, onDetalles }) {
   return (
     <div className={`ch-row ${propia ? 'ch-row--me' : ''}`}>
       <div className="ch-visit">
@@ -149,6 +149,22 @@ function TarjetaVisita({ v, propia, onAceptar, onOtra }) {
           )}
         </AnimatePresence>
         {v.nota && <p className="ch-visit__note">“{v.nota}”</p>}
+        <AnimatePresence initial={false}>
+          {v.estado === 'aceptada' && onDetalles && (
+            <motion.button
+              type="button"
+              className="ch-visit__more"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              whileTap={{ scale: 0.97 }}
+              onClick={onDetalles}
+            >
+              Ver detalles de la visita
+              <Icon name="nav-arrow-right" size={16} />
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )
@@ -230,9 +246,6 @@ export function Conversacion({ id, ir }) {
               </AnimatePresence>
             </span>
           </button>
-          <motion.button type="button" className="dt-round dt-round--soft" whileTap={{ scale: 0.9 }} aria-label="Videollamada">
-            <Icon name="video-camera" size={20} />
-          </motion.button>
         </div>
         <div className="ch-quad-wrap">
           <motion.button type="button" className="ch-quad" whileTap={{ scale: 0.985 }} onClick={() => ir('quad', q.id)}>
@@ -254,7 +267,13 @@ export function Conversacion({ id, ir }) {
           x.tipo === 'visita' ? (
             x.estado === 'cambiada' ? null : (
               <motion.div key={x.id} {...burbuja}>
-                <TarjetaVisita v={x} propia={x.de === 'yo'} onAceptar={() => aceptar(x.id)} onOtra={() => setHoja(true)} />
+                <TarjetaVisita
+                  v={x}
+                  propia={x.de === 'yo'}
+                  onAceptar={() => aceptar(x.id)}
+                  onOtra={() => setHoja(true)}
+                  onDetalles={q.id === 'familia' ? () => ir('alquiler', 'visita') : undefined}
+                />
               </motion.div>
             )
           ) : (
