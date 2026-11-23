@@ -5,6 +5,7 @@ import BackButton from '../components/BackButton.jsx'
 import TextField from '../components/TextField.jsx'
 import Button from '../components/Button.jsx'
 import MicrosoftButton from '../components/MicrosoftButton.jsx'
+import GoogleButton from '../components/GoogleButton.jsx'
 import Checkbox from '../components/Checkbox.jsx'
 import { fadeUp } from '../components/motion.js'
 import userIcon from '../assets/icons/user.svg'
@@ -91,6 +92,7 @@ export default function CrearCuenta({ initialEmail = '', onBack, onSubmit, onLog
         </Button>
         <div className="divider">o</div>
         <MicrosoftButton onClick={() => onSubmit({ name: '', email: '' })} />
+        <GoogleButton onClick={() => onSubmit({ name: '', email: '' })} />
 
         <p className="signup__footer">
           ¿Ya tienes cuenta?

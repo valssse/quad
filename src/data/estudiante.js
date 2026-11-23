@@ -7,6 +7,21 @@ import uca from '../assets/universidades/uca.png'
 import ues from '../assets/universidades/ues.png'
 import ufg from '../assets/universidades/ufg.png'
 import esen from '../assets/universidades/esen.png'
+import utec from '../assets/universidades/utec.webp'
+import udb from '../assets/universidades/udb.webp'
+import ujmd from '../assets/universidades/ujmd.webp'
+import uees from '../assets/universidades/uees.webp'
+import upes from '../assets/universidades/upes.webp'
+import unicaes from '../assets/universidades/unicaes.webp'
+import usam from '../assets/universidades/usam.webp'
+import uls from '../assets/universidades/uls.webp'
+import univo from '../assets/universidades/univo.webp'
+import uso from '../assets/universidades/uso.webp'
+import unab from '../assets/universidades/unab.webp'
+import upan from '../assets/universidades/upan.webp'
+import ucad from '../assets/universidades/ucad.webp'
+import uma from '../assets/universidades/uma.webp'
+import itca from '../assets/universidades/itca.webp'
 
 /* ---------- Pasos (15 en la barra de progreso) ---------- */
 export const TOTAL_PASOS = 15
@@ -41,6 +56,21 @@ export const UNIVERSIDADES = [
   { id: 'ues', nombre: 'Universidad de El Salvador (UES)', corto: 'UES', lugar: 'San Salvador, San Salvador', logo: ues, w: 23, h: 28.682, dominio: 'ues.edu.sv' },
   { id: 'ufg', nombre: 'Universidad Francisco Gavidia (UFG)', corto: 'UFG', lugar: 'San Salvador, San Salvador', logo: ufg, w: 28.059, h: 28.059, dominio: 'ufg.edu.sv' },
   { id: 'esen', nombre: 'Escuela Superior de Economía y Negocios (ESEN)', corto: 'ESEN', lugar: 'Zaragoza, La Libertad', logo: esen, w: 26.882, h: 26.29, dominio: 'esen.edu.sv' },
+  { id: 'utec', nombre: 'Universidad Tecnológica de El Salvador (UTEC)', corto: 'UTEC', lugar: 'San Salvador, San Salvador', logo: utec, w: 28.0, h: 28.0, dominio: 'utec.edu.sv' },
+  { id: 'udb', nombre: 'Universidad Don Bosco (UDB)', corto: 'UDB', lugar: 'Soyapango, San Salvador', logo: udb, w: 28.0, h: 28.0, dominio: 'udb.edu.sv' },
+  { id: 'ujmd', nombre: 'Universidad Dr. José Matías Delgado (UJMD)', corto: 'UJMD', lugar: 'Antiguo Cuscatlán, La Libertad', logo: ujmd, w: 28.0, h: 27.0, dominio: 'ujmd.edu.sv' },
+  { id: 'uees', nombre: 'Universidad Evangélica de El Salvador (UEES)', corto: 'UEES', lugar: 'San Salvador, San Salvador', logo: uees, w: 28.0, h: 22.5, dominio: 'uees.edu.sv' },
+  { id: 'upes', nombre: 'Universidad Politécnica de El Salvador (UPES)', corto: 'UPES', lugar: 'San Salvador, San Salvador', logo: upes, w: 28.0, h: 28.0, dominio: 'upes.edu.sv' },
+  { id: 'unicaes', nombre: 'Universidad Católica de El Salvador (UNICAES)', corto: 'UNICAES', lugar: 'Santa Ana, Santa Ana', logo: unicaes, w: 27.5, h: 28.0, dominio: 'unicaes.edu.sv' },
+  { id: 'usam', nombre: 'Universidad Salvadoreña Alberto Masferrer (USAM)', corto: 'USAM', lugar: 'San Salvador, San Salvador', logo: usam, w: 28.0, h: 28.0, dominio: 'usam.edu.sv' },
+  { id: 'uls', nombre: 'Universidad Luterana Salvadoreña (ULS)', corto: 'ULS', lugar: 'San Salvador, San Salvador', logo: uls, w: 28.0, h: 28.0, dominio: 'uls.edu.sv' },
+  { id: 'univo', nombre: 'Universidad de Oriente (UNIVO)', corto: 'UNIVO', lugar: 'San Miguel, San Miguel', logo: univo, w: 28.0, h: 28.0, dominio: 'univo.edu.sv' },
+  { id: 'uso', nombre: 'Universidad de Sonsonate (USO)', corto: 'USO', lugar: 'Sonsonate, Sonsonate', logo: uso, w: 28.0, h: 28.0, dominio: 'uso.edu.sv' },
+  { id: 'unab', nombre: 'Universidad Dr. Andrés Bello (UNAB)', corto: 'UNAB', lugar: 'San Salvador, San Salvador', logo: unab, w: 28.0, h: 28.0, dominio: 'unab.edu.sv' },
+  { id: 'upan', nombre: 'Universidad Panamericana (UPAN)', corto: 'UPAN', lugar: 'San Salvador, San Salvador', logo: upan, w: 28.0, h: 28.0, dominio: 'upan.edu.sv' },
+  { id: 'ucad', nombre: 'Universidad Cristiana de las Asambleas de Dios (UCAD)', corto: 'UCAD', lugar: 'San Salvador, San Salvador', logo: ucad, w: 28.0, h: 28.0, dominio: 'ucad.edu.sv' },
+  { id: 'uma', nombre: 'Universidad Modular Abierta (UMA)', corto: 'UMA', lugar: 'San Salvador, San Salvador', logo: uma, w: 21.5, h: 28.0, dominio: 'uma.edu.sv' },
+  { id: 'itca', nombre: 'Escuela Especializada en Ingeniería ITCA-FEPADE', corto: 'ITCA', lugar: 'Santa Tecla, La Libertad', logo: itca, w: 28.0, h: 28.0, dominio: 'itca.edu.sv' },
 ]
 
 /* ---------- E02 · Métodos de verificación ---------- */

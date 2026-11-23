@@ -4,13 +4,14 @@ import StatusBar from '../components/StatusBar.jsx'
 import TextField from '../components/TextField.jsx'
 import Button from '../components/Button.jsx'
 import MicrosoftButton from '../components/MicrosoftButton.jsx'
+import GoogleButton from '../components/GoogleButton.jsx'
 import { fadeUp, stagger } from '../components/motion.js'
 import logo from '../assets/icons/logo-blue.svg'
 import userIcon from '../assets/icons/user.svg'
 import lockIcon from '../assets/icons/lock.svg'
 import './IniciarSesion.css'
 
-/** 01b · Iniciar sesión — correo/usuario + contraseña, o Microsoft. */
+/** 01b · Iniciar sesión — correo/usuario + contraseña, Microsoft o Google. */
 export default function IniciarSesion({ onSubmit, onSignup }) {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
@@ -77,6 +78,9 @@ export default function IniciarSesion({ onSubmit, onSignup }) {
             </motion.div>
             <motion.div variants={fadeUp}>
               <MicrosoftButton onClick={() => onSubmit({ user: 'microsoft', microsoft: true })} />
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <GoogleButton onClick={() => onSubmit({ user: 'google', microsoft: false })} />
             </motion.div>
             <motion.p className="login__note" variants={fadeUp}>
               Puedes usar tu correo personal o universitario
