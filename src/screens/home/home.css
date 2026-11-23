@@ -1581,28 +1581,12 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
+  white-space: nowrap;
   color: #fff;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid #fff;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-}
-
-/* Sobre la foto (cristal): el ícono lleva el color del estado */
-.req-status--ambar svg {
-  color: #fbbf24;
-}
-
-.req-status--azul svg {
-  color: #93c5fd;
-}
-
-.req-status--verde svg {
-  color: #86efac;
-}
-
-.req-status--gris svg {
-  color: #e2e8f0;
 }
 
 .req-count {
@@ -1735,4 +1719,8 @@
 
 .req-row .req-status--gris svg {
   color: #475569;
+}
+
+.req-row .req-status svg {
+  flex-shrink: 0;
 }

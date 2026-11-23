@@ -5,10 +5,10 @@
 
 /** Texto y estilo de cada estado de una solicitud. */
 export const ESTADOS_SOLICITUD = {
-  revision: { texto: 'En revisión', icon: 'clock-fill', tono: 'ambar' },
-  'mas-info': { texto: 'Quiere saber más de ti', icon: 'chat-bubble-fill', tono: 'azul' },
-  aceptada: { texto: 'Aceptada · falta el contrato', icon: 'check-circle-fill', tono: 'verde' },
-  rechazada: { texto: 'No aceptada', icon: 'info-circle-fill', tono: 'gris' },
+  revision: { texto: 'En revisión', corto: 'En revisión', icon: 'clock-fill', tono: 'ambar' },
+  'mas-info': { texto: 'Quiere saber más de ti', corto: 'Quiere saber más', icon: 'chat-bubble-fill', tono: 'azul' },
+  aceptada: { texto: 'Aceptada · falta el contrato', corto: 'Aceptada', icon: 'check-circle-fill', tono: 'verde' },
+  rechazada: { texto: 'No aceptada', corto: 'No aceptada', icon: 'info-circle-fill', tono: 'gris' },
 }
 
 /** "hace un momento", "hace 5 min", "hace 2 h", "hace 3 d". */

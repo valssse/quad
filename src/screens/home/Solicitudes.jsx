@@ -39,11 +39,11 @@ export function TarjetaSolicitud({ solicitud, solo, onOpen }) {
             <span>{q.zona}</span>
           </span>
           <span className="meta-row meta-row--sm meta-row--medium">
-            <Icon name="send" size={14} />
+            <Icon name="send-fill" size={14} />
             <span>Solicitud enviada {haceCuanto(solicitud.enviadaEn, ahora)}</span>
           </span>
           <span className={`req-status req-status--${est.tono}`}>
-            <Icon name={est.icon} size={13} />
+            <Icon name={est.icon === 'check-circle-fill' ? 'check-circle' : est.icon} size={14} />
             {est.texto}
           </span>
         </div>
@@ -90,12 +90,12 @@ export function Solicitudes({ solicitudes, abrirSolicitud }) {
                       <span>{q.zona} · {a.corto}</span>
                     </span>
                     <span className="meta-row">
-                      <Icon name="send" size={14} />
+                      <Icon name="send-fill" size={14} />
                       <span>Enviada {haceCuanto(s.enviadaEn, ahora)}</span>
                     </span>
                     <span className={`req-status req-status--${est.tono}`}>
                       <Icon name={est.icon} size={13} />
-                      {est.texto}
+                      {est.corto}
                     </span>
                   </div>
                   <Icon name="nav-arrow-right" size={18} className="req-row__go" />
