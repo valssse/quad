@@ -59,8 +59,8 @@ export const ANIOS = [
 ]
 
 /* ---------- E05d · Ciudad de origen ---------- */
-export const CIUDADES = ['San Salvador', 'Santa Ana', 'San Miguel', 'Santa Tecla', 'Soyapango', 'Sonsonate', 'Usulután']
-export const OTRA_CIUDAD = 'Otra ciudad o país'
+export const CIUDADES = ['Ahuachapán', 'Cabañas', 'Chalatenango', 'Cuscatlán', 'La Libertad', 'La Paz', 'La Unión', 'Morazán', 'San Miguel', 'San Salvador', 'San Vicente', 'Santa Ana', 'Sonsonate', 'Usulután']
+export const OTRA_CIUDAD = 'Otro país'
 
 /* ---------- E06 · Intereses (5 categorías, 28 opciones) ---------- */
 const interes = (id, label, icon, iconSel = icon) => ({ id, label, icon, iconSel })

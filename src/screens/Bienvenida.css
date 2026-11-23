@@ -166,6 +166,7 @@
 }
 
 .wb-chip--inverse {
+  box-shadow: 0 0 0 3px var(--bg-screen), 0 6px 14px rgba(15, 23, 42, 0.22);
   background: var(--bg-inverse);
   --icon-cut: var(--bg-inverse);
   z-index: 2;
@@ -226,8 +227,10 @@
   z-index: 2;
 }
 
-.wb-pill .icon {
-  color: var(--brand-primary);
+.wb-pill__logo {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
 }
 
 /* ---------- 01e · Teléfono y tarjetas ---------- */
@@ -298,8 +301,6 @@
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  border: 1.5px solid var(--brand-primary);
-  border-radius: 5px;
 }
 
 .wb-fade {

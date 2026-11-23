@@ -18,7 +18,7 @@ export default function PerfilMini({ datos, cuenta }) {
         <span className="mini__meta">{meta}</span>
         <span className="mini__city">
           <Icon name="map-pin-fill" size={13} />
-          {datos.ciudad ? `De ${datos.ciudad}` : 'Tu ciudad de origen'}
+          {datos.ciudad ? `De ${datos.ciudad}` : 'Tu departamento de origen'}
         </span>
       </span>
     </motion.div>

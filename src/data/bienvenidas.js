@@ -5,6 +5,7 @@ import habitacionAmplia from '../assets/quads/habitacion-amplia.jpg'
 import banoPropio from '../assets/quads/cuarto-bano-propio.jpg'
 import closetGrande from '../assets/quads/closet-grande.jpg'
 import cuartoMerliot from '../assets/quads/cuarto-merliot.jpg'
+import hogarEspacioso from '../assets/quads/hogar-espacioso.jpg'
 import madreselva from '../assets/quads/cuarto-madreselva.jpg'
 import fachada from '../assets/detalle/casa-martinez.jpg'
 import andrea from '../assets/personas/andrea.jpg'
@@ -70,15 +71,17 @@ const bienvenidas = [
     text: 'Identidades verificadas, contrato y pagos en la app. Si algo falla, te acompañamos.',
     cta: 'Empezar',
     // Tres columnas en bucle: personas y quads mezclados (4 cápsulas por columna)
+    // 14 fotos distintas repartidas en las tres columnas: ninguna se repite dentro del ciclo
     columnas: [
-      { x: 40, y: 22, dir: 'abajo', dur: 24, fotos: [{ src: andrea, h: 176 }, { src: habitacionAmplia, h: 150 }, { src: sofia, h: 168 }, { src: cuartoFamilia, h: 140 }] },
-      { x: 145, y: 6, dir: 'arriba', dur: 21, fotos: [{ src: rosa, h: 120 }, { src: fachada, h: 210 }, { src: closetGrande, h: 150 }, { src: carlos, h: 180 }] },
-      { x: 250, y: 36, dir: 'abajo', dur: 27, fotos: [{ src: cuartoMerliot, h: 160 }, { src: carlos, h: 150 }, { src: madreselva, h: 140 }, { src: rosa, h: 170 }] },
+      { x: 27, y: 22, dir: 'abajo', dur: 26, fotos: [{ src: andrea, h: 176 }, { src: habitacionAmplia, h: 150 }, { src: hogarEspacioso, h: 160 }, { src: cuartoFamilia, h: 140 }] },
+      { x: 145, y: 6, dir: 'arriba', dur: 24, fotos: [{ src: rosa, h: 120 }, { src: fachada, h: 210 }, { src: closetGrande, h: 150 }, { src: carlos, h: 180 }, { src: casaTranquila, h: 140 }] },
+      { x: 263, y: 36, dir: 'abajo', dur: 28, fotos: [{ src: cuartoMerliot, h: 160 }, { src: sofia, h: 168 }, { src: madreselva, h: 140 }, { src: banoPropio, h: 150 }, { src: cuartoBalcon, h: 130 }] },
     ],
+    // Entre columnas: centrados en las separaciones (x = 136 y 254)
     chips: [
-      { icon: 'shield-check-fill', x: 72, y: 186 },
-      { icon: 'hero-lock-closed-solid', x: 177, y: 114 },
-      { icon: 'dollar-circle-fill', x: 282, y: 186 },
+      { icon: 'shield-check-fill', x: 118, y: 96 },
+      { icon: 'hero-lock-closed-solid', x: 236, y: 180 },
+      { icon: 'dollar-circle-fill', x: 118, y: 262 },
     ],
     destellos: [
       { x: 12, y: 80, s: 20, tono: 'azul' },

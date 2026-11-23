@@ -3,6 +3,7 @@ import StatusBar from '../components/StatusBar.jsx'
 import Button from '../components/Button.jsx'
 import Icon from '../components/Icon.jsx'
 import BackButton from '../components/BackButton.jsx'
+import logoQuad from '../assets/icons/logo-blue.svg'
 import bienvenidas from '../data/bienvenidas.js'
 import './Bienvenida.css'
 
@@ -86,7 +87,7 @@ function Ilustracion1({ b }) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: SALIDA, delay: 0.05 }}
       >
-        <Icon name="check-circle-fill" size={24} />
+        <img className="wb-pill__logo" src={logoQuad} alt="" draggable="false" />
         Quad cerca de la U
       </motion.span>
       {b.chips.map((c, i) => (
@@ -96,6 +97,17 @@ function Ilustracion1({ b }) {
         <Destello key={i} {...d} i={i} />
       ))}
     </>
+  )
+}
+
+/** Checkbox que se rellena y dibuja el check, en bucle suave. */
+function CheckAnimado({ delay }) {
+  const ciclo = { duration: 4.2, times: [0, 0.14, 0.7, 0.85, 1], ease: 'easeInOut', repeat: Infinity, delay }
+  return (
+    <svg className="wb-card__box" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <motion.rect x="1" y="1" width="18" height="18" rx="5.5" strokeWidth="1.5" stroke="var(--brand-primary)" initial={{ fill: 'rgba(38,103,255,0)' }} animate={{ fill: ['rgba(38,103,255,0)', 'rgba(38,103,255,1)', 'rgba(38,103,255,1)', 'rgba(38,103,255,0)', 'rgba(38,103,255,0)'] }} transition={ciclo} />
+      <motion.path d="M5.5 10.4 8.6 13.4 14.5 7" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: [0, 1, 1, 0, 0] }} transition={{ ...ciclo, times: [0.04, 0.2, 0.7, 0.85, 1] }} />
+    </svg>
   )
 }
 
@@ -120,7 +132,7 @@ function Ilustracion2({ b }) {
         >
           {t.check ? (
             <>
-              <span className="wb-card__box" />
+              <CheckAnimado delay={0.25 + i * PASO + 0.7} />
               <b>{t.titulo}</b>
             </>
           ) : (

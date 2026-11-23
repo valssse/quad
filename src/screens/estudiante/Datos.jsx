@@ -23,7 +23,7 @@ function Campo({ id, label, icon, ...props }) {
   )
 }
 
-/** E05d3 · Hoja · Ciudad de origen, con buscador. */
+/** E05d3 · Hoja · Departamento de origen, con buscador. */
 function HojaCiudad({ abierta, valor, onClose, onElegir }) {
   const [q, setQ] = useState('')
   const arrastre = useDragControls()
@@ -33,7 +33,7 @@ function HojaCiudad({ abierta, valor, onClose, onElegir }) {
   return (
     <AnimatePresence onExitComplete={() => setQ('')}>
       {abierta && (
-        <div className="sheet-layer" role="dialog" aria-modal="true" aria-label="Ciudad de origen">
+        <div className="sheet-layer" role="dialog" aria-modal="true" aria-label="Departamento de origen">
           <motion.div className="sheet-dim" onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} />
           <motion.div
             className="sheet city-sheet"
@@ -51,10 +51,10 @@ function HojaCiudad({ abierta, valor, onClose, onElegir }) {
             <span className="ch-sheet__grip" onPointerDown={(e) => arrastre.start(e)}>
               <span />
             </span>
-            <h2>Ciudad de origen</h2>
+            <h2>Departamento de origen</h2>
             <div className="field__control">
               <Icon name="search" size={20} className="field__icon field__icon--svg" />
-              <input className="field__input" type="search" placeholder="Busca tu ciudad" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Busca tu ciudad" />
+              <input className="field__input" type="search" placeholder="Busca tu departamento" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Busca tu departamento" />
             </div>
             <div className="city-sheet__list">
               {[...lista, OTRA_CIUDAD].map((c) => {
@@ -122,11 +122,11 @@ export default function Datos({ datos, actualizar, siguiente }) {
 
       <motion.div className="field" variants={fadeUp}>
         <span className="field__label" id="ciudad-label">
-          Ciudad de origen
+          Departamento de origen
         </span>
         <button type="button" className="field__control field__control--select" aria-labelledby="ciudad-label" aria-haspopup="dialog" onClick={() => setHoja(true)}>
           <Icon name="map-pin" size={20} className="field__icon field__icon--svg" />
-          <span className={`field__value ${datos.ciudad ? '' : 'field__value--empty'}`}>{datos.ciudad || 'Elige tu ciudad'}</span>
+          <span className={`field__value ${datos.ciudad ? '' : 'field__value--empty'}`}>{datos.ciudad || 'Elige tu departamento'}</span>
           <Icon name="nav-arrow-down" size={20} className="field__chevron" />
         </button>
       </motion.div>
