@@ -882,7 +882,7 @@ function R18Estancia({ ir, a, estado, avisar }) {
     <Pantalla>
       <Card className="al-card--tight">
         <div className="al-persona al-persona--quad">
-          <img src={a.foto} alt="" />
+          {a.foto ? <img src={a.foto} alt="" /> : <span className="al-persona__ini">{iniciales(a.nombre)}</span>}
           <span>
             <b>{detalle(q).tituloLargo}</b>
             <small>

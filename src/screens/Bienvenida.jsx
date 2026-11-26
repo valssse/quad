@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import StatusBar from '../components/StatusBar.jsx'
 import Button from '../components/Button.jsx'
 import Icon from '../components/Icon.jsx'
+import Iniciales from '../components/Iniciales.jsx'
 import BackButton from '../components/BackButton.jsx'
 import logoQuad from '../assets/icons/logo-blue.svg'
 import bienvenidas from '../data/bienvenidas.js'
@@ -118,7 +119,7 @@ function Ilustracion2({ b }) {
           ) : (
             <>
               <span className="wb-card__bar" style={{ background: t.barra }} />
-              <img src={t.foto} alt="" draggable="false" />
+              {t.foto ? <img src={t.foto} alt="" draggable="false" /> : <Iniciales nombre={t.nombre} tono={t.tono} className="wb-card__ini" />}
               <span className="wb-card__text">
                 <b>{t.titulo}</b>
                 <small>{t.texto}</small>
@@ -137,7 +138,9 @@ function Ilustracion2({ b }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ ...RESORTE, delay: inicioAvatares + i * 0.08 }}
         >
-          <motion.img src={p.src} alt="" draggable="false" animate={flotar(i, 4)} />
+          <motion.span className="wb-photo__ini" animate={flotar(i, 4)}>
+            <Iniciales nombre={p.nombre} tono={p.tono} style={{ color: p.color, fontSize: Math.round(p.d * 0.36) }} />
+          </motion.span>
         </motion.span>
       ))}
     </>

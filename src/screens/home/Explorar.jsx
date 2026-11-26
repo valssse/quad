@@ -5,7 +5,7 @@ import { fadeUp, stagger } from '../../components/motion.js'
 import { BotonFiltros, BotonIcono, Encabezado, Filtros, QuadCard } from './ui.jsx'
 import { FILTROS_RAPIDOS, SECCIONES, filtrar, quad, saludo } from '../../data/quads.js'
 import { TarjetaSolicitud } from './Solicitudes.jsx'
-import sofia from '../../assets/personas/sofia.jpg'
+import Iniciales from '../../components/Iniciales.jsx'
 
 /** 02 · Explorar quads — saludo, buscador, filtros rápidos y carruseles. */
 export default function Explorar({ perfil, ir, nFiltros, activas = [], abrirSolicitud, sinLeer = 0 }) {
@@ -18,7 +18,7 @@ export default function Explorar({ perfil, ir, nFiltros, activas = [], abrirSoli
         <div className="explore-top">
           <motion.header className="explore-header" variants={fadeUp}>
             <motion.button type="button" className="avatar-btn" whileTap={{ scale: 0.94 }} onClick={() => ir('perfil')} aria-label="Tu perfil">
-              <img src={perfil.foto || sofia} alt="" />
+              {perfil.foto ? <img src={perfil.foto} alt="" /> : <Iniciales nombre={perfil.nombreCompleto} style={{ fontSize: 16 }} />}
             </motion.button>
             <div className="explore-header__center">
               <p>

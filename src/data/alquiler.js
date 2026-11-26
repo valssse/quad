@@ -81,8 +81,8 @@ export const COSTOS_MENSUALES = [
 
 /* ---------- R07–R12 · Respuesta y contrato ---------- */
 export const PARECIDOS = [
-  { id: 'bano-propio', titulo: 'Quad con baño privado · Antiguo Cuscatlán', precio: '$130/mes' },
-  { id: 'madreselva', titulo: 'Quad en casa de familia · Santa Elena', precio: '$110/mes' },
+  { id: 'bano-propio', titulo: 'Cuarto con ventana al jardín · La Sultana', precio: '$120/mes' },
+  { id: 'madreselva', titulo: 'Suite con baño privado y jardín · Santa Elena', precio: '$150/mes' },
 ]
 
 export const PREGUNTA_ANFITRIONA =

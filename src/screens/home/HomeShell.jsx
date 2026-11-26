@@ -19,6 +19,7 @@ import { detalle } from '../../data/detalle.js'
 import { MiPerfil, EditarPerfil } from './MiPerfil.jsx'
 import { Solicitudes, Notificaciones } from './Solicitudes.jsx'
 import { NOTIS_INICIAL } from '../../data/solicitudes.js'
+import Iniciales from '../../components/Iniciales.jsx'
 import { perfilInicial } from '../../data/perfil.js'
 import { useLiquidGlass } from '../../components/LiquidGlass.jsx'
 import Skeleton from '../../components/Skeleton.jsx'
@@ -96,7 +97,10 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
   // Solicitudes enviadas a otras casas (la de Andrea se deduce del flujo de alquiler) y notificaciones
   const [enviadas, setEnviadas] = useState([])
   const [notis, setNotis] = useState(() =>
-    NOTIS_INICIAL.map((n) => ({ ...n, foto: n.fotoDe ? detalle(buscarQuad(n.fotoDe)).anfitrion.foto : null })),
+    NOTIS_INICIAL.map((n) => {
+      const h = n.fotoDe ? detalle(buscarQuad(n.fotoDe)).anfitrion : null
+      return { ...n, foto: h?.foto || null, nombre: h?.nombre }
+    }),
   )
   const agregarNoti = (n) => setNotis((l) => [{ ...n, id: `n-${Date.now()}`, hace: 'Ahora', leida: false }, ...l])
   const marcarLeidas = () => setNotis((l) => (l.some((n) => !n.leida) ? l.map((n) => ({ ...n, leida: true })) : l))
@@ -104,7 +108,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
     clearTimeout(notiTimer.current)
     setNoti({ ...n, id: Date.now() })
     notiTimer.current = setTimeout(() => setNoti(null), 6000)
-    agregarNoti({ foto: n.foto, texto: n.texto, destino: n.destino })
+    agregarNoti({ foto: n.foto, nombre: n.nombre, texto: n.texto, destino: n.destino })
   }
   useEffect(() => () => clearTimeout(notiTimer.current), [])
 
@@ -155,7 +159,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
       setAlquiler((s) => ({ ...s, solicitud: 'enviada', respuestaEn: Date.now() }))
       setTimeout(() => {
         setAlquiler((s) => (s.solicitud === 'enviada' ? { ...s, solicitud: 'aceptada' } : s))
-        notificar({ foto: h.foto, texto: `${h.corto} aceptó tu solicitud`, destino: ['alquiler', 'aceptada'], accion: () => ir('alquiler', 'aceptada') })
+        notificar({ foto: h.foto, nombre: h.nombre, texto: `${h.corto} aceptó tu solicitud`, destino: ['alquiler', 'aceptada'], accion: () => ir('alquiler', 'aceptada') })
       }, 6000)
       return
     }
@@ -167,6 +171,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
       setEnviadas((l) => l.map((x) => (x.quadId === id ? { ...x, estado: tipo } : x)))
       notificar({
         foto: h.foto,
+        nombre: h.nombre,
         texto: tipo === 'rechazada' ? `${h.corto} respondió a tu solicitud` : `${h.corto} quiere saber algo más`,
         destino: ['alquiler', tipo],
         accion: () => ir('alquiler', tipo),
@@ -303,7 +308,7 @@ export default function HomeShell({ pantalla = 'explorar', sub, cuenta, estudian
               noti.accion()
             }}
           >
-            <img src={noti.foto} alt="" />
+            {noti.foto ? <img src={noti.foto} alt="" /> : <span className="home-noti__ini"><Iniciales nombre={noti.nombre} style={{ fontSize: 15 }} /></span>}
             <span>
               <small>Quad · ahora</small>
               <b>{noti.texto}</b>

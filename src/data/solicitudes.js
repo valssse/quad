@@ -24,7 +24,7 @@ export function haceCuanto(ts, ahora = Date.now()) {
 /** Notificaciones de ejemplo al entrar (las nuevas se agregan al inicio). */
 export const NOTIS_INICIAL = [
   { id: 'n-andrea', fotoDe: 'familia', texto: 'Andrea te propuso una visita: sáb 7 de nov, 10:00 a. m.', hace: '9:21 a. m.', leida: false, destino: ['chat', 'familia'] },
-  { id: 'n-carlos', fotoDe: 'bano-propio', texto: 'Carlos te preguntó si quieres agendar una visita esta semana.', hace: '8:05 a. m.', leida: false, destino: ['chat', 'bano-propio'] },
+  { id: 'n-adrian', fotoDe: 'bano-propio', texto: 'Adrián te preguntó si quieres agendar una visita esta semana.', hace: '8:05 a. m.', leida: false, destino: ['chat', 'bano-propio'] },
   { id: 'n-perfil', icon: 'user', texto: 'Completa tu perfil para que las familias te conozcan mejor.', hace: 'Ayer', leida: true, destino: ['mi-perfil'] },
   { id: 'n-verificado', icon: 'shield-check-fill', texto: 'Tu correo UCA quedó verificado. ¡Bienvenida a Quad!', hace: '28 oct', leida: true, destino: null },
 ]

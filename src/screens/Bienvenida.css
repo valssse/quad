@@ -343,3 +343,17 @@
     var(--bg-screen) 88%
   );
 }
+
+/* Personas sin foto: iniciales */
+.wb-card__ini {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+.wb-photo__ini {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

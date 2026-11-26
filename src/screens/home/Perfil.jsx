@@ -1,7 +1,7 @@
 import { motion } from 'motion/react'
 import Icon from '../../components/Icon.jsx'
 import { fadeUp, stagger } from '../../components/motion.js'
-import sofia from '../../assets/personas/sofia.jpg'
+import Iniciales from '../../components/Iniciales.jsx'
 
 const GRUPOS = [
   {
@@ -55,14 +55,14 @@ export default function Perfil({ perfil, ir, onAnfitrion, onCerrarSesion, alquil
         </motion.h1>
 
         <motion.section className="profile-card" variants={fadeUp}>
-          <motion.img
-            src={perfil.foto || sofia}
-            alt=""
+          <motion.span
             className="profile-card__avatar"
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 300, damping: 22, delay: 0.1 }}
-          />
+          >
+            {perfil.foto ? <img src={perfil.foto} alt="" /> : <Iniciales nombre={perfil.nombreCompleto} style={{ fontSize: 28 }} />}
+          </motion.span>
           <div className="profile-card__name">
             <h2>{perfil.nombreCompleto}</h2>
             <p>{perfil.detalle}</p>

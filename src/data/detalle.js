@@ -2,79 +2,10 @@
  * Detalle de cada quad (sección "Detalle del Quad" en Figma):
  * 03 Detalle · 04 Perfil de la casa · 05 Conversación · 06 Proponer otra fecha.
  *
- * El quad "familia" usa los textos y fotos del Figma (Casa Martínez).
- * Los demás tienen su propia casa, familia y reglas; las fotos de las personas,
- * mascotas y espacios vienen de Unsplash (licencia Unsplash, uso libre).
+ * Cada quad usa las fotos reales de su casa (data/fotos.js), sin repetir ninguna.
+ * Las personas sin foto se muestran con sus iniciales.
  */
-import casaMartinez from '../assets/detalle/casa-martinez.jpg'
-import rosa from '../assets/detalle/rosa.jpg'
-import carlos from '../assets/detalle/carlos.jpg'
-import toby from '../assets/detalle/toby.jpg'
-import andrea from '../assets/personas/andrea.jpg'
-
-/** Foto de Unsplash recortada (las caras quedan centradas en los avatares). */
-const u = (id, w = 160, h = w, caras = true) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop${caras ? '&crop=faces' : ''}&auto=format&q=70`
-const espacio = (id) => u(id, 780, 640, false)
-
-/* Espacios para las galerías (Unsplash) */
-const E = {
-  cuarto1: espacio('1615874959474-d609969a20ed'),
-  cuarto2: espacio('1522771739844-6a9f6d5f14af'),
-  cuarto3: espacio('1765464184843-105e144bd54b'),
-  cuarto4: espacio('1541004995602-b3e898709909'),
-  cuarto5: espacio('1781249144056-ec397e444dfa'),
-  cuarto6: espacio('1734599505058-6653a0d8d3ff'),
-  cocina1: espacio('1556911220-bff31c812dba'),
-  cocina2: espacio('1484154218962-a197022b5858'),
-  cocina3: espacio('1565538810643-b5bdb714032a'),
-  cocina4: espacio('1628797285815-453c1d0d21e3'),
-  cocina5: espacio('1757387240036-d7eb9b096c40'),
-  bano1: espacio('1628602813485-4e8b09442e98'),
-  bano2: espacio('1564540579594-0930edb6de43'),
-  bano3: espacio('1668910227848-8b604673e051'),
-  bano4: espacio('1560448075-bb485b067938'),
-  sala1: espacio('1641232458416-feace752b346'),
-  sala2: espacio('1632119580908-ae947d4c7691'),
-  sala3: espacio('1770736158887-9a0f3702416e'),
-  sala4: espacio('1774199679021-db3b421867c3'),
-  sala5: espacio('1651407825801-eec2dcbd86bd'),
-  fachada1: espacio('1773861540606-e5df23583620'),
-  fachada2: espacio('1760726299430-ec5a2513acb3'),
-  fachada3: espacio('1780094188572-05986dce64e3'),
-  fachada4: espacio('1775531575244-4c3081ae756b'),
-  fachada5: espacio('1773859891703-bbfb32dc3827'),
-  lavado1: espacio('1626806819282-2c1dc01a5e0c'),
-  lavado2: espacio('1626806787461-102c1bfaaea1'),
-  lavado3: espacio('1688302740525-021cd48a1c2f'),
-}
-
-/* Personas y mascotas (Unsplash) */
-const P = {
-  rosaLopez: u('1568236645308-b332c0acb6db'),
-  daniel: u('1525457136159-8878648a7ad0'),
-  luna: u('1536589961747-e239b2abbec2', 160, 160, false),
-  carlosRivas: u('1594823825986-a3e022974919'),
-  mariela: u('1614007011277-c03a6e6915c7'),
-  max: u('1558788353-f76d92427f16', 160, 160, false),
-  carmen: u('1544179932-fadfa08128a5'),
-  teresa: u('1634089916298-9fa27180526c'),
-  michi: u('1583795128727-6ec3642408f8', 160, 160, false),
-  gabriela: u('1706830009088-f29059eb0a10'),
-  valeria: u('1790597038097-3f4c242c61e7'),
-  marta: u('1727470287932-cdd5e4784bb1'),
-  jorge: u('1595275116400-2767aafb4db1'),
-  camila: u('1544725176-7c40e5a71c5e'),
-  patricia: u('1519927552442-842916d2c055'),
-  ernesto: u('1608681299041-cc19878f79f1'),
-  diego: u('1508341591423-4347099e1f19'),
-  canela: u('1772606270537-6eb199b55aed', 160, 160, false),
-  roberto: u('1535643302794-19c3804b874b'),
-  silvia: u('1581185930112-260544657ffd'),
-  isabel: u('1758600434620-6b18b2abba6a'),
-  fernanda: u('1519965501869-1954ff18db96'),
-  coco: u('1629740067905-bd3f515aa739', 160, 160, false),
-}
+import { foto, fotos } from './fotos.js'
 
 /* Íconos de "Qué incluye" y de las reglas (relleno, como en Figma) */
 const I = {
@@ -93,19 +24,19 @@ const tag = (icon, label) => ({ icon, label })
 const m = (de, texto, hora) => ({ de, texto, hora })
 
 export const DETALLES = {
-  /* ---------- 1 · Casa Martínez (textos del Figma) ---------- */
+  /* ---------- 1 · Casa Martínez · cuarto con TV (Andrea) ---------- */
   familia: {
-    tituloLargo: 'Quad privado en casa de familia',
+    tituloLargo: 'Cuarto con TV en casa de familia',
     tipo: 'Casa de familia',
     resenas: 12,
-    trayecto: '8 min al portón peatonal',
+    trayecto: '4 min al portón peatonal',
     colonia: 'Jardines de Guadalupe',
     municipio: 'Antiguo Cuscatlán',
     departamento: 'La Libertad',
-    galeria: [casaMartinez, null, E.cuarto2, E.cocina1, E.bano1, E.sala1, E.lavado1, E.fachada2],
+    galeria: [null, ...fotos('casa-martinez', ['sala', 'comedor', 'cocina', 'entrada', 'recibidor', 'fachada'])],
     deposito: '1 mes',
-    anfitrion: { nombre: 'Andrea Martínez', corto: 'Andrea', foto: andrea, rol: 'Anfitriona', detalle: 'Estudiante de 3er año en Contaduría', firma: 'Anfitriona · Estudiante de Contaduría', genero: 'a' },
-    incluye: [inc('privado', 'Cama y clóset'), inc('cocina', 'Con horario'), inc('lavanderia', '2 veces por semana'), inc('wifi', 'Incluido'), inc('sala', 'Con la familia'), inc('servicios', 'Incluidas')],
+    anfitrion: { nombre: 'Andrea Martínez', corto: 'Andrea', foto: null, rol: 'Anfitriona', detalle: 'Estudiante de 3er año en Contaduría', firma: 'Anfitriona · Estudiante de Contaduría', genero: 'a' },
+    incluye: [inc('privado', 'Cama nueva y TV'), inc('cocina', 'Con horario'), inc('lavanderia', '2 veces por semana'), inc('wifi', 'Incluido'), inc('sala', 'Con la familia'), inc('servicios', 'Incluidas')],
     reglas: [
       regla('clock-fill', 'Hora de llegada', 'Hasta las 10:00 p. m. Si llegas más tarde, avisas.'),
       regla('group-fill', 'Visitas', 'Permitidas en la sala hasta las 8:00 p. m.'),
@@ -114,19 +45,18 @@ export const DETALLES = {
     ],
     casa: {
       nombre: 'Casa Martínez',
-      descripcion: 'Somos una familia tranquila. Rentamos el quad de mi hermano que se fue a estudiar fuera. Nos gusta que quien llegue se sienta en casa, pero también respetamos su espacio.',
+      descripcion: 'Somos una familia tranquila en una casa de dos plantas. Rentamos los dos cuartos de arriba: este tiene TV y cama nueva. Nos gusta que quien llegue se sienta en casa, pero también respetamos su espacio.',
       exinquilinos: 6,
       enQuad: '2 años',
     },
     miembros: [
-      { nombre: 'Andrea', rol: 'Hija', foto: andrea, tono: '#dce6ff' },
-      { nombre: 'Rosa', rol: 'Mamá', foto: rosa, tono: '#fce7f3' },
-      { nombre: 'Carlos', rol: 'Papá', foto: carlos, tono: '#dcfce7' },
-      { nombre: 'Toby', rol: 'Perro', foto: toby, tono: '#fdebd3' },
+      { nombre: 'Andrea', rol: 'Hija', foto: null, tono: '#dce6ff' },
+      { nombre: 'Rosa', rol: 'Mamá', foto: null, tono: '#fce7f3' },
+      { nombre: 'Carlos', rol: 'Papá', foto: null, tono: '#dcfce7' },
     ],
-    convivencia: [tag('moon-fill', 'Ambiente tranquilo'), tag('cutlery-fill', 'Almorzamos juntos los domingos'), tag('no-smoking-fill', 'No se fuma'), tag('paw-fill', 'Hay una mascota'), tag('clock-fill', 'Respetamos horarios de estudio')],
+    convivencia: [tag('moon-fill', 'Ambiente tranquilo'), tag('cutlery-fill', 'Almorzamos juntos los domingos'), tag('no-smoking-fill', 'No se fuma'), tag('clock-fill', 'Respetamos horarios de estudio')],
     presentacion:
-      'Hola, soy Andrea. Estudio Contaduría en la UCA y casi siempre estoy entre clases, café y números. Soy tranquila, ordenada y me gusta que la casa se sienta cálida. Escucho mucho indie y un poco de cumbia cuando estudio. Los domingos me encanta cocinar y ver el atardecer desde el balcón. No me gusta el desorden en la cocina ni el ruido tarde en la noche.',
+      'Hola, soy Andrea. Estudio Contaduría en la UCA y casi siempre estoy entre clases, café y números. Soy tranquila, ordenada y me gusta que la casa se sienta cálida. Escucho mucho indie y un poco de cumbia cuando estudio. Los domingos me encanta cocinar con mi mamá. No me gusta el desorden en la cocina ni el ruido tarde en la noche.',
     desglose: { limpieza: 4.9, horarios: 4.7, comunicacion: 4.8, seguridad: 5.0 },
     resena: {
       iniciales: 'LR', nombre: 'Lucía R.', carrera: 'Ingeniería Industrial · UCA', tiempo: '2 ciclos', fondo: '#fdebd3', color: '#b45309',
@@ -140,22 +70,22 @@ export const DETALLES = {
       m('yo', '¡Perfecto! ¿Puedo ir a conocer la casa antes de decidir?', '9:21 a. m.'),
     ],
     visita: 'Sáb 7 de nov · 10:00 a. m.',
-    filtros: { visitas: true, mascotas: true, banoPropio: false, wifi: true },
+    filtros: { visitas: true, mascotas: false, banoPropio: false, wifi: true },
   },
 
-  /* ---------- 2 · Habitación amplia (Rosa López) ---------- */
+  /* ---------- 2 · Casa Martínez · cuarto con escritorio (Rosa) ---------- */
   amplia: {
-    tituloLargo: 'Habitación amplia y luminosa',
+    tituloLargo: 'Cuarto con escritorio y ventana',
     tipo: 'Casa de familia',
     resenas: 18,
-    trayecto: '9 min al portón peatonal',
-    colonia: 'Col. Antiguo Cuscatlán',
+    trayecto: '4 min al portón peatonal',
+    colonia: 'Jardines de Guadalupe',
     municipio: 'Antiguo Cuscatlán',
     departamento: 'La Libertad',
-    galeria: [null, E.cuarto1, E.sala2, E.cocina2, E.bano2, E.fachada1],
+    galeria: [null, ...fotos('casa-martinez', ['sala-2', 'barra', 'cocina-2', 'escaleras', 'pasillo'])],
     deposito: '1 mes',
-    anfitrion: { nombre: 'Rosa López', corto: 'Rosa', foto: P.rosaLopez, rol: 'Anfitriona', detalle: 'Maestra jubilada · vive con su hijo', firma: 'Anfitriona · Maestra jubilada', genero: 'a' },
-    incluye: [inc('privado', 'Cama queen y escritorio'), inc('cocina', 'Hasta las 9 p. m.'), inc('lavanderia', 'Los sábados'), inc('wifi', '100 Mbps'), inc('sala', 'Con terraza'), inc('servicios', 'Incluidas')],
+    anfitrion: { nombre: 'Rosa Martínez', corto: 'Rosa', foto: null, rol: 'Anfitriona', detalle: 'Maestra jubilada · mamá de Andrea', firma: 'Anfitriona · Maestra jubilada', genero: 'a' },
+    incluye: [inc('privado', 'Escritorio y silla'), inc('cocina', 'Hasta las 9 p. m.'), inc('lavanderia', 'Los sábados'), inc('wifi', '100 Mbps'), inc('sala', 'Con barra'), inc('servicios', 'Incluidas')],
     reglas: [
       regla('clock-fill', 'Hora de llegada', 'Hasta las 11:00 p. m. entre semana.'),
       regla('group-fill', 'Visitas', 'Solo en la sala y avisando con un día de anticipación.'),
@@ -163,118 +93,117 @@ export const DETALLES = {
       regla('info-circle-fill', 'Convivencia', 'Música con audífonos después de las 9 p. m.'),
     ],
     casa: {
-      nombre: 'Casa López',
-      descripcion: 'Soy maestra jubilada y vivo con mi hijo Daniel, que estudia Arquitectura. La casa es grande y entra mucha luz; nos gusta el orden y conversar en la terraza por las tardes.',
+      nombre: 'Casa Martínez',
+      descripcion: 'Es el segundo cuarto de arriba de nuestra casa. Tiene escritorio, silla y una ventana grande que da a la calle. Abajo hay sala, barra para desayunar y una cocina compartida.',
       exinquilinos: 9,
-      enQuad: '3 años',
+      enQuad: '2 años',
     },
     miembros: [
-      { nombre: 'Rosa', rol: 'Anfitriona', foto: P.rosaLopez, tono: '#fce7f3' },
-      { nombre: 'Daniel', rol: 'Hijo', foto: P.daniel, tono: '#dce6ff' },
-      { nombre: 'Luna', rol: 'Gata', foto: P.luna, tono: '#fdebd3' },
+      { nombre: 'Rosa', rol: 'Anfitriona', foto: null, tono: '#fce7f3' },
+      { nombre: 'Carlos', rol: 'Esposo', foto: null, tono: '#dcfce7' },
+      { nombre: 'Andrea', rol: 'Hija', foto: null, tono: '#dce6ff' },
     ],
-    convivencia: [tag('moon-fill', 'Ambiente tranquilo'), tag('clock-fill', 'Respetamos horarios de estudio'), tag('paw-fill', 'Hay una gata'), tag('no-smoking-fill', 'No se fuma')],
+    convivencia: [tag('moon-fill', 'Ambiente tranquilo'), tag('clock-fill', 'Respetamos horarios de estudio'), tag('no-smoking-fill', 'No se fuma'), tag('community-fill', 'Casa de dos plantas')],
     presentacion:
-      'Hola, soy Rosa. Di clases de Lenguaje por más de 25 años, así que me encanta tener estudiantes en casa. Me levanto temprano, riego mis plantas y hago café para quien quiera. Soy ordenada pero no estricta: solo pido avisar si no vas a llegar a dormir. En las tardes leo en la terraza con Luna, mi gata.',
+      'Hola, soy Rosa. Di clases de Lenguaje por más de 25 años, así que me encanta tener estudiantes en casa. Me levanto temprano, riego mis plantas y hago café para quien quiera. Soy ordenada pero no estricta: solo pido avisar si no vas a llegar a dormir.',
     desglose: { limpieza: 5.0, horarios: 4.8, comunicacion: 4.9, seguridad: 4.9 },
     resena: {
       iniciales: 'MC', nombre: 'Mario C.', carrera: 'Arquitectura · UCA', tiempo: '3 ciclos', fondo: '#dce6ff', color: '#2667ff',
-      texto: 'El quad es enorme y tiene muy buena luz para estudiar. Doña Rosa siempre tenía café en las mañanas.',
-      textoCasa: 'Doña Rosa es muy atenta y la casa siempre estaba limpia. Daniel me ayudó a ubicarme en la universidad los primeros días.',
+      texto: 'El escritorio queda junto a la ventana y entra muy buena luz para estudiar. Doña Rosa siempre tenía café en las mañanas.',
+      textoCasa: 'Doña Rosa es muy atenta y la casa siempre estaba limpia. Andrea me ayudó a ubicarme en la universidad los primeros días.',
     },
     chat: [
-      m('anfitrion', '¡Hola, Sofía! Soy Rosa. El quad está disponible desde diciembre. ¿Qué te gustaría saber?', '7:48 a. m.'),
-      m('yo', 'Hola, doña Rosa. ¿El escritorio queda en el quad?', '8:02 a. m.'),
-      m('anfitrion', 'Sí, el escritorio y la silla se quedan. La ventana da al jardín, así que entra luz toda la mañana.', '8:10 a. m.'),
+      m('anfitrion', '¡Hola, Sofía! Soy Rosa. El cuarto está disponible desde diciembre. ¿Qué te gustaría saber?', '7:48 a. m.'),
+      m('yo', 'Hola, doña Rosa. ¿El escritorio queda en el cuarto?', '8:02 a. m.'),
+      m('anfitrion', 'Sí, el escritorio y la silla se quedan. La ventana es grande, así que entra luz toda la mañana.', '8:10 a. m.'),
       m('yo', '¿Se puede usar la cocina en la noche?', '8:12 a. m.'),
       m('anfitrion', 'Sí, la cocina se puede usar hasta las 9 p. m.', 'Ayer'),
     ],
     visita: 'Jue 12 de nov · 4:00 p. m.',
-    filtros: { visitas: true, mascotas: true, banoPropio: false, wifi: true },
+    filtros: { visitas: true, mascotas: false, banoPropio: false, wifi: true },
   },
 
-  /* ---------- 3 · Quad con baño propio (Carlos Rivas) ---------- */
+  /* ---------- 3 · Casa Rivas · cuarto con ventana al jardín (Adrián) ---------- */
   'bano-propio': {
-    tituloLargo: 'Quad con baño propio',
-    tipo: 'Casa de pareja joven',
+    tituloLargo: 'Cuarto con ventana al jardín',
+    tipo: 'Casa de hermanos',
     resenas: 9,
     trayecto: '6 min al portón peatonal',
     colonia: 'Col. La Sultana',
     municipio: 'Antiguo Cuscatlán',
     departamento: 'La Libertad',
-    galeria: [null, E.bano3, E.cuarto3, E.sala3, E.fachada3],
+    galeria: [null, ...fotos('casa-adrian', ['cuarto-cama', 'escritorio', 'comedor', 'cocina', 'lavanderia', 'patio', 'fachada'])],
     deposito: '1 mes',
-    anfitrion: { nombre: 'Carlos Rivas', corto: 'Carlos', foto: P.carlosRivas, rol: 'Anfitrión', detalle: 'Ingeniero en sistemas · trabaja desde casa', firma: 'Anfitrión · Ingeniero en sistemas', genero: 'o' },
-    incluye: [inc('privado', 'Con baño propio'), inc('cocina', 'No incluida', 'Sin cocina'), inc('lavanderia', 'Lavandería cercana', 'Lavandería'), inc('wifi', 'Fibra óptica'), inc('sala', 'Patio con hamaca', 'Patio compartido'), inc('servicios', 'Incluidas')],
+    anfitrion: { nombre: 'Adrián Rivas', corto: 'Adrián', foto: foto('personas/adrian'), rol: 'Anfitrión', detalle: 'Diseñador gráfico · trabaja desde casa', firma: 'Anfitrión · Diseñador gráfico', genero: 'o' },
+    incluye: [inc('privado', 'Cama y escritorio'), inc('cocina', 'Equipada'), inc('lavanderia', 'Lavadora en casa'), inc('wifi', 'Fibra óptica'), inc('sala', 'Patio con jardín', 'Patio compartido'), inc('servicios', 'Incluidas')],
     reglas: [
       regla('clock-fill', 'Hora de llegada', 'Libre. Tienes tu propia llave de la entrada.'),
       regla('group-fill', 'Visitas', 'Permitidas hasta las 9:00 p. m., sin quedarse a dormir.'),
-      regla('cutlery-fill', 'Comida', 'Puedes tener microondas y mini refri en el cuarto.'),
+      regla('cutlery-fill', 'Cocina', 'Libre. Cada quien tiene su espacio en la alacena.'),
       regla('info-circle-fill', 'Convivencia', 'Silencio de 10:00 p. m. a 6:00 a. m.'),
     ],
     casa: {
       nombre: 'Casa Rivas',
-      descripcion: 'Somos Carlos y Mariela, una pareja joven. Trabajamos desde casa, así que valoramos la calma. El quad tiene entrada independiente y su propio baño.',
+      descripcion: 'Vivo con mi hermana Mariela y con Max, nuestro rottweiler. Trabajo desde casa, así que valoro la calma. El cuarto tiene una ventana grande que da al jardín y su propio escritorio.',
       exinquilinos: 4,
       enQuad: '1 año',
     },
     miembros: [
-      { nombre: 'Carlos', rol: 'Anfitrión', foto: P.carlosRivas, tono: '#dcfce7' },
-      { nombre: 'Mariela', rol: 'Esposa', foto: P.mariela, tono: '#fce7f3' },
-      { nombre: 'Max', rol: 'Perro', foto: P.max, tono: '#fdebd3' },
+      { nombre: 'Adrián', rol: 'Anfitrión', foto: foto('personas/adrian'), tono: '#dcfce7' },
+      { nombre: 'Mariela', rol: 'Hermana', foto: null, tono: '#fce7f3' },
+      { nombre: 'Max', rol: 'Perro', foto: foto('personas/max'), tono: '#fdebd3' },
     ],
-    convivencia: [tag('moon-fill', 'Casa silenciosa'), tag('lock', 'Entrada independiente'), tag('paw-fill', 'Hay un perro'), tag('no-smoking-fill', 'No se fuma')],
+    convivencia: [tag('moon-fill', 'Casa silenciosa'), tag('lock', 'Llave propia'), tag('paw-fill', 'Hay un perro'), tag('no-smoking-fill', 'No se fuma')],
     presentacion:
-      'Hola, soy Carlos. Trabajo como desarrollador y paso casi todo el día en casa con Mariela y Max, nuestro golden. Nos gusta la tranquilidad, el café de olla y los domingos de series. El quad tiene su propio baño y entrada, para que tengas privacidad total. Lo único que pedimos es silencio en la noche.',
+      'Hola, soy Adrián. Trabajo como diseñador y paso casi todo el día en casa con Mariela y Max, nuestro rottweiler, que es enorme pero muy tranquilo. Nos gusta el café de olla y los domingos de series. El cuarto da al jardín, así que entra luz toda la mañana.',
     desglose: { limpieza: 4.7, horarios: 4.5, comunicacion: 4.6, seguridad: 4.8 },
     resena: {
       iniciales: 'JP', nombre: 'José P.', carrera: 'Ingeniería Eléctrica · UCA', tiempo: '1 ciclo', fondo: '#dcfce7', color: '#15803d',
-      texto: 'Tener baño propio cambia todo. Carlos y Mariela son muy respetuosos y el internet nunca falló.',
-      textoCasa: 'Carlos siempre respondió rápido cuando algo se arruinaba. Max es el perro más tranquilo del mundo.',
+      texto: 'El cuarto es muy fresco por la ventana al jardín. Adrián y Mariela son muy respetuosos y el internet nunca falló.',
+      textoCasa: 'Adrián siempre respondió rápido cuando algo se arruinaba. Max es el perro más tranquilo del mundo.',
     },
     chat: [
-      m('anfitrion', 'Hola, Sofía. Soy Carlos. Gracias por tu interés en el cuarto.', '7:55 a. m.'),
-      m('yo', 'Hola, Carlos. ¿El baño es solo para el quad?', '8:01 a. m.'),
-      m('anfitrion', 'Sí, el baño es solo tuyo y tiene agua caliente.', '8:03 a. m.'),
+      m('anfitrion', 'Hola, Sofía. Soy Adrián. Gracias por tu interés en el cuarto.', '7:55 a. m.'),
+      m('yo', 'Hola, Adrián. ¿El escritorio queda en el cuarto?', '8:01 a. m.'),
+      m('anfitrion', 'Sí, el escritorio se queda y la ventana da al jardín.', '8:03 a. m.'),
       m('anfitrion', '¿Te gustaría agendar una visita esta semana?', '8:05 a. m.'),
     ],
     visita: 'Vie 13 de nov · 5:00 p. m.',
-    filtros: { visitas: true, mascotas: true, banoPropio: true, wifi: true },
+    filtros: { visitas: true, mascotas: true, banoPropio: false, wifi: true },
   },
 
-  /* ---------- 4 · Hogar espacioso (Carmen Aguilar) ---------- */
+  /* ---------- 4 · Pupilaje Aguilar (Carmen) ---------- */
   hogar: {
-    tituloLargo: 'Hogar espacioso para estudiantes',
+    tituloLargo: 'Pupilaje con terraza para estudiantes',
     tipo: 'Solo mujeres',
     resenas: 21,
     trayecto: '7 min al portón de La Sultana',
-    colonia: 'Col. La Sultana',
+    colonia: 'Antiguo Cuscatlán Centro',
     municipio: 'Antiguo Cuscatlán',
     departamento: 'La Libertad',
-    galeria: [null, E.sala4, E.cuarto4, E.cocina3, E.bano4, E.lavado2, E.fachada4],
+    galeria: [null, ...fotos('casa-aguilar', ['cuarto-2', 'sala', 'comedor', 'cocina', 'estudio', 'terraza', 'lavanderia', 'fachada'])],
     deposito: '1 mes',
-    anfitrion: { nombre: 'Carmen Aguilar', corto: 'Carmen', foto: P.carmen, rol: 'Anfitriona', detalle: 'Enfermera jubilada · vive con su hermana', firma: 'Anfitriona · Enfermera jubilada', genero: 'a' },
-    incluye: [inc('privado', 'Cama y ropero'), inc('cocina', 'Horario libre'), inc('lavanderia', 'Lavadora disponible'), inc('wifi', 'Incluido'), inc('sala', 'Con las anfitrionas'), inc('servicios', 'Incluidas')],
+    anfitrion: { nombre: 'Carmen Aguilar', corto: 'Carmen', foto: null, rol: 'Anfitriona', detalle: 'Enfermera jubilada · vive con su hermana', firma: 'Anfitriona · Enfermera jubilada', genero: 'a' },
+    incluye: [inc('privado', 'Cama y ropero'), inc('cocina', 'Horario libre'), inc('lavanderia', 'Lavadora disponible'), inc('wifi', 'Incluido'), inc('sala', 'Terraza y área de estudio'), inc('servicios', 'Incluidas')],
     reglas: [
       regla('clock-fill', 'Hora de llegada', 'Hasta las 10:30 p. m. Los viernes, hasta las 12:00 a. m.'),
       regla('group-fill', 'Visitas', 'Solo amigas, en la sala y hasta las 8:00 p. m.'),
       regla('cutlery-fill', 'Cocina', 'Libre. Cada inquilina tiene su gaveta.'),
-      regla('info-circle-fill', 'Convivencia', 'Casa solo para mujeres.'),
+      regla('info-circle-fill', 'Convivencia', 'Pupilaje solo para mujeres.'),
     ],
     casa: {
-      nombre: 'Casa Aguilar',
-      descripcion: 'Somos dos hermanas jubiladas. Desde hace años recibimos estudiantes del interior del país; nos gusta que la casa tenga vida y que las muchachas se sientan acompañadas.',
+      nombre: 'Pupilaje Aguilar',
+      descripcion: 'Somos dos hermanas jubiladas. Desde hace años recibimos estudiantes del interior del país en nuestra casa de dos plantas, con terraza, área de estudio arriba y lavandería.',
       exinquilinos: 14,
       enQuad: '3 años',
     },
     miembros: [
-      { nombre: 'Carmen', rol: 'Anfitriona', foto: P.carmen, tono: '#fce7f3' },
-      { nombre: 'Teresa', rol: 'Hermana', foto: P.teresa, tono: '#dce6ff' },
-      { nombre: 'Michi', rol: 'Gato', foto: P.michi, tono: '#fdebd3' },
+      { nombre: 'Carmen', rol: 'Anfitriona', foto: null, tono: '#fce7f3' },
+      { nombre: 'Teresa', rol: 'Hermana', foto: null, tono: '#dce6ff' },
     ],
-    convivencia: [tag('community-fill', 'Ambiente familiar'), tag('cutlery-fill', 'Cenamos juntas los viernes'), tag('paw-fill', 'Hay un gato'), tag('no-smoking-fill', 'No se fuma')],
+    convivencia: [tag('community-fill', 'Ambiente familiar'), tag('cutlery-fill', 'Cenamos juntas los viernes'), tag('clock-fill', 'Área de estudio'), tag('no-smoking-fill', 'No se fuma')],
     presentacion:
-      'Hola, soy Carmen. Fui enfermera en el Hospital Rosales por 30 años y ahora vivo con mi hermana Teresa. Nos encanta cocinar pupusas los viernes y compartir la mesa con las muchachas. Somos tranquilas y nos gusta que cada una tenga su espacio para estudiar. Michi, el gato, es el verdadero dueño de la casa.',
+      'Hola, soy Carmen. Fui enfermera en el Hospital Rosales por 30 años y ahora vivo con mi hermana Teresa. Nos encanta cocinar pupusas los viernes y compartir la mesa con las muchachas. Arriba hay un área de estudio y la terraza es ideal para las tardes.',
     desglose: { limpieza: 4.9, horarios: 4.8, comunicacion: 5.0, seguridad: 5.0 },
     resena: {
       iniciales: 'KM', nombre: 'Karla M.', carrera: 'Psicología · UCA', tiempo: '4 ciclos', fondo: '#fce7f3', color: '#be185d',
@@ -282,73 +211,27 @@ export const DETALLES = {
       textoCasa: 'Doña Carmen y doña Teresa son un amor. Me cuidaron cuando me enfermé y me ayudaron con todo.',
     },
     chat: [
-      m('anfitrion', '¡Hola, Sofía! Qué gusto. Soy Carmen. Tenemos un quad libre desde enero.', '6:40 p. m.'),
+      m('anfitrion', '¡Hola, Sofía! Qué gusto. Soy Carmen. Tenemos un cuarto libre desde enero.', '6:40 p. m.'),
       m('yo', 'Hola, doña Carmen. ¿Cuántas estudiantes viven ahí?', '6:52 p. m.'),
       m('anfitrion', 'Ahora vive una muchacha de Usulután; serían dos contigo. Las dos estudian en la UCA.', '7:05 p. m.'),
     ],
     visita: 'Sáb 14 de nov · 10:00 a. m.',
-    filtros: { visitas: true, mascotas: true, banoPropio: false, wifi: true },
-  },
-
-  /* ---------- 5 · Quad con balcón (Gabriela Flores) ---------- */
-  balcon: {
-    tituloLargo: 'Quad con balcón y vista',
-    tipo: 'Solo mujeres',
-    resenas: 7,
-    trayecto: '12 min en bus a Los Próceres',
-    colonia: 'Santa Elena',
-    municipio: 'Antiguo Cuscatlán',
-    departamento: 'La Libertad',
-    galeria: [null, E.cuarto5, E.sala5, E.cocina4, E.bano1],
-    deposito: '1 mes',
-    anfitrion: { nombre: 'Gabriela Flores', corto: 'Gabriela', foto: P.gabriela, rol: 'Anfitriona', detalle: 'Diseñadora gráfica · comparte apartamento', firma: 'Anfitriona · Diseñadora gráfica', genero: 'a' },
-    incluye: [inc('privado', 'Con balcón'), inc('cocina', 'Sin horario', 'Cocina compartida'), inc('lavanderia', 'En el edificio'), inc('wifi', '200 Mbps'), inc('sala', 'Con 2 inquilinas'), inc('servicios', 'Luz aparte', 'Agua incluida')],
-    reglas: [
-      regla('clock-fill', 'Hora de llegada', 'Libre. El edificio tiene vigilancia 24 h.'),
-      regla('group-fill', 'Visitas', 'Solo mujeres, hasta las 10:00 p. m.'),
-      regla('cutlery-fill', 'Cocina', 'Turnos para limpiar cada semana.'),
-      regla('info-circle-fill', 'Convivencia', 'Apartamento solo para mujeres.'),
-    ],
-    casa: {
-      nombre: 'Apartamento Flores',
-      descripcion: 'Apartamento en tercer piso con vista al volcán. Vivo con otra estudiante y buscamos a alguien ordenado, que disfrute un ambiente creativo y relajado.',
-      exinquilinos: 3,
-      enQuad: '8 meses',
-    },
-    miembros: [
-      { nombre: 'Gabriela', rol: 'Anfitriona', foto: P.gabriela, tono: '#fce7f3' },
-      { nombre: 'Valeria', rol: 'Inquilina', foto: P.valeria, tono: '#dce6ff' },
-    ],
-    convivencia: [tag('community-fill', 'Ambiente creativo'), tag('lock', 'Vigilancia 24 h'), tag('no-smoking-fill', 'No se fuma'), tag('clock-fill', 'Turnos de limpieza')],
-    presentacion:
-      'Hola, soy Gabriela. Trabajo como diseñadora y comparto el apartamento con Valeria, que estudia Psicología. Nos gustan las plantas, el café de especialidad y ver películas los viernes. El quad tiene un balcón donde da el sol de la tarde. Buscamos a alguien respetuoso con el espacio y los turnos de limpieza.',
-    desglose: { limpieza: 4.6, horarios: 4.4, comunicacion: 4.5, seguridad: 4.7 },
-    resena: {
-      iniciales: 'DS', nombre: 'Daniela S.', carrera: 'Comunicaciones · UCA', tiempo: '2 ciclos', fondo: '#ede9fe', color: '#6d28d9',
-      texto: 'El balcón es lo mejor. Gaby es súper buena onda y el edificio es muy seguro para llegar de noche.',
-      textoCasa: 'Muy buen ambiente entre compañeras. Los turnos de limpieza se respetan y eso evita problemas.',
-    },
-    chat: [
-      m('anfitrion', 'Hola, Sofía. El quad ya está apartado hasta febrero, pero te aviso si se libera.', '3:15 p. m.'),
-      m('yo', '¡Gracias! Me encantaría que me avises.', '3:20 p. m.'),
-    ],
-    visita: 'Mié 11 de nov · 6:00 p. m.',
     filtros: { visitas: true, mascotas: false, banoPropio: false, wifi: true },
   },
 
-  /* ---------- 6 · Casa tranquila (Familia Hernández) ---------- */
+  /* ---------- 5 · Casa Hernández (Marta) ---------- */
   tranquila: {
-    tituloLargo: 'Habitación en casa tranquila',
-    tipo: 'Casa de familia',
+    tituloLargo: 'Cuarto con cama matrimonial',
+    tipo: 'Solo mujeres',
     resenas: 15,
     trayecto: '5 min al portón peatonal',
     colonia: 'Jardines de Guadalupe',
     municipio: 'Antiguo Cuscatlán',
     departamento: 'La Libertad',
-    galeria: [null, E.cuarto6, E.cocina5, E.sala1, E.bano2, E.fachada5],
+    galeria: [null, ...fotos('casa-hernandez', ['sala', 'comedor', 'cocina', 'bano', 'fachada'])],
     deposito: '1 mes',
-    anfitrion: { nombre: 'Marta Hernández', corto: 'Marta', foto: P.marta, rol: 'Anfitriona', detalle: 'Contadora · mamá de una estudiante UCA', firma: 'Anfitriona · Contadora', genero: 'a' },
-    incluye: [inc('privado', 'Cama y escritorio'), inc('cocina', 'Con horario'), inc('lavanderia', 'Una vez por semana'), inc('wifi', 'Incluido'), inc('sala', 'Con la familia'), inc('servicios', 'Incluidas')],
+    anfitrion: { nombre: 'Marta Hernández', corto: 'Marta', foto: null, rol: 'Anfitriona', detalle: 'Contadora · mamá de una estudiante UCA', firma: 'Anfitriona · Contadora', genero: 'a' },
+    incluye: [inc('privado', 'Cama matrimonial'), inc('cocina', 'Con horario'), inc('lavanderia', 'Una vez por semana'), inc('wifi', 'Incluido'), inc('sala', 'Con la familia'), inc('servicios', 'Incluidas')],
     reglas: [
       regla('clock-fill', 'Hora de llegada', 'Hasta las 10:00 p. m. Si llegas más tarde, avisas por WhatsApp.'),
       regla('group-fill', 'Visitas', 'Solo compañeras de estudio, en el comedor.'),
@@ -357,18 +240,18 @@ export const DETALLES = {
     ],
     casa: {
       nombre: 'Casa Hernández',
-      descripcion: 'Somos Marta, Jorge y nuestra hija Camila, que estudia en la UCA. La casa está a pocas cuadras del portón peatonal y es muy tranquila; ideal para concentrarse.',
+      descripcion: 'Somos Marta, Jorge y nuestra hija Camila, que estudia en la UCA. Es una casa sencilla y muy tranquila a pocas cuadras del portón peatonal; ideal para concentrarse.',
       exinquilinos: 8,
       enQuad: '2 años',
     },
     miembros: [
-      { nombre: 'Marta', rol: 'Mamá', foto: P.marta, tono: '#fce7f3' },
-      { nombre: 'Jorge', rol: 'Papá', foto: P.jorge, tono: '#dcfce7' },
-      { nombre: 'Camila', rol: 'Hija', foto: P.camila, tono: '#dce6ff' },
+      { nombre: 'Marta', rol: 'Mamá', foto: null, tono: '#fce7f3' },
+      { nombre: 'Jorge', rol: 'Papá', foto: null, tono: '#dcfce7' },
+      { nombre: 'Camila', rol: 'Hija', foto: null, tono: '#dce6ff' },
     ],
     convivencia: [tag('moon-fill', 'Ambiente tranquilo'), tag('clock-fill', 'Respetamos horarios de estudio'), tag('no-smoking-fill', 'No se fuma'), tag('community-fill', 'Estudiamos juntas')],
     presentacion:
-      'Hola, soy Marta. Trabajo como contadora y mi esposo Jorge es profesor de colegio. Camila, nuestra hija, está en segundo año de Psicología, así que en casa todos entendemos las semanas de parciales. Somos ordenados, cenamos temprano y nos gusta el silencio por la noche.',
+      'Hola, soy Marta. Trabajo como contadora y mi esposo Jorge es profesor de colegio. Camila, nuestra hija, está en segundo año de Psicología, así que en casa todos entendemos las semanas de parciales. Somos ordenados, cenamos temprano y nos gusta el silencio.',
     desglose: { limpieza: 4.8, horarios: 4.9, comunicacion: 4.7, seguridad: 4.9 },
     resena: {
       iniciales: 'AG', nombre: 'Ana G.', carrera: 'Ingeniería Química · UCA', tiempo: '2 ciclos', fondo: '#dce6ff', color: '#2667ff',
@@ -384,141 +267,98 @@ export const DETALLES = {
     filtros: { visitas: true, mascotas: false, banoPropio: false, wifi: true },
   },
 
-  /* ---------- 7 · Madreselva (Familia Portillo) ---------- */
+  /* ---------- 6 · Casa Portillo · Green House (Ernesto) ---------- */
   madreselva: {
-    tituloLargo: 'Quad en casa de familia',
-    tipo: 'Casa de familia',
+    tituloLargo: 'Suite con baño privado y jardín',
+    tipo: 'Casa de huéspedes',
     resenas: 10,
-    trayecto: '15 min en bus a La Sultana',
-    colonia: 'Urb. Madreselva',
+    trayecto: '12 min en bus a Los Próceres',
+    colonia: 'Santa Elena',
     municipio: 'Antiguo Cuscatlán',
     departamento: 'La Libertad',
-    galeria: [null, E.cuarto2, E.cocina1, E.lavado3, E.sala2, E.fachada1],
+    galeria: [null, ...fotos('casa-portillo', ['bano', 'jardin', 'terraza', 'sala', 'comedor', 'cafe', 'entrada', 'fachada'])],
     deposito: '15 días',
-    anfitrion: { nombre: 'Patricia Portillo', corto: 'Patricia', foto: P.patricia, rol: 'Anfitriona', detalle: 'Dueña de una panadería · vive con su familia', firma: 'Anfitriona · Panadera', genero: 'a' },
-    incluye: [inc('privado', 'Cama y clóset'), inc('cocina', 'Libre'), inc('lavanderia', 'Incluida'), inc('wifi', 'Incluido'), inc('sala', 'Con la familia'), inc('servicios', 'Incluidas')],
+    anfitrion: { nombre: 'Ernesto Portillo', corto: 'Ernesto', foto: foto('personas/ernesto'), rol: 'Anfitrión', detalle: 'Administra la casa de huéspedes Green House', firma: 'Anfitrión · Green House', genero: 'o' },
+    incluye: [inc('privado', 'Con baño privado'), inc('cocina', 'Café y desayuno', 'Desayuno incluido'), inc('lavanderia', 'Incluida'), inc('wifi', 'Incluido'), inc('sala', 'Jardín y terraza', 'Jardín compartido'), inc('servicios', 'Aire acondicionado', 'Luz y A/C incluidos')],
     reglas: [
       regla('clock-fill', 'Hora de llegada', 'Hasta las 11:00 p. m. Hay timbre para avisar.'),
-      regla('group-fill', 'Visitas', 'Permitidas en la sala hasta las 9:00 p. m.'),
-      regla('cutlery-fill', 'Cocina', 'Libre. Pan dulce todas las mañanas.'),
-      regla('info-circle-fill', 'Convivencia', 'Se comparten las tareas los sábados.'),
+      regla('group-fill', 'Visitas', 'Permitidas en el jardín hasta las 9:00 p. m.'),
+      regla('cutlery-fill', 'Comida', 'Desayuno y café incluidos todos los días.'),
+      regla('info-circle-fill', 'Convivencia', 'No se fuma dentro de la casa.'),
     ],
     casa: {
-      nombre: 'Casa Portillo',
-      descripcion: 'Familia alegre y trabajadora. Tenemos una panadería en la colonia, así que en casa siempre huele a pan. Nos gusta que quien llegue se integre, pero respetamos su tiempo de estudio.',
+      nombre: 'Green House',
+      descripcion: 'Con mi esposa Patricia administramos Green House, una casa de huéspedes con jardín, terraza y estación de café. Recibimos estudiantes que buscan un lugar cómodo y en calma.',
       exinquilinos: 5,
       enQuad: '1 año',
     },
     miembros: [
-      { nombre: 'Patricia', rol: 'Mamá', foto: P.patricia, tono: '#fce7f3' },
-      { nombre: 'Ernesto', rol: 'Papá', foto: P.ernesto, tono: '#dcfce7' },
-      { nombre: 'Diego', rol: 'Hijo', foto: P.diego, tono: '#dce6ff' },
-      { nombre: 'Canela', rol: 'Perra', foto: P.canela, tono: '#fdebd3' },
+      { nombre: 'Ernesto', rol: 'Anfitrión', foto: foto('personas/ernesto'), tono: '#dcfce7' },
+      { nombre: 'Patricia', rol: 'Esposa', foto: null, tono: '#fce7f3' },
+      { nombre: 'Diego', rol: 'Hijo', foto: null, tono: '#dce6ff' },
     ],
-    convivencia: [tag('community-fill', 'Ambiente alegre'), tag('cutlery-fill', 'Desayuno incluido los domingos'), tag('paw-fill', 'Hay una mascota'), tag('washing-fill', 'Lavandería incluida')],
+    convivencia: [tag('community-fill', 'Ambiente acogedor'), tag('cutlery-fill', 'Desayuno incluido'), tag('washing-fill', 'Lavandería incluida'), tag('no-smoking-fill', 'No se fuma')],
     presentacion:
-      'Hola, soy Patricia. Con Ernesto tenemos la panadería de la esquina desde hace 15 años. Diego, nuestro hijo, estudia Economía en la UCA y es muy buen compañero. Somos una familia alegre: los domingos desayunamos juntos y Canela, la perrita, siempre recibe a todos en la puerta.',
-    desglose: { limpieza: 4.6, horarios: 4.6, comunicacion: 4.8, seguridad: 4.7 },
+      'Hola, soy Ernesto. Con Patricia cuidamos Green House desde hace años. Nos encantan las plantas: el jardín y la terraza son el corazón de la casa. La suite tiene baño privado y aire acondicionado, y en las mañanas siempre hay café recién hecho.',
+    desglose: { limpieza: 5.0, horarios: 4.6, comunicacion: 4.8, seguridad: 4.9 },
     resena: {
       iniciales: 'RV', nombre: 'Rodrigo V.', carrera: 'Administración de Empresas · UCA', tiempo: '3 ciclos', fondo: '#fdebd3', color: '#b45309',
-      texto: 'La lavandería incluida me ahorró mucho tiempo. Y el pan de doña Patricia no tiene comparación.',
-      textoCasa: 'Me sentí parte de la familia. Diego me presentó a sus amigos y me ayudó a adaptarme a San Salvador.',
+      texto: 'Tener baño propio y aire acondicionado cambia todo. Estudiar en el jardín por las tardes es lo mejor.',
+      textoCasa: 'Don Ernesto y doña Patricia me hicieron sentir parte de la casa. El café de las mañanas no tiene comparación.',
     },
     chat: [
-      m('anfitrion', '¡Hola, Sofía! Soy Patricia. El quad está listo cuando quieras verlo.', '5:30 p. m.'),
-      m('yo', 'Hola, doña Patricia. ¿La lavandería está incluida en el precio?', '5:41 p. m.'),
-      m('anfitrion', 'Sí, la lavadora y la secadora se pueden usar cuando quieras.', '5:45 p. m.'),
+      m('anfitrion', '¡Hola, Sofía! Soy Ernesto. La suite está lista cuando quieras verla.', '5:30 p. m.'),
+      m('yo', 'Hola, don Ernesto. ¿El baño es solo para la suite?', '5:41 p. m.'),
+      m('anfitrion', 'Sí, el baño es privado y la lavandería está incluida.', '5:45 p. m.'),
     ],
     visita: 'Dom 15 de nov · 9:00 a. m.',
-    filtros: { visitas: true, mascotas: true, banoPropio: false, wifi: true },
+    filtros: { visitas: true, mascotas: false, banoPropio: true, wifi: true },
   },
 
-  /* ---------- 8 · Merliot (Roberto Mejía) ---------- */
-  merliot: {
-    tituloLargo: 'Quad cerca de Plaza Merliot',
+  /* ---------- 7 · Casa Castro (Tony) ---------- */
+  closet: {
+    tituloLargo: 'Cuarto amueblado con escritorio',
     tipo: 'Casa de familia',
-    resenas: 6,
+    resenas: 11,
     trayecto: '18 min en bus a La Sultana',
     colonia: 'Ciudad Merliot',
     municipio: 'Santa Tecla',
     departamento: 'La Libertad',
-    galeria: [null, E.cuarto3, E.cocina2, E.lavado1, E.sala3, E.fachada2],
+    galeria: [null, ...fotos('casa-tony', ['sala', 'sala-tv', 'comedor', 'cocina', 'lavanderia', 'fachada'])],
     deposito: '1 mes',
-    anfitrion: { nombre: 'Roberto Mejía', corto: 'Roberto', foto: P.roberto, rol: 'Anfitrión', detalle: 'Mecánico jubilado · vive con su esposa', firma: 'Anfitrión · Mecánico jubilado', genero: 'o' },
-    incluye: [inc('privado', 'Cama y ropero'), inc('cocina', 'Con horario'), inc('lavanderia', 'Pila y tendedero'), inc('wifi', 'Incluido'), inc('sala', 'Con la pareja'), inc('servicios', 'Incluidas')],
+    anfitrion: { nombre: 'Tony Castro', corto: 'Tony', foto: foto('personas/tony'), rol: 'Anfitrión', detalle: 'Estudiante de Ingeniería · vive con su mamá', firma: 'Anfitrión · Estudiante de Ingeniería', genero: 'o' },
+    incluye: [inc('privado', 'Cama, escritorio y silla'), inc('cocina', 'Libre'), inc('lavanderia', 'Lavadora en casa'), inc('wifi', 'Incluido'), inc('sala', 'Dos salas'), inc('servicios', 'Incluidas')],
     reglas: [
-      regla('clock-fill', 'Hora de llegada', 'Hasta las 10:00 p. m. Portón con candado.'),
-      regla('group-fill', 'Visitas', 'Solo de día y avisando antes.'),
-      regla('cutlery-fill', 'Cocina', 'De 6:00 a. m. a 8:00 p. m.'),
-      regla('info-circle-fill', 'Convivencia', 'No se fuma ni se toma dentro de la casa.'),
-    ],
-    casa: {
-      nombre: 'Casa Mejía',
-      descripcion: 'Somos una pareja de jubilados. Nuestros hijos ya se casaron y la casa quedó grande. La parada del bus a la UCA está a dos cuadras y Plaza Merliot a cinco.',
-      exinquilinos: 3,
-      enQuad: '10 meses',
-    },
-    miembros: [
-      { nombre: 'Roberto', rol: 'Anfitrión', foto: P.roberto, tono: '#dcfce7' },
-      { nombre: 'Silvia', rol: 'Esposa', foto: P.silvia, tono: '#fce7f3' },
-    ],
-    convivencia: [tag('moon-fill', 'Ambiente tranquilo'), tag('no-smoking-fill', 'No se fuma'), tag('cutlery-fill', 'Almuerzo los domingos'), tag('clock-fill', 'Casa de horarios tempranos')],
-    presentacion:
-      'Hola, soy Roberto. Trabajé 35 años como mecánico y ahora disfruto del jardín y de las mañanas tranquilas con Silvia, mi esposa. Nos gusta conversar y ayudar en lo que se pueda; si necesitas que te llevemos a la parada un día de lluvia, con gusto. Lo único que pedimos es respeto por los horarios de la casa.',
-    desglose: { limpieza: 4.5, horarios: 4.3, comunicacion: 4.6, seguridad: 4.6 },
-    resena: {
-      iniciales: 'EM', nombre: 'Ernesto M.', carrera: 'Ingeniería Civil · UCA', tiempo: '1 ciclo', fondo: '#dcfce7', color: '#15803d',
-      texto: 'Es el más barato que encontré y la parada queda cerca. Don Roberto y doña Silvia son muy amables.',
-      textoCasa: 'Una casa tranquila y segura. Los horarios son algo estrictos, pero todo se habla.',
-    },
-    chat: [m('anfitrion', 'Buenas tardes, Sofía. Soy Roberto. Si quieres venir a ver el quad, estamos todo el día.', '2:10 p. m.')],
-    visita: 'Jue 12 de nov · 2:00 p. m.',
-    filtros: { visitas: false, mascotas: false, banoPropio: false, wifi: true },
-  },
-
-  /* ---------- 9 · Escalón (Isabel Castro) ---------- */
-  closet: {
-    tituloLargo: 'Habitación con clóset grande',
-    tipo: 'Casa de familia',
-    resenas: 11,
-    trayecto: '22 min en carro a Los Próceres',
-    colonia: 'Col. Escalón',
-    municipio: 'San Salvador',
-    departamento: 'San Salvador',
-    galeria: [null, E.cuarto6, E.bano3, E.cocina3, E.lavado2, E.sala4, E.fachada3],
-    deposito: '1 mes',
-    anfitrion: { nombre: 'Isabel Castro', corto: 'Isabel', foto: P.isabel, rol: 'Anfitriona', detalle: 'Abogada · vive con su hija', firma: 'Anfitriona · Abogada', genero: 'a' },
-    incluye: [inc('privado', 'Clóset de pared'), inc('cocina', 'Libre'), inc('lavanderia', 'Incluida'), inc('wifi', 'Incluido'), inc('sala', 'Con terraza'), inc('servicios', 'Incluidas')],
-    reglas: [
-      regla('clock-fill', 'Hora de llegada', 'Libre, con aviso si llegas después de medianoche.'),
-      regla('group-fill', 'Visitas', 'Permitidas hasta las 10:00 p. m.'),
-      regla('cutlery-fill', 'Cocina', 'Libre. Hay una refri para inquilinos.'),
-      regla('info-circle-fill', 'Convivencia', 'No se fuma dentro de la casa.'),
+      regla('clock-fill', 'Hora de llegada', 'Hasta las 11:00 p. m. La residencial tiene vigilancia.'),
+      regla('group-fill', 'Visitas', 'Permitidas en la sala hasta las 9:00 p. m.'),
+      regla('cutlery-fill', 'Cocina', 'Libre. Cada quien lava lo suyo.'),
+      regla('info-circle-fill', 'Convivencia', 'Hay dos conejos sueltos en el jardín.'),
     ],
     casa: {
       nombre: 'Casa Castro',
-      descripcion: 'Vivo con mi hija Fernanda, que trabaja en una agencia de publicidad. La casa está en una calle cerrada con vigilancia y cerca de supermercados y cafés.',
+      descripcion: 'Vivo con mi mamá Isabel en una residencial cerrada con vigilancia. La casa tiene dos salas, cocina equipada y un jardín donde viven nuestros conejos, Copo y Canela.',
       exinquilinos: 7,
       enQuad: '2 años',
     },
     miembros: [
-      { nombre: 'Isabel', rol: 'Mamá', foto: P.isabel, tono: '#fce7f3' },
-      { nombre: 'Fernanda', rol: 'Hija', foto: P.fernanda, tono: '#dce6ff' },
-      { nombre: 'Coco', rol: 'Perro', foto: P.coco, tono: '#fdebd3' },
+      { nombre: 'Tony', rol: 'Anfitrión', foto: foto('personas/tony'), tono: '#dce6ff' },
+      { nombre: 'Isabel', rol: 'Mamá', foto: null, tono: '#fce7f3' },
+      { nombre: 'Copo', rol: 'Conejo', foto: foto('personas/copo'), tono: '#fdebd3' },
+      { nombre: 'Canela', rol: 'Coneja', foto: foto('personas/canela'), tono: '#fdebd3' },
     ],
-    convivencia: [tag('lock', 'Calle con vigilancia'), tag('community-fill', 'Ambiente relajado'), tag('paw-fill', 'Hay una mascota'), tag('no-smoking-fill', 'No se fuma')],
+    convivencia: [tag('moon-fill', 'Ambiente tranquilo'), tag('lock', 'Residencial con vigilancia'), tag('paw-fill', 'Hay dos conejos'), tag('no-smoking-fill', 'No se fuma')],
     presentacion:
-      'Hola, soy Isabel. Soy abogada y vivo con Fernanda, mi hija, y con Coco, un perrito muy juguetón. Salimos temprano y volvemos de noche, así que la casa es tranquila durante el día para estudiar. El quad tiene un clóset enorme y mucha luz. Nos gusta que haya confianza y buena comunicación.',
+      'Hola, soy Tony. Estudio Ingeniería y vivo con mi mamá, Isabel. Somos tranquilos: entre semana casi no estamos de día, así que la casa queda en silencio para estudiar. El cuarto ya tiene cama, escritorio y silla. Ah, y en el jardín viven Copo y Canela.',
     desglose: { limpieza: 4.9, horarios: 4.7, comunicacion: 4.8, seguridad: 4.9 },
     resena: {
       iniciales: 'MR', nombre: 'María R.', carrera: 'Mercadeo · UCA', tiempo: '2 ciclos', fondo: '#fce7f3', color: '#be185d',
-      texto: 'Queda un poco lejos, pero la zona es muy segura y el quad es precioso. Coco me esperaba todas las tardes.',
-      textoCasa: 'Isabel y Fernanda son muy respetuosas y confiadas. Me trataron como una más de la casa.',
+      texto: 'El cuarto ya venía amueblado y la residencial es muy segura. El bus a la UCA pasa a la entrada.',
+      textoCasa: 'Tony y doña Isabel son muy amables. Ver a los conejos en el jardín me alegraba los días de parciales.',
     },
     chat: [
-      m('anfitrion', 'Hola, Sofía. Soy Isabel. ¿Tienes carro o vas a viajar en bus?', '11:20 a. m.'),
-      m('yo', 'Hola, Isabel. Voy en bus, ¿hay alguna ruta cerca?', '11:26 a. m.'),
-      m('anfitrion', 'Sí, la 44 pasa a una cuadra y te deja frente a la UCA.', '11:30 a. m.'),
+      m('anfitrion', 'Hola, Sofía. Soy Tony. El cuarto se libera en enero, si quieres te aviso.', '4:12 p. m.'),
+      m('yo', '¡Gracias! ¿El cuarto tiene escritorio?', '4:20 p. m.'),
+      m('anfitrion', 'Sí, tiene escritorio y silla de oficina.', '4:22 p. m.'),
     ],
     visita: 'Vie 13 de nov · 6:00 p. m.',
     filtros: { visitas: true, mascotas: true, banoPropio: false, wifi: true },

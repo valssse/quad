@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import Icon from '../../components/Icon.jsx'
+import Iniciales from '../../components/Iniciales.jsx'
 import { fadeUp, stagger } from '../../components/motion.js'
 import { BotonIcono } from './ui.jsx'
 import { quad as buscarQuad } from '../../data/quads.js'
@@ -135,7 +136,7 @@ export function Notificaciones({ notis, abrirNoti, marcarLeidas }) {
               {g.lista.map((n) => (
                 <button key={n.id} type="button" className={`noti-row ${nuevas.includes(n.id) ? 'noti-row--new' : ''}`} onClick={() => abrirNoti(n)}>
                   <span className={`noti-row__avatar ${n.foto ? '' : 'noti-row__avatar--icon'}`}>
-                    {n.foto ? <img src={n.foto} alt="" /> : <Icon name={n.icon || 'bell'} size={22} />}
+                    {n.foto ? <img src={n.foto} alt="" /> : n.nombre ? <Iniciales nombre={n.nombre} style={{ fontSize: 16 }} /> : <Icon name={n.icon || 'bell'} size={22} />}
                   </span>
                   <span className="noti-row__body">
                     <span className="noti-row__text">{n.texto}</span>

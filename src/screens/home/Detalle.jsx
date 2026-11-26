@@ -224,7 +224,7 @@ function HojaEnviarPerfil({ abierta, anfitrion, perfil, onClose, onEnviar }) {
             <div className="dt-sheet__pair">
               {yo.foto ? <img src={yo.foto} alt="" /> : <Iniciales nombre={yo.nombreCompleto} />}
               <Icon name="nav-arrow-right" size={22} />
-              <img src={anfitrion.foto} alt="" />
+              {anfitrion.foto ? <img src={anfitrion.foto} alt="" /> : <Iniciales nombre={anfitrion.nombre} />}
             </div>
             <div className="dt-sheet__text">
               <h2>Enviaremos tu perfil a {anfitrion.corto}</h2>

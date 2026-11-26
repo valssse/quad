@@ -1,11 +1,10 @@
-import sofia from '../assets/personas/sofia.jpg'
 import { ESTUDIANTE_INICIAL } from './estudiante.js'
 
 /** Perfil de ejemplo del Figma (09a): se usa si la persona entró sin hacer el onboarding. */
 export const PERFIL_DEMO = {
   ...ESTUDIANTE_INICIAL,
   nombre: 'Sofía Ramírez',
-  foto: sofia,
+  foto: null,
   carrera: 'Ingeniería Industrial',
   anio: '2',
   ciudad: 'Santa Ana',

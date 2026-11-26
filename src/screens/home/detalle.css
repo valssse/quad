@@ -2228,3 +2228,10 @@
   color: var(--brand-primary);
   overflow: hidden;
 }
+
+/* Iniciales cuando la estudiante no tiene foto */
+.dt-sheet__card > .dt-sheet__ph {
+  flex: 0 0 44px;
+  display: grid;
+  font-size: var(--font-size-h6);
+}

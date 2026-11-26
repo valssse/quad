@@ -1724,3 +1724,22 @@
 .req-row .req-status svg {
   flex-shrink: 0;
 }
+
+/* Avatares con iniciales */
+.home-noti__ini {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.profile-card__avatar {
+  display: block;
+  overflow: hidden;
+}
+
+.profile-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
