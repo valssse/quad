@@ -1815,10 +1815,6 @@
   gap: 8px;
 }
 
-.fl-chips .filter-chip--on {
-  height: 36px;
-}
-
 .fl-service {
   transition:
     border-color var(--duration-base) var(--ease-out),

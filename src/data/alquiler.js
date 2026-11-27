@@ -68,21 +68,21 @@ export const FECHAS_SOLICITUD = [
 ]
 
 export const COSTOS_AL_FIRMAR = [
-  ['Primer mes (diciembre)', '$115'],
-  ['Depósito reembolsable', '$115'],
+  ['Primer mes (diciembre)', '$135'],
+  ['Depósito reembolsable', '$135'],
   ['Comisión de Quad', '$0'],
 ]
-export const TOTAL_INICIAL = 230
+export const TOTAL_INICIAL = 270
 
 export const COSTOS_MENSUALES = [
-  ['Mensualidad', '$115 · cada día 1'],
+  ['Mensualidad', '$135 · cada día 1'],
   ['Incluye', 'Agua, luz y wifi'],
 ]
 
 /* ---------- R07–R12 · Respuesta y contrato ---------- */
 export const PARECIDOS = [
-  { id: 'bano-propio', titulo: 'Cuarto con ventana al jardín · La Sultana', precio: '$120/mes' },
-  { id: 'madreselva', titulo: 'Suite con baño privado y jardín · Santa Elena', precio: '$150/mes' },
+  { id: 'bano-propio', titulo: 'Cuarto con ventana al jardín · La Sultana', precio: '$110/mes' },
+  { id: 'madreselva', titulo: 'Suite con baño privado y jardín · Santa Elena', precio: '$175/mes' },
 ]
 
 export const PREGUNTA_ANFITRIONA =
@@ -90,8 +90,8 @@ export const PREGUNTA_ANFITRIONA =
 
 export const CONDICIONES = [
   ['Vigencia', '1 dic 2026 – 31 may 2027'],
-  ['Mensualidad', '$115 · cada día 1'],
-  ['Depósito', '$115 · reembolsable'],
+  ['Mensualidad', '$135 · cada día 1'],
+  ['Depósito', '$135 · reembolsable'],
   ['Aviso de salida', '30 días antes'],
 ]
 
@@ -116,8 +116,8 @@ export const METODO_RESUMEN = {
 }
 
 export const DETALLE_PAGO_INICIAL = [
-  ['Primer mes (diciembre)', '$115.00'],
-  ['Depósito reembolsable', '$115.00'],
+  ['Primer mes (diciembre)', '$135.00'],
+  ['Depósito reembolsable', '$135.00'],
   ['Comisión de Quad', '$0.00'],
 ]
 

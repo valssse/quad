@@ -6,7 +6,7 @@ import { QUADS } from './quads.js'
 import { DETALLES } from './detalle.js'
 
 export const PRECIO_MIN = 90
-export const PRECIO_MAX = 150
+export const PRECIO_MAX = 180
 
 export const FILTROS_VACIOS = {
   precio: [PRECIO_MIN, PRECIO_MAX],

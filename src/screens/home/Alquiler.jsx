@@ -900,8 +900,8 @@ function R18Estancia({ ir, a, estado, avisar }) {
         <Datos
           filas={[
             ['Vigencia', `1 dic 2026 – ${fin}`],
-            ['Mensualidad', '$115 · cada día 1'],
-            ['Depósito', '$115 · en resguardo'],
+            ['Mensualidad', '$135 · cada día 1'],
+            ['Depósito', '$135 · en resguardo'],
           ]}
         />
       </Card>
@@ -910,7 +910,7 @@ function R18Estancia({ ir, a, estado, avisar }) {
           <Icon name="calendar-fill" size={22} />
           <span>
             <b>{eneroPagado ? 'Próximo pago: 1 de febrero' : 'Próximo pago: 1 de enero'}</b>
-            <small>$115 · se cobra a tu {METODO_RESUMEN[estado.metodo].corto}</small>
+            <small>$135 · se cobra a tu {METODO_RESUMEN[estado.metodo].corto}</small>
           </span>
         </div>
         {!eneroPagado && (
@@ -935,10 +935,10 @@ function R18Estancia({ ir, a, estado, avisar }) {
         <div className="al-pagos">
           {[
             eneroPagado
-              ? { mes: 'Febrero', texto: '$115 · vence el 1 de feb', estado: 'proximo' }
-              : { mes: 'Enero', texto: '$115 · vence el 1 de ene', estado: 'proximo' },
-            ...(eneroPagado ? [{ mes: 'Enero', texto: '$115 · pagado el 28 de dic', estado: 'pagado' }] : []),
-            { mes: 'Diciembre', texto: '$115 · pagado el 19 de nov', estado: 'pagado' },
+              ? { mes: 'Febrero', texto: '$135 · vence el 1 de feb', estado: 'proximo' }
+              : { mes: 'Enero', texto: '$135 · vence el 1 de ene', estado: 'proximo' },
+            ...(eneroPagado ? [{ mes: 'Enero', texto: '$135 · pagado el 28 de dic', estado: 'pagado' }] : []),
+            { mes: 'Diciembre', texto: '$135 · pagado el 19 de nov', estado: 'pagado' },
           ].map((p) => (
             <motion.button key={p.mes} type="button" layout className="al-pago" whileTap={{ scale: 0.99 }} onClick={() => ir('alquiler', p.estado === 'pagado' ? 'recibo' : 'pagar-mes')}>
               <span className={`al-pago__icon al-pago__icon--${p.estado}`}>
@@ -974,13 +974,13 @@ function R19PagarMes({ ir, estado, set }) {
     <Pantalla
       acciones={
         <BotonCarga cargando={cargando} onClick={pagar}>
-          Pagar $115.00
+          Pagar $135.00
         </BotonCarga>
       }
     >
       <motion.div className="al-monto" variants={fadeUp}>
         <span>Pago de enero</span>
-        <b>$115.00</b>
+        <b>$135.00</b>
         <Badge tono="amber" icon="clock-fill">
           Vence el 1 de ene
         </Badge>
@@ -988,10 +988,10 @@ function R19PagarMes({ ir, estado, set }) {
       <Card titulo="Detalle">
         <Datos
           filas={[
-            ['Mensualidad de enero', '$115.00'],
+            ['Mensualidad de enero', '$135.00'],
             ['Recargo por atraso', '$0.00'],
           ]}
-          total={['Total', '$115.00']}
+          total={['Total', '$135.00']}
         />
       </Card>
       <MetodoElegido metodo={estado.metodo} ir={ir} />
@@ -1014,7 +1014,7 @@ function R20Recibo({ a, yo, estado, avisar }) {
       }
     >
       <Comprobante
-        monto="$115.00"
+        monto="$135.00"
         sub={enero ? 'Pago de enero · 28 dic 2026, 7:02 p. m.' : 'Pago de diciembre · 19 nov 2026, 9:31 a. m.'}
         filas={[
           ['N.º de recibo', enero ? 'QD-2026-1342' : 'QD-2026-1187'],
@@ -1022,7 +1022,7 @@ function R20Recibo({ a, yo, estado, avisar }) {
           ['Para', a.nombre],
           ['Periodo', enero ? '1 – 31 ene 2027' : '1 – 31 dic 2026'],
           ['Método', METODO_RESUMEN[estado.metodo].corto],
-          ['Total', '$115.00'],
+          ['Total', '$135.00'],
         ]}
       />
     </Pantalla>
@@ -1124,7 +1124,7 @@ function R23Renovar({ ir, a, set, avisar }) {
       <Card titulo="Condiciones">
         <Datos
           filas={[
-            ['Mensualidad', '$115 · sin cambios'],
+            ['Mensualidad', '$135 · sin cambios'],
             ['Depósito', 'Se mantiene en resguardo'],
             [`Respuesta de ${a.corto}`, 'En menos de 48 h'],
           ]}
@@ -1163,8 +1163,8 @@ function R24NuevoContrato({ ir, a, estado, set, avisar }) {
         <Datos
           filas={[
             ['Vigencia', r.vigencia],
-            ['Mensualidad', '$115 · cada día 1'],
-            ['Depósito', '$115 · en resguardo'],
+            ['Mensualidad', '$135 · cada día 1'],
+            ['Depósito', '$135 · en resguardo'],
             ['Aviso de salida', '30 días antes'],
           ]}
         />
@@ -1218,10 +1218,10 @@ function R26Deposito({ ir, a, estado }) {
       <Card titulo="Devolución">
         <Datos
           filas={[
-            ['Depósito', '$115.00'],
+            ['Depósito', '$135.00'],
             ['Descuentos', '$0.00'],
           ]}
-          total={['A devolver', '$115.00']}
+          total={['A devolver', '$135.00']}
         />
       </Card>
       <Card titulo="Estado">
@@ -1301,7 +1301,7 @@ function R28Completada({ ir, estado }) {
           filas={[
             ['Periodo', '1 dic 2026 – 31 may 2027'],
             ['Pagos a tiempo', '6 de 6'],
-            ['Depósito devuelto', '$115.00'],
+            ['Depósito devuelto', '$135.00'],
             ['Tu calificación', `${nota} ★`],
           ]}
         />

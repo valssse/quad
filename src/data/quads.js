@@ -8,13 +8,14 @@ import { DETALLES } from './detalle.js'
 /* ---------- Quads ---------- */
 // trayecto.modo: walking | bus | car  →  ícono walking-fill / bus-fill / car-fill
 export const QUADS = [
-  { id: 'familia', pos: [13.6768, -89.2385], titulo: 'Cuarto con TV en casa de familia', zona: 'Jardines de Guadalupe', zonaId: 'jardines-de-guadalupe', trayecto: { modo: 'walking', texto: '4 min caminando a la Peatonal', min: 4 }, precio: 115, rating: 4.8, foto: foto('casa-martinez/cuarto-tv'), disponible: true, cocina: true, soloMujeres: false },
-  { id: 'amplia', pos: [13.6771, -89.2381], titulo: 'Cuarto con escritorio y ventana', zona: 'Jardines de Guadalupe', zonaId: 'jardines-de-guadalupe', trayecto: { modo: 'walking', texto: '4 min caminando a la Peatonal', min: 4 }, precio: 110, rating: 4.9, foto: foto('casa-martinez/cuarto-escritorio'), disponible: true, cocina: true, soloMujeres: false },
-  { id: 'bano-propio', pos: [13.6783, -89.2419], titulo: 'Cuarto con ventana al jardín', zona: 'Col. La Sultana', zonaId: 'la-sultana', trayecto: { modo: 'walking', texto: '6 min caminando a la Peatonal', min: 6 }, precio: 120, rating: 4.6, foto: foto('casa-adrian/cuarto'), disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
+  // Orden y precio según la calidad de las fotos de cada casa: las más premium van primero y cuestan más.
+  { id: 'madreselva', pos: [13.6732, -89.2554], titulo: 'Suite con baño privado y jardín', zona: 'Santa Elena', zonaId: 'santa-elena', trayecto: { modo: 'bus', texto: '12 min en bus a Los Próceres', min: 12 }, precio: 175, rating: 4.9, foto: foto('casa-portillo/cuarto'), disponible: true, cocina: false, soloMujeres: false },
+  { id: 'closet', pos: [13.6805, -89.2735], titulo: 'Cuarto amueblado con escritorio', zona: 'Ciudad Merliot', zonaId: 'ciudad-merliot', trayecto: { modo: 'bus', texto: '18 min en bus a La Sultana', min: 18 }, precio: 150, rating: 4.7, foto: foto('casa-tony/cuarto'), disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
+  { id: 'familia', pos: [13.6768, -89.2385], titulo: 'Cuarto con TV en casa de familia', zona: 'Jardines de Guadalupe', zonaId: 'jardines-de-guadalupe', trayecto: { modo: 'walking', texto: '4 min caminando a la Peatonal', min: 4 }, precio: 135, rating: 4.8, foto: foto('casa-martinez/cuarto-tv'), disponible: true, cocina: true, soloMujeres: false },
   { id: 'hogar', pos: [13.6790, -89.2433], titulo: 'Pupilaje con terraza', zona: 'Antiguo Cuscatlán', zonaId: 'antiguo-cuscatlan', trayecto: { modo: 'walking', texto: '7 min caminando a La Sultana', min: 7 }, precio: 125, rating: 4.9, foto: foto('casa-aguilar/cuarto'), disponible: true, cocina: true, lavanderia: true, soloMujeres: true },
-  { id: 'tranquila', pos: [13.6756, -89.2370], titulo: 'Cuarto con cama matrimonial', zona: 'Jardines de Guadalupe', zonaId: 'jardines-de-guadalupe', trayecto: { modo: 'walking', texto: '5 min caminando a la Peatonal', min: 5 }, precio: 105, rating: 4.7, foto: foto('casa-hernandez/cuarto'), disponible: true, cocina: true, soloMujeres: true },
-  { id: 'madreselva', pos: [13.6732, -89.2554], titulo: 'Suite con baño privado y jardín', zona: 'Santa Elena', zonaId: 'santa-elena', trayecto: { modo: 'bus', texto: '12 min en bus a Los Próceres', min: 12 }, precio: 150, rating: 4.9, foto: foto('casa-portillo/cuarto'), disponible: true, cocina: false, soloMujeres: false },
-  { id: 'closet', pos: [13.6805, -89.2735], titulo: 'Cuarto amueblado con escritorio', zona: 'Ciudad Merliot', zonaId: 'ciudad-merliot', trayecto: { modo: 'bus', texto: '18 min en bus a La Sultana', min: 18 }, precio: 110, rating: 4.7, foto: foto('casa-tony/cuarto'), disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
+  { id: 'amplia', pos: [13.6771, -89.2381], titulo: 'Cuarto con escritorio y ventana', zona: 'Jardines de Guadalupe', zonaId: 'jardines-de-guadalupe', trayecto: { modo: 'walking', texto: '4 min caminando a la Peatonal', min: 4 }, precio: 120, rating: 4.9, foto: foto('casa-martinez/cuarto-escritorio'), disponible: true, cocina: true, soloMujeres: false },
+  { id: 'bano-propio', pos: [13.6783, -89.2419], titulo: 'Cuarto con ventana al jardín', zona: 'Col. La Sultana', zonaId: 'la-sultana', trayecto: { modo: 'walking', texto: '6 min caminando a la Peatonal', min: 6 }, precio: 110, rating: 4.6, foto: foto('casa-adrian/cuarto'), disponible: true, cocina: true, lavanderia: true, soloMujeres: false },
+  { id: 'tranquila', pos: [13.6756, -89.2370], titulo: 'Cuarto con cama matrimonial', zona: 'Jardines de Guadalupe', zonaId: 'jardines-de-guadalupe', trayecto: { modo: 'walking', texto: '5 min caminando a la Peatonal', min: 5 }, precio: 95, rating: 4.7, foto: foto('casa-hernandez/cuarto'), disponible: true, cocina: true, soloMujeres: true },
 ]
 
 export const quad = (id) => QUADS.find((q) => q.id === id)
@@ -59,7 +60,7 @@ export function filtrar(lista, filtro) {
 }
 
 /* ---------- 07 · Guardados ---------- */
-export const GUARDADOS_INICIAL = ['familia', 'amplia', 'hogar', 'tranquila']
+export const GUARDADOS_INICIAL = ['familia', 'hogar', 'amplia', 'tranquila']
 export const FILTROS_GUARDADOS = [
   { id: 'todos', label: 'Todos' },
   { id: 'disponibles', label: 'Disponibles' },
@@ -83,7 +84,7 @@ export function quadsDe(id) {
   if (seccion) return { titulo: seccion.titulo, sub: `${seccion.quads.length} resultados · ${seccion.sub.toLowerCase()}`, lista: seccion.quads.map(quad) }
   const zona = ZONAS.find((z) => z.id === id) || ZONAS[0]
   const raiz = zona.padre || zona.id
-  const lista = raiz === 'antiguo-cuscatlan' ? ['familia', 'amplia', 'bano-propio', 'hogar', 'tranquila'].map(quad) : QUADS.filter((q) => q.zonaId === raiz)
+  const lista = raiz === 'antiguo-cuscatlan' ? ['familia', 'hogar', 'amplia', 'bano-propio', 'tranquila'].map(quad) : QUADS.filter((q) => q.zonaId === raiz)
   return { titulo: `Quads en ${zona.nombre}`, sub: `${zona.total} resultados · por distancia a la Peatonal`, lista, zona }
 }
 

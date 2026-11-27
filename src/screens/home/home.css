@@ -217,6 +217,13 @@
   box-shadow: 0 6px 18px rgba(15, 23, 41, 0.14);
 }
 
+/* Botón de filtros: fondo azul suave + ícono de controles deslizantes para que se lea como "filtrar" */
+.icon-btn--filtros {
+  background: var(--brand-primary-soft);
+  border-color: var(--brand-primary-soft);
+  color: var(--brand-primary);
+}
+
 .bell-dot {
   position: absolute;
   top: 10px;
@@ -350,11 +357,19 @@
     color var(--duration-base) var(--ease-out);
 }
 
+/* Activo: contorno azul en lugar de relleno (el 0.5px extra va por dentro para no mover el layout) */
 .filter-chip--on {
-  height: 34px;
-  background: var(--brand-primary);
+  background: var(--bg-surface);
   border-color: var(--brand-primary);
-  color: #fff;
+  box-shadow: inset 0 0 0 0.5px var(--brand-primary);
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+.filters--shadow .filter-chip--on {
+  box-shadow:
+    inset 0 0 0 0.5px var(--brand-primary),
+    0 6px 18px rgba(15, 23, 41, 0.14);
 }
 
 .filters--shadow .filter-chip {

@@ -127,7 +127,7 @@ export default function FiltrosPantalla({ filtros, setFiltros, ir, modo }) {
         <motion.section className="fl-section" variants={fadeUp}>
           <div className="fl-title">
             <h2>Precio mensual</h2>
-            <p>El promedio cerca de la UCA es $120/mes</p>
+            <p>El promedio cerca de la UCA es $130/mes</p>
           </div>
           <RangoPrecio valor={f.precio} onChange={(v) => set('precio', v)} />
         </motion.section>
