@@ -11,12 +11,6 @@ const extra = {
     type: 'raw',
     body: '<path d="M2.75 5.5H19.25M6.41666 11H15.5833M10.0833 16.5H11.9167" stroke="currentColor" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>',
   },
-  // Controles deslizantes: el ícono que se reconoce como "filtros"
-  'filtros-sliders': {
-    vb: 24,
-    type: 'raw',
-    body: '<path d="M4 6H11M17 6H20M4 12H6M12 12H20M4 18H13M19 18H20" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/><circle cx="14" cy="6" r="2.25" stroke="currentColor" stroke-width="1.75"/><circle cx="9" cy="12" r="2.25" stroke="currentColor" stroke-width="1.75"/><circle cx="16" cy="18" r="2.25" stroke="currentColor" stroke-width="1.75"/>',
-  },
   'dollar-circle': {
     vb: 16,
     type: 'raw',

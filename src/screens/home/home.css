@@ -217,11 +217,16 @@
   box-shadow: 0 6px 18px rgba(15, 23, 41, 0.14);
 }
 
-/* Botón de filtros: fondo azul suave + ícono de controles deslizantes para que se lea como "filtrar" */
+/* Botón de filtros: relleno azul de marca con ícono blanco */
 .icon-btn--filtros {
-  background: var(--brand-primary-soft);
-  border-color: var(--brand-primary-soft);
-  color: var(--brand-primary);
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: #fff;
+}
+
+/* El contador se separa del botón azul con borde blanco */
+.icon-btn--filtros .filter-count {
+  background: var(--text-primary);
 }
 
 .bell-dot {
